@@ -15,6 +15,7 @@
 		00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE142C80B8D800E0CB5C /* InputFormView.swift */; };
 		00F7BE372C82216C00E0CB5C /* SwiftUIFontIcon in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE362C82216C00E0CB5C /* SwiftUIFontIcon */; };
 		00F7BE392C8222DF00E0CB5C /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE382C8222DF00E0CB5C /* TabView.swift */; };
+		00F7BE3B2C832EDC00E0CB5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		00F7BE112C80B63F00E0CB5C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		00F7BE142C80B8D800E0CB5C /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
 		00F7BE382C8222DF00E0CB5C /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 		006EB1922C7F804C00A63EAA /* ReportChat */ = {
 			isa = PBXGroup;
 			children = (
+				00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */,
 				006EB1932C7F804C00A63EAA /* ReportChatApp.swift */,
 				00F7BE0F2C80B56800E0CB5C /* Screens */,
 				00F7BE132C80B8A800E0CB5C /* ViewParts */,
@@ -168,6 +171,7 @@
 			files = (
 				006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */,
 				006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */,
+				00F7BE3B2C832EDC00E0CB5C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
