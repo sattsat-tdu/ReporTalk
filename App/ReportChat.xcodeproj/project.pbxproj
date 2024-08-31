@@ -16,6 +16,9 @@
 		00F7BE372C82216C00E0CB5C /* SwiftUIFontIcon in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE362C82216C00E0CB5C /* SwiftUIFontIcon */; };
 		00F7BE392C8222DF00E0CB5C /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE382C8222DF00E0CB5C /* TabView.swift */; };
 		00F7BE3B2C832EDC00E0CB5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */; };
+		00F7BE462C835AF600E0CB5C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE452C835AF600E0CB5C /* FirebaseAuth */; };
+		00F7BE482C835AF600E0CB5C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE472C835AF600E0CB5C /* FirebaseFirestore */; };
+		00F7BE4A2C835AF600E0CB5C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE492C835AF600E0CB5C /* FirebaseStorage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
