@@ -11,6 +11,7 @@
 		006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1952C7F804C00A63EAA /* ContentView.swift */; };
 		006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB1972C7F804E00A63EAA /* Assets.xcassets */; };
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
+		00EB78622C8B58F900BEEEAA /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78612C8B58F900BEEEAA /* View+Extensions.swift */; };
 		00EB786A2C8F3D4100BEEEAA /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */; };
 		00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE112C80B63F00E0CB5C /* LoginView.swift */; };
 		00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE142C80B8D800E0CB5C /* InputFormView.swift */; };
@@ -29,6 +30,7 @@
 		006EB1952C7F804C00A63EAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		006EB1972C7F804E00A63EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		00EB78612C8B58F900BEEEAA /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
 		00F7BE112C80B63F00E0CB5C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		00F7BE142C80B8D800E0CB5C /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		006EB1922C7F804C00A63EAA /* ReportChat */ = {
 			isa = PBXGroup;
 			children = (
+				00EB78602C8B567000BEEEAA /* Extensions */,
 				006EB1932C7F804C00A63EAA /* ReportChatApp.swift */,
 				006EB1952C7F804C00A63EAA /* ContentView.swift */,
 				00F7BE4B2C835B6800E0CB5C /* Firebase */,
@@ -89,6 +92,14 @@
 				006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		00EB78602C8B567000BEEEAA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				00EB78612C8B58F900BEEEAA /* View+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		00F7BE0F2C80B56800E0CB5C /* Screens */ = {
@@ -213,6 +224,7 @@
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
 				00EB786A2C8F3D4100BEEEAA /* CapsuleButton.swift in Sources */,
 				006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */,
+				00EB78622C8B58F900BEEEAA /* View+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
