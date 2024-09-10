@@ -199,11 +199,12 @@
 			};
 			buildConfigurationList = 006EB18B2C7F804C00A63EAA /* Build configuration list for PBXProject "ReportChat" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ja;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 006EB1872C7F804C00A63EAA;
 			packageReferences = (
