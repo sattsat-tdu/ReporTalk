@@ -13,8 +13,8 @@ struct ContentView: View {
     @State private var selectedTab: TabList = .home
     
     var body: some View {
-        VStack {
-            Spacer()
+        VStack(spacing: 0) {
+            Color("testcolor")
             
             TabView(selectedTab: $selectedTab)
         }

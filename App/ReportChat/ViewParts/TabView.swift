@@ -62,7 +62,7 @@ struct TabView: View {
             }
             .padding(.vertical, 5)
         }
-        .background()
+        .background(Color("ItemColor"))
     }
     
     @ViewBuilder
