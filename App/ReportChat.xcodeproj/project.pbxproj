@@ -81,8 +81,8 @@
 		006EB1922C7F804C00A63EAA /* ReportChat */ = {
 			isa = PBXGroup;
 			children = (
-				00EB78602C8B567000BEEEAA /* Extensions */,
 				006EB1932C7F804C00A63EAA /* ReportChatApp.swift */,
+				00EB78602C8B567000BEEEAA /* Extensions */,
 				006EB1952C7F804C00A63EAA /* ContentView.swift */,
 				00F7BE4B2C835B6800E0CB5C /* Firebase */,
 				00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */,

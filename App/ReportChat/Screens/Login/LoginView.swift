@@ -10,7 +10,7 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @ObservedObject var viewModel = LoginViewModel()
+    @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
         VStack(spacing: 32) {
@@ -39,5 +39,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    LoginView(viewModel: LoginViewModel(router: Router()))
 }

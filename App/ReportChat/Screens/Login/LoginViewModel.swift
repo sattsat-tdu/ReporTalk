@@ -14,8 +14,12 @@ final class LoginViewModel: ObservableObject {
     @Published var id = ""
     @Published var password = ""
     @Published var errorMessage = ""
-    
     @Published var alertType: AlertType? = nil
+    private let router: Router
+
+    init(router: Router) {
+        self.router = router
+    }
     
     func login() {
         Task {
@@ -24,6 +28,7 @@ final class LoginViewModel: ObservableObject {
             switch loginResult {
             case .success(let response):
                 print(response.user)
+                router.selectedRoute = .tab
             case .failure(let loginError):
                 errorMessage = FirebaseError.shared.getErrorMessage(loginError)
 //                alertType = AlertType(title: "エラー", message: errorMessage)
