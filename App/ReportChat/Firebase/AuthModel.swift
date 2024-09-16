@@ -50,27 +50,4 @@ final class AuthModel {
             return .failure(FirebaseLoginError.unknownError)
         }
     }
-        
-    func mapErrorToFirebaseAuthError(_ error: NSError) -> FirebaseAuthError {
-        switch error.code {
-        case AuthErrorCode.userNotFound.rawValue:
-            return .userNotFound
-        case AuthErrorCode.userDisabled.rawValue:
-            return .userDisabled
-        case AuthErrorCode.requiresRecentLogin.rawValue:
-            return .requiresRecentLogin
-        case AuthErrorCode.emailAlreadyInUse.rawValue:
-            return .emailAlreadyInUse
-        case AuthErrorCode.invalidEmail.rawValue:
-            return .invalidEmail
-        case AuthErrorCode.wrongPassword.rawValue:
-            return .wrongPassword
-        case AuthErrorCode.tooManyRequests.rawValue:
-            return .tooManyRequests
-        case AuthErrorCode.expiredActionCode.rawValue:
-            return .expiredActionCode
-        default:
-            return .unknown
-        }
-    }
 }

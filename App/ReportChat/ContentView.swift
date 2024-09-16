@@ -22,7 +22,7 @@ struct ContentView: View {
             case .timeline:
                 EmptyView()
             case .mypage:
-                EmptyView()
+                MyPageView()
             }
             TabView(selectedTab: $selectedTab)
         }
