@@ -18,6 +18,8 @@
 		00EB78702C980C5900BEEEAA /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB786F2C980C5900BEEEAA /* RoomsView.swift */; };
 		00EB78742C980EA500BEEEAA /* RoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78732C980EA500BEEEAA /* RoomResponse.swift */; };
 		00EB78762C980EE500BEEEAA /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78752C980EE500BEEEAA /* UserResponse.swift */; };
+		00EB78792C9814B600BEEEAA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78782C9814B600BEEEAA /* SplashView.swift */; };
+		00EB787B2C98150000BEEEAA /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB787A2C98150000BEEEAA /* SplashViewModel.swift */; };
 		00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB787D2C981F6300BEEEAA /* MyPageView.swift */; };
 		00EB78802C9821F500BEEEAA /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB787F2C9821F500BEEEAA /* MyPageViewModel.swift */; };
 		00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE112C80B63F00E0CB5C /* LoginView.swift */; };
@@ -47,6 +49,8 @@
 		00EB786F2C980C5900BEEEAA /* RoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsView.swift; sourceTree = "<group>"; };
 		00EB78732C980EA500BEEEAA /* RoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomResponse.swift; sourceTree = "<group>"; };
 		00EB78752C980EE500BEEEAA /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		00EB78782C9814B600BEEEAA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		00EB787A2C98150000BEEEAA /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		00EB787D2C981F6300BEEEAA /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		00EB787F2C9821F500BEEEAA /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		00F7BE112C80B63F00E0CB5C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -149,6 +153,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		00EB78772C98149700BEEEAA /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				00EB78782C9814B600BEEEAA /* SplashView.swift */,
+				00EB787A2C98150000BEEEAA /* SplashViewModel.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		00EB787C2C981F4100BEEEAA /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				00EB787C2C981F4100BEEEAA /* MyPage */,
+				00EB78772C98149700BEEEAA /* Splash */,
 				00EB786C2C980A1B00BEEEAA /* Rooms */,
 				00EB786B2C980A1000BEEEAA /* Home */,
 				00F7BE102C80B5D200E0CB5C /* Login */,
@@ -290,6 +304,8 @@
 			files = (
 				00F7BE542C8392E200E0CB5C /* FirebaseError.swift in Sources */,
 				00F7BE4D2C835B9200E0CB5C /* FirebaseManager.swift in Sources */,
+				00EB78792C9814B600BEEEAA /* SplashView.swift in Sources */,
+				00EB787B2C98150000BEEEAA /* SplashViewModel.swift in Sources */,
 				00EB786E2C980AD100BEEEAA /* HomeView.swift in Sources */,
 				00F7BE392C8222DF00E0CB5C /* TabView.swift in Sources */,
 				00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */,

@@ -26,7 +26,7 @@ enum RouteType: Equatable {
 
 @MainActor
 final class Router: ObservableObject {
-    @Published var selectedRoute: RouteType = .login
+    @Published var selectedRoute: RouteType = .splash
 
     func switchRootView(to routeType: RouteType) {
         selectedRoute = routeType
@@ -46,10 +46,7 @@ struct ReportChatApp: App {
         WindowGroup {
             switch router.selectedRoute {
             case .splash:
-                EmptyView()
-                    .onAppear {
-                        router.selectedRoute = .login
-                    }
+                SplashView(viewModel: SplashViewModel(router: router))
             case .login:
                 LoginView(viewModel: LoginViewModel(router: router))
             case .tab:
