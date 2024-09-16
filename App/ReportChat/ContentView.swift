@@ -14,8 +14,16 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Color("testcolor")
-            
+            switch selectedTab {
+            case .home:
+                HomeView()
+            case .rooms:
+                RoomsView()
+            case .timeline:
+                EmptyView()
+            case .mypage:
+                EmptyView()
+            }
             TabView(selectedTab: $selectedTab)
         }
     }
