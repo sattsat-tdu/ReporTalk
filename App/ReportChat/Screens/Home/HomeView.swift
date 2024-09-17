@@ -12,7 +12,6 @@ struct HomeView: View {
     var body: some View {
         Text("ホームです。")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.back)
     }
 }
 
