@@ -18,13 +18,41 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 }
 
+enum RouteType: Equatable {
+    case splash
+    case login
+    case tab
+}
+
+@MainActor
+final class Router: ObservableObject {
+    @Published var selectedRoute: RouteType = .splash
+
+    func switchRootView(to routeType: RouteType) {
+        selectedRoute = routeType
+    }
+
+}
+
+
 @main
 struct ReportChatApp: App {
     // 追加
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    
+    @ObservedObject private var router = Router()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            switch router.selectedRoute {
+            case .splash:
+                SplashView(viewModel: SplashViewModel(router: router))
+            case .login:
+                LoginView(viewModel: LoginViewModel(router: router))
+            case .tab:
+                ContentView()
+            }
+            
         }
     }
 }

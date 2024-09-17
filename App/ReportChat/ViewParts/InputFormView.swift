@@ -49,24 +49,24 @@ struct InputFormView: View {
                     .padding()
                     .keyboardType(.alphabet)
                     .textInputAutocapitalization(.none)
-                    .frame(height: 40)
-                    .background()
+                    .frame(height: 45)
+                    .background(.item)
                     .clipShape(.rect(cornerRadius: 8))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(.gray.opacity(0.2), lineWidth: 2)
+                            .stroke(.rounded, lineWidth: 2)
                     )
             } else {
                 TextField(style.placeholder, text: $text)
                     .padding()
                     .keyboardType(.alphabet)
                     .textInputAutocapitalization(.never)
-                    .frame(height: 40)
-                    .background()
+                    .frame(height: 45)
+                    .background(.item)
                     .clipShape(.rect(cornerRadius: 8))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(.gray.opacity(0.2), lineWidth: 2)
+                            .stroke(.rounded, lineWidth: 2)
                     )
             }
         }

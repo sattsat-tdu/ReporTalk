@@ -10,24 +10,34 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @State private var id = ""
-    @State private var passward = ""
+    @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 32) {
             Text("ログイン")
                 .font(.title).bold()
             
-            InputFormView(style: .id, text: $id)
+            InputFormView(style: .id, text: $viewModel.id)
             
-            InputFormView(style: .password, text: $passward)
+            InputFormView(style: .password, text: $viewModel.password)
+            
+            Text(viewModel.errorMessage)
+                .foregroundStyle(.red)
+                .padding(.vertical)
+            
+            CapsuleButton(text: "ログイン",
+                          onClicked: {
+                viewModel.login()
+            })
+            .disabled(viewModel.id.isEmpty || viewModel.password.isEmpty)
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.gray.opacity(0.1))
+        .background(.back)
+        .customAlert($viewModel.alertType)
     }
 }
 
 #Preview {
-    LoginView()
+    LoginView(viewModel: LoginViewModel(router: Router()))
 }
