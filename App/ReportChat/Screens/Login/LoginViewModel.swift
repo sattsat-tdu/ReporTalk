@@ -24,7 +24,7 @@ final class LoginViewModel: ObservableObject {
     func login() {
         Task {
             errorMessage = ""
-            let loginResult = await AuthModel.shared.login(id: id, password: password)
+            let loginResult = await FirebaseManager.shared.login(id: id, password: password)
             switch loginResult {
             case .success(let response):
                 print(response.user)
