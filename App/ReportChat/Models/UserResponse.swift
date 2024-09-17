@@ -7,21 +7,23 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct UserResponse: Decodable {
-    let id: String
+    @DocumentID var id: String?
     let userName: String
     let email: String
     let friends: [String]
     let photoURL: String?
     let rooms: [String]
     
-    init(data: [String: Any]) {
-        self.id = data["uid"] as? String ?? ""
-        self.userName = data["displayName"] as? String ?? "nilName"
-        self.email = data["email"] as? String ?? ""
-        self.friends = data["friends"] as? [String] ?? []
-        self.photoURL = data["photoURL"] as? String
-        self.rooms = data["rooms"] as? [String] ?? []
+    //Firebaseのフィールド名と一致させる
+    enum CodingKeys: String, CodingKey {
+        case id
+        case userName = "displayName"
+        case email
+        case friends
+        case photoURL
+        case rooms
     }
 }
