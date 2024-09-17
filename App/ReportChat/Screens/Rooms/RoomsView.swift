@@ -11,9 +11,21 @@ import SwiftUI
 struct RoomsView: View {
     
     let user: UserResponse
+    @ObservedObject var viewModel = RoomsViewModel()
+    
     var body: some View {
-        Text("ルームです")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        ScrollView {
+            LazyVStack {
+                if let rooms = viewModel.rooms {
+                    ForEach(rooms, id: \.id) { room in
+                        Text(room.roomName ?? "ルーム名なし")
+                    }
+                }
+            }
+        }
+        .onAppear {
+            viewModel.fetchRooms(roomIDs: user.rooms)
+        }
     }
 }
 
