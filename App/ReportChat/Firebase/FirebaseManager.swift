@@ -90,4 +90,25 @@ class FirebaseManager: ObservableObject {
             return nil
         }
     }
+    
+    // FireStorageにある画像を非同期で取得
+    func fetchImage(urlString: String) async -> Data? {
+        guard let url = URL(string: urlString) else { return nil }
+
+        do {
+            // URLSessionを使って非同期でデータを取得
+            let (data, response) = try await URLSession.shared.data(from: url)
+            
+            // HTTPレスポンスのステータスコードを確認（200が正常）
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                return data
+            } else {
+                print("不正なレスポンスコード: \((response as? HTTPURLResponse)?.statusCode ?? 0)")
+                return nil
+            }
+        } catch {
+            print("非同期の画像取得でエラー: \(error)")
+            return nil
+        }
+    }
 }
