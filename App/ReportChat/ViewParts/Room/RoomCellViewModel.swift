@@ -13,13 +13,13 @@ final class RoomCellViewModel: ObservableObject {
     @Published var roomIconData: Data? = nil
     @Published var roomName: String = " --- "
     private let room: RoomResponse
-    //    private var cancellables = Set<AnyCancellable>()
     
     init(room: RoomResponse) {
         self.room = room
         fetchRoomInfo()
     }
     
+    //相手のアイコンやルーム名を取得
     func fetchRoomInfo() {
         Task {
             guard let partner = await fetchPartner() else { return }
