@@ -18,11 +18,6 @@ struct MyPageView: View {
             Text("ログイン情報")
                 .font(.headline)
             
-            if let image = user.photoURL {
-                UrlImageView(urlImage: image)
-                    .frame(height: 50)
-            }
-            
             Text(user.userName)
                 .font(.headline)
             

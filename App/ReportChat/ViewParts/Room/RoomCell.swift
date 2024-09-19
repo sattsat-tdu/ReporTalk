@@ -10,7 +10,7 @@ import SwiftUI
 
 struct RoomCell: View {
     
-    @ObservedObject var viewModel: RoomCellViewModel
+    @ObservedObject var viewModel: RoomViewModel
     
     var body: some View {
         HStack(spacing: 16) {
@@ -21,7 +21,7 @@ struct RoomCell: View {
                 )
                 .clipShape(Circle())
             } else {
-                Image(systemName: "person.circle")
+                Image("ninjinIMG")
                     .resizable()
                     .frame(width: 48, height: 48)
                     .background(.red)
@@ -46,7 +46,7 @@ struct RoomCell: View {
 
 #Preview {
     RoomCell(
-        viewModel: RoomCellViewModel(room: RoomResponse(
+        viewModel: RoomViewModel(room: RoomResponse(
             id: "12345",
             members: ["Friend 1", "Friend 2"],
             roomIcon: "https://1.bp.blogspot.com/-_CVATibRMZQ/XQjt4fzUmjI/AAAAAAABTNY/nprVPKTfsHcihF4py1KrLfIqioNc_c41gCLcBGAs/s400/animal_chara_smartphone_penguin.png",

@@ -24,8 +24,14 @@
 		00EB78802C9821F500BEEEAA /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB787F2C9821F500BEEEAA /* MyPageViewModel.swift */; };
 		00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78812C987BC100BEEEAA /* RoomsViewModel.swift */; };
 		00EB78842C994DE700BEEEAA /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78832C994DE700BEEEAA /* RoomCell.swift */; };
-		00EB78892C9AAECF00BEEEAA /* RoomCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78882C9AAECF00BEEEAA /* RoomCellViewModel.swift */; };
+		00EB78892C9AAECF00BEEEAA /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78882C9AAECF00BEEEAA /* RoomViewModel.swift */; };
 		00EB788B2C9ABBD600BEEEAA /* IconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */; };
+		00EB788E2C9B254E00BEEEAA /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB788D2C9B254E00BEEEAA /* MessagesView.swift */; };
+		00EB78902C9B29DE00BEEEAA /* MessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB788F2C9B29DE00BEEEAA /* MessageResponse.swift */; };
+		00EB78932C9B327400BEEEAA /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78922C9B327400BEEEAA /* ContentViewModel.swift */; };
+		00EB78952C9B9E9600BEEEAA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78942C9B9E9600BEEEAA /* UIImage+Extensions.swift */; };
+		00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78962C9BE58200BEEEAA /* MessageCell.swift */; };
+		00EB78992C9BE5FB00BEEEAA /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78982C9BE5FB00BEEEAA /* Date+Extensions.swift */; };
 		00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE112C80B63F00E0CB5C /* LoginView.swift */; };
 		00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE142C80B8D800E0CB5C /* InputFormView.swift */; };
 		00F7BE372C82216C00E0CB5C /* SwiftUIFontIcon in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE362C82216C00E0CB5C /* SwiftUIFontIcon */; };
@@ -58,8 +64,14 @@
 		00EB787F2C9821F500BEEEAA /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		00EB78812C987BC100BEEEAA /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
 		00EB78832C994DE700BEEEAA /* RoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
-		00EB78882C9AAECF00BEEEAA /* RoomCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellViewModel.swift; sourceTree = "<group>"; };
+		00EB78882C9AAECF00BEEEAA /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageView.swift; sourceTree = "<group>"; };
+		00EB788D2C9B254E00BEEEAA /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		00EB788F2C9B29DE00BEEEAA /* MessageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageResponse.swift; sourceTree = "<group>"; };
+		00EB78922C9B327400BEEEAA /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		00EB78942C9B9E9600BEEEAA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		00EB78962C9BE58200BEEEAA /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		00EB78982C9BE5FB00BEEEAA /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		00F7BE112C80B63F00E0CB5C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		00F7BE142C80B8D800E0CB5C /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
 		00F7BE382C8222DF00E0CB5C /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
@@ -103,10 +115,10 @@
 		006EB1922C7F804C00A63EAA /* ReportChat */ = {
 			isa = PBXGroup;
 			children = (
+				00EB78912C9B325C00BEEEAA /* Content */,
 				00EB78712C980E7B00BEEEAA /* Models */,
 				006EB1932C7F804C00A63EAA /* ReportChatApp.swift */,
 				00EB78602C8B567000BEEEAA /* Extensions */,
-				006EB1952C7F804C00A63EAA /* ContentView.swift */,
 				00F7BE4B2C835B6800E0CB5C /* Firebase */,
 				00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */,
 				00F7BE0F2C80B56800E0CB5C /* Screens */,
@@ -130,6 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				00EB78612C8B58F900BEEEAA /* View+Extensions.swift */,
+				00EB78942C9B9E9600BEEEAA /* UIImage+Extensions.swift */,
+				00EB78982C9BE5FB00BEEEAA /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -145,6 +159,7 @@
 		00EB786C2C980A1B00BEEEAA /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
+				00EB788C2C9B253600BEEEAA /* Messages */,
 				00EB786F2C980C5900BEEEAA /* RoomsView.swift */,
 				00EB78812C987BC100BEEEAA /* RoomsViewModel.swift */,
 			);
@@ -156,6 +171,7 @@
 			children = (
 				00EB78732C980EA500BEEEAA /* RoomResponse.swift */,
 				00EB78752C980EE500BEEEAA /* UserResponse.swift */,
+				00EB788F2C9B29DE00BEEEAA /* MessageResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -182,9 +198,26 @@
 			isa = PBXGroup;
 			children = (
 				00EB78832C994DE700BEEEAA /* RoomCell.swift */,
-				00EB78882C9AAECF00BEEEAA /* RoomCellViewModel.swift */,
+				00EB78882C9AAECF00BEEEAA /* RoomViewModel.swift */,
 			);
 			path = Room;
+			sourceTree = "<group>";
+		};
+		00EB788C2C9B253600BEEEAA /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				00EB788D2C9B254E00BEEEAA /* MessagesView.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		00EB78912C9B325C00BEEEAA /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				006EB1952C7F804C00A63EAA /* ContentView.swift */,
+				00EB78922C9B327400BEEEAA /* ContentViewModel.swift */,
+			);
+			path = Content;
 			sourceTree = "<group>";
 		};
 		00F7BE0F2C80B56800E0CB5C /* Screens */ = {
@@ -216,6 +249,7 @@
 				00F7BE382C8222DF00E0CB5C /* TabView.swift */,
 				00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */,
 				00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */,
+				00EB78962C9BE58200BEEEAA /* MessageCell.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -324,22 +358,28 @@
 				00EB78792C9814B600BEEEAA /* SplashView.swift in Sources */,
 				00EB787B2C98150000BEEEAA /* SplashViewModel.swift in Sources */,
 				00EB786E2C980AD100BEEEAA /* HomeView.swift in Sources */,
+				00EB78902C9B29DE00BEEEAA /* MessageResponse.swift in Sources */,
 				00EB788B2C9ABBD600BEEEAA /* IconImageView.swift in Sources */,
 				00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */,
 				00F7BE392C8222DF00E0CB5C /* TabView.swift in Sources */,
+				00EB788E2C9B254E00BEEEAA /* MessagesView.swift in Sources */,
 				00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */,
 				00EB78802C9821F500BEEEAA /* MyPageViewModel.swift in Sources */,
+				00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */,
 				00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */,
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
+				00EB78932C9B327400BEEEAA /* ContentViewModel.swift in Sources */,
+				00EB78992C9BE5FB00BEEEAA /* Date+Extensions.swift in Sources */,
 				00EB78642C8B5AB300BEEEAA /* ErrorHandling.swift in Sources */,
 				00EB786A2C8F3D4100BEEEAA /* CapsuleButton.swift in Sources */,
-				00EB78892C9AAECF00BEEEAA /* RoomCellViewModel.swift in Sources */,
+				00EB78892C9AAECF00BEEEAA /* RoomViewModel.swift in Sources */,
 				006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */,
 				00EB78762C980EE500BEEEAA /* UserResponse.swift in Sources */,
 				00EB78702C980C5900BEEEAA /* RoomsView.swift in Sources */,
 				00EB78842C994DE700BEEEAA /* RoomCell.swift in Sources */,
 				00EB78622C8B58F900BEEEAA /* View+Extensions.swift in Sources */,
 				00EB78742C980EA500BEEEAA /* RoomResponse.swift in Sources */,
+				00EB78952C9B9E9600BEEEAA /* UIImage+Extensions.swift in Sources */,
 				00F7BE4F2C83747500E0CB5C /* LoginViewModel.swift in Sources */,
 				00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */,
 			);

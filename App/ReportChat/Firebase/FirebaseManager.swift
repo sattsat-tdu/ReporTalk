@@ -91,6 +91,31 @@ class FirebaseManager: ObservableObject {
         }
     }
     
+    //idからルーム内のメッセージを取得
+    func fetchRoomMessages(roomID: String) async -> [MessageResponse]? {
+        var messages = [MessageResponse]()
+        do {
+            let messagesCollection =
+            FirebaseManager.shared.fireStore
+                .collection("rooms")
+                .document(roomID)
+                .collection("messages")
+                .order(by: "timestamp")
+            
+            let snapshot = try await messagesCollection.getDocuments()
+            
+            for document in snapshot.documents {
+                if let message = try? document.data(as: MessageResponse.self) {
+                    messages.append(message)
+                }
+            }
+            return messages
+        } catch _ as NSError {
+            print("ルーム内メッセージを取得できませんでした")
+            return nil
+        }
+    }
+    
     // FireStorageにある画像を非同期で取得
     func fetchImage(urlString: String) async -> Data? {
         guard let url = URL(string: urlString) else { return nil }
