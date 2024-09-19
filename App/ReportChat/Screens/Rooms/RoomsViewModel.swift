@@ -10,8 +10,14 @@ import Foundation
 
 @MainActor
 final class RoomsViewModel: ObservableObject {
-    @Published var rooms: [RoomResponse]?
-    private var roomCellViewModels: [String: RoomCellViewModel] = [:] // RoomごとのViewModelをキャッシュ
+    @Published var rooms: [RoomResponse]? = nil
+    private var roomCellViewModels: [String: RoomViewModel] = [:] // RoomごとのViewModelをキャッシュ
+    private let user: UserResponse
+    
+    init(user: UserResponse) {
+        self.user = user
+        self.fetchRooms(roomIDs: user.rooms)
+    }
     
     func fetchRooms(roomIDs: [String]) {
         var rooms: [RoomResponse] = []
@@ -27,15 +33,15 @@ final class RoomsViewModel: ObservableObject {
     }
     
     //キャッシュの仕組みを使用する。これにより再ロードを防ぐ
-    func cellViewModel(for room: RoomResponse) -> RoomCellViewModel {
+    func cellViewModel(for room: RoomResponse) -> RoomViewModel {
         guard let roomId = room.id else {
             print("Room IDがnilです。")
-            return RoomCellViewModel(room: room)
+            return RoomViewModel(room: room)
         }
         if let viewModel = roomCellViewModels[roomId] {
             return viewModel
         } else {
-            let newViewModel = RoomCellViewModel(room: room)
+            let newViewModel = RoomViewModel(room: room)
             roomCellViewModels[roomId] = newViewModel
             return newViewModel
         }

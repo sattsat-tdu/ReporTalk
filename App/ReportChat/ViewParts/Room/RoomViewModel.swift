@@ -9,14 +9,17 @@
 import Foundation
 
 @MainActor
-final class RoomCellViewModel: ObservableObject {
+final class RoomViewModel: ObservableObject {
     @Published var roomIconData: Data? = nil
     @Published var roomName: String = " --- "
+    @Published var messages: [MessageResponse]? = nil
     private let room: RoomResponse
+    let currentUser = FirebaseManager.shared.currentUser
     
     init(room: RoomResponse) {
         self.room = room
         fetchRoomInfo()
+        fetchRoomMessages() //メッセージを取得
     }
     
     //相手のアイコンやルーム名を取得
@@ -40,5 +43,14 @@ final class RoomCellViewModel: ObservableObject {
             return partnerUserResponse
         }
         return nil
+    }
+    
+    //ルーム内のメッセージを取得する
+    func fetchRoomMessages() {
+        guard let roomId = room.id else { return }
+        Task {
+            let messagesResult = await FirebaseManager.shared.fetchRoomMessages(roomID: roomId)
+            self.messages = messagesResult
+        }
     }
 }
