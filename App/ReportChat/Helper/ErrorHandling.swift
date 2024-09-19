@@ -42,7 +42,7 @@ struct CustomAlertView: View {
         .frame(maxWidth: .infinity)
         .padding()
         .background(
-            Color.item
+            Color.tab
                 .clipShape(.rect(cornerRadius: 8))
                 .shadow(
                     color: .black.opacity(0.1),

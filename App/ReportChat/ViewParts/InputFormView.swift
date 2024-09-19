@@ -50,7 +50,7 @@ struct InputFormView: View {
                     .keyboardType(.alphabet)
                     .textInputAutocapitalization(.none)
                     .frame(height: 45)
-                    .background(.item)
+                    .background(.tab)
                     .clipShape(.rect(cornerRadius: 8))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
@@ -62,7 +62,7 @@ struct InputFormView: View {
                     .keyboardType(.alphabet)
                     .textInputAutocapitalization(.never)
                     .frame(height: 45)
-                    .background(.item)
+                    .background(.tab)
                     .clipShape(.rect(cornerRadius: 8))
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
