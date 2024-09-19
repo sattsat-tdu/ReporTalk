@@ -25,10 +25,7 @@ struct IconImageView: View {
                 .clipped()
                 .frame(width: size, height: size)
         } else {
-            // 画像がない場合のプレースホルダー
-            FontIcon.text(.materialIcon(code: .person), fontsize: size)
-                .background(.red)
-                .clipShape(Circle())
+            Image(.ninjinIMG)
         }
     }
 }
