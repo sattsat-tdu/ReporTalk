@@ -11,20 +11,33 @@ import SwiftUI
 struct RoomsView: View {
     
     let user: UserResponse
-    @ObservedObject var viewModel = RoomsViewModel()
+    @StateObject var viewModel = RoomsViewModel()
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
+        NavigationStack {
+            List {
                 if let rooms = viewModel.rooms {
                     ForEach(rooms, id: \.id) { room in
-                        Text(room.roomName ?? "ルーム名なし")
+                        let roomCellViewModel = viewModel.cellViewModel(for: room)
+                        NavigationLink(
+                            destination: EmptyView(),
+                            label: {
+                                RoomCell(viewModel: roomCellViewModel)
+//                                    .background(.item)
+                        })
                     }
+                    .listRowInsets(EdgeInsets())  //List内の余白を削除
+                    .listRowBackground(Color.clear)
+                    .padding(.horizontal)
                 }
             }
-        }
-        .onAppear {
-            viewModel.fetchRooms(roomIDs: user.rooms)
+            .onAppear {
+                viewModel.fetchRooms(roomIDs: user.rooms)
+            }
+            .scrollIndicators(.hidden)  //スクロールバーの削除
+            .listStyle(.plain)  //List特有の余白を削除
+            .navigationTitle("ルーム")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

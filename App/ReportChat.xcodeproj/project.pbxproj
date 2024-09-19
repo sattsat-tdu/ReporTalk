@@ -23,6 +23,9 @@
 		00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB787D2C981F6300BEEEAA /* MyPageView.swift */; };
 		00EB78802C9821F500BEEEAA /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB787F2C9821F500BEEEAA /* MyPageViewModel.swift */; };
 		00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78812C987BC100BEEEAA /* RoomsViewModel.swift */; };
+		00EB78842C994DE700BEEEAA /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78832C994DE700BEEEAA /* RoomCell.swift */; };
+		00EB78892C9AAECF00BEEEAA /* RoomCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78882C9AAECF00BEEEAA /* RoomCellViewModel.swift */; };
+		00EB788B2C9ABBD600BEEEAA /* IconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */; };
 		00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE112C80B63F00E0CB5C /* LoginView.swift */; };
 		00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE142C80B8D800E0CB5C /* InputFormView.swift */; };
 		00F7BE372C82216C00E0CB5C /* SwiftUIFontIcon in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE362C82216C00E0CB5C /* SwiftUIFontIcon */; };
@@ -54,6 +57,9 @@
 		00EB787D2C981F6300BEEEAA /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		00EB787F2C9821F500BEEEAA /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		00EB78812C987BC100BEEEAA /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
+		00EB78832C994DE700BEEEAA /* RoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
+		00EB78882C9AAECF00BEEEAA /* RoomCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCellViewModel.swift; sourceTree = "<group>"; };
+		00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageView.swift; sourceTree = "<group>"; };
 		00F7BE112C80B63F00E0CB5C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		00F7BE142C80B8D800E0CB5C /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
 		00F7BE382C8222DF00E0CB5C /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
@@ -172,6 +178,15 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
+		00EB78872C9AAEB200BEEEAA /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				00EB78832C994DE700BEEEAA /* RoomCell.swift */,
+				00EB78882C9AAECF00BEEEAA /* RoomCellViewModel.swift */,
+			);
+			path = Room;
+			sourceTree = "<group>";
+		};
 		00F7BE0F2C80B56800E0CB5C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,9 +211,11 @@
 		00F7BE132C80B8A800E0CB5C /* ViewParts */ = {
 			isa = PBXGroup;
 			children = (
+				00EB78872C9AAEB200BEEEAA /* Room */,
 				00F7BE142C80B8D800E0CB5C /* InputFormView.swift */,
 				00F7BE382C8222DF00E0CB5C /* TabView.swift */,
 				00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */,
+				00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -307,6 +324,7 @@
 				00EB78792C9814B600BEEEAA /* SplashView.swift in Sources */,
 				00EB787B2C98150000BEEEAA /* SplashViewModel.swift in Sources */,
 				00EB786E2C980AD100BEEEAA /* HomeView.swift in Sources */,
+				00EB788B2C9ABBD600BEEEAA /* IconImageView.swift in Sources */,
 				00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */,
 				00F7BE392C8222DF00E0CB5C /* TabView.swift in Sources */,
 				00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */,
@@ -315,9 +333,11 @@
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
 				00EB78642C8B5AB300BEEEAA /* ErrorHandling.swift in Sources */,
 				00EB786A2C8F3D4100BEEEAA /* CapsuleButton.swift in Sources */,
+				00EB78892C9AAECF00BEEEAA /* RoomCellViewModel.swift in Sources */,
 				006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */,
 				00EB78762C980EE500BEEEAA /* UserResponse.swift in Sources */,
 				00EB78702C980C5900BEEEAA /* RoomsView.swift in Sources */,
+				00EB78842C994DE700BEEEAA /* RoomCell.swift in Sources */,
 				00EB78622C8B58F900BEEEAA /* View+Extensions.swift in Sources */,
 				00EB78742C980EA500BEEEAA /* RoomResponse.swift in Sources */,
 				00F7BE4F2C83747500E0CB5C /* LoginViewModel.swift in Sources */,
@@ -333,6 +353,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -396,6 +417,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
