@@ -22,4 +22,13 @@ struct MessageResponse: Decodable {
         case senderId
         case timestamp
     }
+    
+    // Firebaseに書き込むための辞書変換
+    func toDictionary() -> [String: Any] {
+        return [
+            "content": text,
+            "senderId": senderId,
+            "timestamp": Timestamp(date: timestamp)  // DateをTimestampに変換
+        ]
+    }
 }

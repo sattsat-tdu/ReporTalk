@@ -18,19 +18,22 @@ struct RoomsView: View {
                 ForEach(rooms, id: \.id) { room in
                     NavigationLink(
                         destination: MessagesView()
+                            .resignKeyboardOnDragGesture()
                             .environmentObject(viewModel.cellViewModel(for: room)),
                         label: {
                             RoomCell(viewModel: viewModel.cellViewModel(for: room))
                         }
                     )
                 }
-                .listRowInsets(EdgeInsets())  // Listの余白を削除
+                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                .listRowBackground(Color.clear)
             } else {
                 // ロード中の表示を加える
                 ProgressView("ルームを取得中...")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
+        .background(.tab)
         .scrollIndicators(.hidden)  // スクロールバーの非表示
         .listStyle(.plain)  // List特有の余白を削除
         .navigationTitle("ルーム")

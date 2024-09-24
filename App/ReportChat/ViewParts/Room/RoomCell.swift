@@ -24,7 +24,6 @@ struct RoomCell: View {
                 Image("ninjinIMG")
                     .resizable()
                     .frame(width: 48, height: 48)
-                    .background(.red)
                     .clipShape(Circle())
             }
             
