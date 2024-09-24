@@ -32,6 +32,7 @@
 		00EB78952C9B9E9600BEEEAA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78942C9B9E9600BEEEAA /* UIImage+Extensions.swift */; };
 		00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78962C9BE58200BEEEAA /* MessageCell.swift */; };
 		00EB78992C9BE5FB00BEEEAA /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78982C9BE5FB00BEEEAA /* Date+Extensions.swift */; };
+		00EB78B92C9D562900BEEEAA /* AutoResizingTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78B82C9D562900BEEEAA /* AutoResizingTextEditor.swift */; };
 		00EB78BB2C9D694600BEEEAA /* ResignKeyboardOnDragGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78BA2C9D694600BEEEAA /* ResignKeyboardOnDragGesture.swift */; };
 		00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE112C80B63F00E0CB5C /* LoginView.swift */; };
 		00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE142C80B8D800E0CB5C /* InputFormView.swift */; };
@@ -73,6 +74,7 @@
 		00EB78942C9B9E9600BEEEAA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		00EB78962C9BE58200BEEEAA /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		00EB78982C9BE5FB00BEEEAA /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		00EB78B82C9D562900BEEEAA /* AutoResizingTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoResizingTextEditor.swift; sourceTree = "<group>"; };
 		00EB78BA2C9D694600BEEEAA /* ResignKeyboardOnDragGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignKeyboardOnDragGesture.swift; sourceTree = "<group>"; };
 		00F7BE112C80B63F00E0CB5C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		00F7BE142C80B8D800E0CB5C /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */,
 				00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */,
 				00EB78962C9BE58200BEEEAA /* MessageCell.swift */,
+				00EB78B82C9D562900BEEEAA /* AutoResizingTextEditor.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				00F7BE392C8222DF00E0CB5C /* TabView.swift in Sources */,
 				00EB788E2C9B254E00BEEEAA /* MessagesView.swift in Sources */,
 				00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */,
+				00EB78B92C9D562900BEEEAA /* AutoResizingTextEditor.swift in Sources */,
 				00EB78802C9821F500BEEEAA /* MyPageViewModel.swift in Sources */,
 				00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */,
 				00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */,
