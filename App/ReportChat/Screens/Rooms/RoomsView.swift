@@ -18,6 +18,7 @@ struct RoomsView: View {
                 ForEach(rooms, id: \.id) { room in
                     NavigationLink(
                         destination: MessagesView()
+                            .resignKeyboardOnDragGesture()
                             .environmentObject(viewModel.cellViewModel(for: room)),
                         label: {
                             RoomCell(viewModel: viewModel.cellViewModel(for: room))
