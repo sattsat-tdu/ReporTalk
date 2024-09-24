@@ -7,11 +7,13 @@
 //
 
 import SwiftUI
+import SwiftUIFontIcon
 
 struct MessagesView: View {
     
     @EnvironmentObject var viewModel: RoomViewModel
-    let maxMessageWidth = UIScreen.main.bounds.width * 0.9
+    @State private var dynamicHeight: CGFloat = 40
+    private let maxHeight: CGFloat = 240
     
     var body: some View {
         VStack(spacing: 0) {
@@ -31,22 +33,58 @@ struct MessagesView: View {
                         }
                     }
                     .onAppear {
-                        // 最後のメッセージにスクロール
-                        if let lastMessage = viewModel.messages?.last {
-                            proxy.scrollTo(lastMessage.id)
+                        proxy.scrollTo("lastMessage", anchor: .bottom)
+                    }
+                    .onChange(of: viewModel.lastMessageId) {
+                        if let id = viewModel.lastMessageId {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                proxy.scrollTo(id, anchor: .bottom)
+                            }
                         }
                     }
+                    Spacer().frame(height: 24)
+                        .id("lastMessage")
                 }
             }
+            Divider()
+            HStack(spacing: 8) {
+                AutoResizingTextEditor(
+                    text: $viewModel.messageText,
+                    textHeight: $dynamicHeight, 
+                    maxHeight: maxHeight
+                )
+                .frame(height: dynamicHeight, alignment: .top)
+                .padding(.horizontal)
+                .background(.gray.opacity(0.2))
+                .clipShape(.rect(cornerRadius: 10))
+                
+                Button(action: {
+                    viewModel.handleSend()
+                    self.dynamicHeight = 40
+                }, label: {
+                    FontIcon.text(.materialIcon(code: .send), fontsize: 32)
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                })
+                .tint(.blue)
+                .disabled(viewModel.messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            }
+            .padding()
+            .frame(height: min(dynamicHeight, maxHeight) + 16)
+            .background(.tab)
         }
         .navigationTitle(viewModel.roomName)
+        .background(.tab)
     }
 }
 
 #Preview {
     MessagesView()
-}
-
-#Preview {
-    MessagesView()
+        .environmentObject(
+            RoomViewModel(room:
+                            RoomResponse(
+                                members: [],
+                                roomIcon: "",
+                                roomName: "")
+                         )
+        )
 }
