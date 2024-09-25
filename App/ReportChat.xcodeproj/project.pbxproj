@@ -224,6 +224,7 @@
 		00EB787C2C981F4100BEEEAA /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				009104342CA3C77900F1AA54 /* SettingsView.swift */,
 				00EB787D2C981F6300BEEEAA /* MyPageView.swift */,
 				00EB787F2C9821F500BEEEAA /* MyPageViewModel.swift */,
 			);
@@ -394,6 +395,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00F7BE542C8392E200E0CB5C /* FirebaseError.swift in Sources */,
+				009104352CA3C77900F1AA54 /* SettingsView.swift in Sources */,
 				0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */,
 				00F7BE4D2C835B9200E0CB5C /* FirebaseManager.swift in Sources */,
 				009104392CA3D9B300F1AA54 /* SettingsResource.swift in Sources */,
