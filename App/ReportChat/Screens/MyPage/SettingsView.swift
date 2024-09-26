@@ -28,12 +28,10 @@ struct SettingsView: View {
                     PickerCell(pickerItem: pickerItem)
                 }
             }
-            .listRowSeparator(.hidden)
             .padding(.vertical, 4)
             .frame(minHeight: 38)
         }
-        .listRowSpacing(8)
-        .scrollContentBackground(.hidden)
+        .listRowSpacing(10)
         .navigationTitle(section.title)
     }
 }

@@ -14,9 +14,9 @@ struct RoomCell: View {
     
     var body: some View {
         HStack(spacing: 16) {
-            if let roomIconData = viewModel.roomIconData {
+            if let imageUrlString = viewModel.roomIconUrlString {
                 IconImageView(
-                    data: roomIconData,
+                    urlString: imageUrlString,
                     size: 48
                 )
                 .clipShape(Circle())

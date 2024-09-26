@@ -11,25 +11,42 @@ import SwiftUIFontIcon
 
 struct IconImageView: View {
     
-    let data: Data
+    let urlString: String
     let size: CGFloat
+    @State private var imageData = Data()
     
     var body: some View {
-        if let uiImage = UIImage(data: data) {
-            Rectangle().aspectRatio(1, contentMode: .fill)
-                .overlay {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFill()
-                }
-                .clipped()
-                .frame(width: size, height: size)
-        } else {
-            Image(.ninjinIMG)
+        Group {
+            if let uiImage = UIImage(data: imageData) {
+                Rectangle().aspectRatio(1, contentMode: .fill)
+                    .overlay {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                    }
+                    .clipped()
+                    .frame(width: size, height: size)
+            } else {
+                Image(.ninjinIMG)
+                    .resizable()
+                    .frame(width: size, height: size)
+            }
+        }
+        .onAppear(perform: urlStringToData)
+    }
+    
+    private func urlStringToData() {
+        Task {
+            guard let imageData = await FirebaseManager.shared.fetchImage(urlString: urlString) else { return }
+            
+            self.imageData = imageData
         }
     }
 }
 
 #Preview {
-    IconImageView(data: Data(), size: 48)
+    IconImageView(
+        urlString: "https://fastly.picsum.photos/id/447/200/300.jpg?hmac=WubV-ZWbMgXijt9RLYedmkiaSer2IFiVD7xek928gC8",
+        size: 48
+    )
 }

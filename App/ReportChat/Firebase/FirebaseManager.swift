@@ -58,6 +58,16 @@ class FirebaseManager: ObservableObject {
         }
     }
     
+    //ログアウト処理
+    func handleLogout() async {
+        do {
+            try self.auth.signOut()
+            print("ログアウトに成功しました！")
+        } catch let signOutError as NSError {
+            print("ログアウトに失敗しました: %@", signOutError)
+        }
+    }
+    
     //idからユーザー情報を取得
     func fetchUser(userId: String) async -> UserResponse? {
         do {

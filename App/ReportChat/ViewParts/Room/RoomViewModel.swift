@@ -11,7 +11,7 @@ import FirebaseFirestore
 
 @MainActor
 final class RoomViewModel: ObservableObject {
-    @Published var roomIconData: Data? = nil
+    @Published var roomIconUrlString: String? = nil
     @Published var roomName: String = " --- "
     @Published var messages: [MessageResponse]? = nil
     @Published var lastMessageId: String? = nil
@@ -36,10 +36,7 @@ final class RoomViewModel: ObservableObject {
         Task {
             guard let partner = await fetchPartner() else { return }
             self.roomName = partner.userName
-            if let iconURL = partner.photoURL {
-                guard let partnerImageData = await FirebaseManager.shared.fetchImage(urlString: iconURL) else { return }
-                self.roomIconData = partnerImageData
-            }
+            if let iconURL = partner.photoURL { self.roomIconUrlString = iconURL }
         }
     }
     
