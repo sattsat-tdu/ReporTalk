@@ -7,29 +7,90 @@
 //
 
 import SwiftUI
+import SwiftUIFontIcon
 
 struct MyPageView: View {
     
     let user: UserResponse
-    @ObservedObject var viewModel = MyPageViewModel()
-    
+
     var body: some View {
-        VStack {
-            Text("ログイン情報")
-                .font(.headline)
+        List {
+            Section(header: Text("プロフィール").fontWeight(.semibold)) {
+                NavigationLink(
+                    destination: ProfileDetailView()
+                        .environmentObject(ProfileViewModel(user: user)),
+                    label: {
+                        HStack {
+                            Group {
+                                if let iconUrl = user.photoURL {
+                                    IconImageView(
+                                        urlString: iconUrl,
+                                        size: 64)
+                                } else {
+                                    Image(systemName: "person.circle")
+                                        .resizable()
+                                        .frame(width: 64, height: 64)
+                                }
+                            }
+                            .clipShape(Circle())
+                            
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(user.userName)
+                                    .font(.headline)
+                                
+                                Text(user.email)
+                                    .font(.callout)
+                            }
+                        }
+                    })
+            }
             
-            Text(user.userName)
-                .font(.headline)
+            CustomNavCell(
+                navItem: NavItem(
+                    destination: AnyView(SettingsView(section: settingResource)),
+                    icon: .settings,
+                    title: "設定"))
+            .padding(.vertical, 4)
+            .frame(minHeight: 38)
             
-            Text(user.id ?? "nilID")
+            VStack {
+                Text("AdMob...")
+            }
+            .frame(height: 80)
             
-            Divider()
-            
-            ForEach(user.rooms, id: \.self) { room in
-                Text(room)
+            Section(header: Text("その他").fontWeight(.semibold)) {
+                
+                SafariCell(
+                    safariItem: SafariItem(
+                        title: "お問い合わせ・要望",
+                        icon: .question_answer,
+                        url: "https://sattsat.blogspot.com/2021/05/sattsat-sattsat-sattsat-admobgoogle-inc.html?m=1"
+                    ))
+                .padding(.vertical, 4)
+                .frame(minHeight: 38)
+                
+                SafariCell(
+                    safariItem: SafariItem(
+                        title: "コピーライト",
+                        icon: .content_paste,
+                        url: "https://sattsat.blogspot.com/2022/07/blog-post.html?m=1"
+                    ))
+                .padding(.vertical, 4)
+                .frame(minHeight: 38)
+                
+                SafariCell(
+                    safariItem: SafariItem(
+                        title: "プライバシーポリシー",
+                        icon: .verified_user,
+                        url: "https://sattsat.blogspot.com/2021/05/sattsat-sattsat-sattsat-admobgoogle-inc.html?m=1"
+                    ))
+                .padding(.vertical, 4)
+                .frame(minHeight: 38)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .listRowSpacing(8)
+        .navigationTitle("マイページ")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

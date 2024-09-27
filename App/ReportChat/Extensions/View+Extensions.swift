@@ -8,6 +8,3 @@
 
 import SwiftUI
 
-extension View {
-    
-}

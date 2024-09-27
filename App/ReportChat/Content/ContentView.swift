@@ -25,7 +25,7 @@ struct ContentView: View {
                             RoomsView(viewModel: viewModel)
                         }
                     case .timeline:
-                        EmptyView()
+                        Color.clear
                     case .mypage:
                         MyPageView(user: user)
                     }
