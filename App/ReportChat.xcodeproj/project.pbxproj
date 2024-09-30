@@ -30,6 +30,7 @@
 		00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2F92CAAA923008841E6 /* WelcomeView.swift */; };
 		00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */; };
 		00D6F3002CAAEF01008841E6 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */; };
+		00D6F3042CAAFCC6008841E6 /* BackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */; };
 		00EB78622C8B58F900BEEEAA /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78612C8B58F900BEEEAA /* View+Extensions.swift */; };
 		00EB78642C8B5AB300BEEEAA /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78632C8B5AB300BEEEAA /* ErrorHandling.swift */; };
 		00EB786A2C8F3D4100BEEEAA /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */; };
@@ -91,6 +92,7 @@
 		00D6F2F92CAAA923008841E6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
+		00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonView.swift; sourceTree = "<group>"; };
 		00EB78612C8B58F900BEEEAA /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		00EB78632C8B5AB300BEEEAA /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				00EB78962C9BE58200BEEEAA /* MessageCell.swift */,
 				00EB78B82C9D562900BEEEAA /* AutoResizingTextEditor.swift */,
 				00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */,
+				00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
