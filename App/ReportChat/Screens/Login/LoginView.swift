@@ -34,7 +34,6 @@ struct LoginView: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.back)
-        .customAlert($viewModel.alertType)
     }
 }
 
