@@ -44,31 +44,20 @@ struct InputFormView: View {
                 .fontWeight(.semibold)
                 .foregroundColor(.secondary)
             
-            if style == .password {
-                SecureField(style.placeholder, text: $text)
-                    .padding()
-                    .keyboardType(.alphabet)
-                    .textInputAutocapitalization(.none)
-                    .frame(height: 45)
-                    .background(.tab)
-                    .clipShape(.rect(cornerRadius: 8))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(.rounded, lineWidth: 2)
-                    )
-            } else {
-                TextField(style.placeholder, text: $text)
-                    .padding()
-                    .keyboardType(.alphabet)
-                    .textInputAutocapitalization(.never)
-                    .frame(height: 45)
-                    .background(.tab)
-                    .clipShape(.rect(cornerRadius: 8))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(.rounded, lineWidth: 2)
-                    )
+            Group {
+                if style == .password {
+                    SecureField(style.placeholder, text: $text)
+                        .textInputAutocapitalization(.none)
+                } else {
+                    TextField(style.placeholder, text: $text)
+                        .textInputAutocapitalization(.never)
+                }
             }
+            .padding()
+            .keyboardType(.alphabet)
+            .frame(height: 45)
+            .background(.fieldBack)
+            .clipShape(.rect(cornerRadius: 8))
         }
     }
 }

@@ -13,27 +13,61 @@ struct LoginView: View {
     @ObservedObject var viewModel: LoginViewModel
     
     var body: some View {
-        VStack(spacing: 32) {
-            Text("ログイン")
-                .font(.title).bold()
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.blue.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
             
-            InputFormView(style: .id, text: $viewModel.id)
+            VStack(spacing: 0) {
+                
+                Spacer().frame(height: 112)
+                
+                VStack(alignment: .leading, spacing: 24) {
+                    
+                    Text("お帰りなさい。\n報告をしましょう！")
+                        .font(.title).bold()
+                        .padding(.top)
+                    
+                    InputFormView(style: .id, text: $viewModel.id)
+                    
+                    InputFormView(style: .password, text: $viewModel.password)
+                    
+                    Text(viewModel.errorMessage)
+                        .foregroundStyle(.red)
+                        .padding(.vertical)
+                    
+                    Spacer()
+                    
+                    Group {
+                        CapsuleButton(text: "ログイン",
+                                      onClicked: {
+                            viewModel.login()
+                        })
+                        
+                        HStack {
+                            Capsule().frame(height: 1)
+                            Text("または...")
+                                .lineLimit(1)
+                                .font(.caption)
+                            Capsule().frame(height: 1)
+                        }
+                        .foregroundStyle(.secondary)
+                        
+                        CapsuleButton(text: "新規登録",
+                                      onClicked: {
+                            viewModel.login()
+                        })
+                    }
+                    .disabled(viewModel.id.isEmpty || viewModel.password.isEmpty)
+                }
+                .padding()
+                .padding(.bottom,24)
+                .background(.back)
+                .clipShape(.rect(cornerRadius: 32))
+                .ignoresSafeArea(.all, edges: .bottom)
+            }
             
-            InputFormView(style: .password, text: $viewModel.password)
-            
-            Text(viewModel.errorMessage)
-                .foregroundStyle(.red)
-                .padding(.vertical)
-            
-            CapsuleButton(text: "ログイン",
-                          onClicked: {
-                viewModel.login()
-            })
-            .disabled(viewModel.id.isEmpty || viewModel.password.isEmpty)
         }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.back)
+        .navigationTitle("ログイン")
     }
 }
 
