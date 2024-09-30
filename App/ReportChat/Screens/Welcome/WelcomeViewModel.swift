@@ -14,6 +14,7 @@ final class WelcomeViewModel: ObservableObject {
     
     @Published var id = ""
     @Published var password = ""
+    @Published var userName = ""
     @Published var errorMessage = ""
     private let router: Router
 

@@ -27,9 +27,17 @@ struct LoginView: View {
                         .font(.title).bold()
                         .padding(.top)
                     
-                    InputFormView(style: .id, text: $viewModel.id)
+                    InputFormView(
+                        secureType: .normal,
+                        title: "メールアドレス",
+                        placeholder: "name@domain.com",
+                        text: $viewModel.id)
                     
-                    InputFormView(style: .password, text: $viewModel.password)
+                    InputFormView(
+                        secureType: .secure,
+                        title: "パスワード",
+                        placeholder: "パスワードを入力...",
+                        text: $viewModel.password)
                     
                     Text(viewModel.errorMessage)
                         .foregroundStyle(.red)

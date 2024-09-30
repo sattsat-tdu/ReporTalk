@@ -8,48 +8,32 @@
 
 import SwiftUI
 
-enum Style {
-    case id
-    case password
-    
-    var title: String {
-        switch self {
-        case .id:
-            return "メールアドレス"
-        case .password:
-            return "パスワード"
-        }
-    }
-    
-    var placeholder: String {
-        switch self {
-        case .id:
-            return "name@domain.com"
-        case .password:
-            return "パスワードを入力"
-        }
-    }
+enum SecureType {
+    case normal
+    case secure
 }
 
 struct InputFormView: View {
     
-    let style: Style
+    let secureType: SecureType
+    let title: String
+    let placeholder: String
     @Binding var text: String
     
     var body: some View {
         VStack(alignment: .leading) {
 
-            Text(style.title)
+            Text(self.title)
                 .font(.callout)
                 .fontWeight(.semibold)
                 .foregroundColor(.secondary)
             
             Group {
-                if style == .password {
-                    SecureField(style.placeholder, text: $text)
+                if secureType == .secure {
+                    SecureField(self.placeholder, text: $text)
                         .textInputAutocapitalization(.none)
                 } else {
-                    TextField(style.placeholder, text: $text)
+                    TextField(self.placeholder, text: $text)
                         .textInputAutocapitalization(.never)
                 }
             }
@@ -63,5 +47,17 @@ struct InputFormView: View {
 }
 
 #Preview {
-    InputFormView(style: .id, text: .constant(""))
+    VStack {
+        InputFormView(
+            secureType: .normal, 
+            title: "メールアドレス",
+            placeholder: "name@domain.com",
+            text: .constant(""))
+        
+        InputFormView(
+            secureType: .secure, 
+            title: "パスワード",
+            placeholder: "パスワードを入力...",
+            text: .constant(""))
+    }
 }
