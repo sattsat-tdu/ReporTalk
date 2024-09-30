@@ -59,7 +59,18 @@ struct ProfileDetailView: View {
                 .frame(minHeight: 38)
                 
                 Button("ログアウト"){
-                    viewModel.logout()
+                    UIApplication.showModal(
+                        modalItem: ModalItem(
+                            type: .error,
+                            title: "ログアウトしますか",
+                            description: "ログアウトしても、メッセージの内容やアカウント情報は残ります。",
+                            alignment: .bottom,
+                            isCancelable: true,
+                            onTapped: {
+                                viewModel.logout()
+                            }
+                        )
+                    )
                 }
                 .foregroundStyle(.red)
                 
