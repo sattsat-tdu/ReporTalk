@@ -29,6 +29,7 @@
 		009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104752CA6C57C00F1AA54 /* OverlayModel.swift */; };
 		00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2F92CAAA923008841E6 /* WelcomeView.swift */; };
 		00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */; };
+		00D6F3002CAAEF01008841E6 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */; };
 		00EB78622C8B58F900BEEEAA /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78612C8B58F900BEEEAA /* View+Extensions.swift */; };
 		00EB78642C8B5AB300BEEEAA /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78632C8B5AB300BEEEAA /* ErrorHandling.swift */; };
 		00EB786A2C8F3D4100BEEEAA /* CapsuleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */; };
@@ -89,6 +90,7 @@
 		009104752CA6C57C00F1AA54 /* OverlayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayModel.swift; sourceTree = "<group>"; };
 		00D6F2F92CAAA923008841E6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		00EB78612C8B58F900BEEEAA /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		00EB78632C8B5AB300BEEEAA /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
 		00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleButton.swift; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */,
 				00EB78962C9BE58200BEEEAA /* MessageCell.swift */,
 				00EB78B82C9D562900BEEEAA /* AutoResizingTextEditor.swift */,
+				00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -493,6 +496,7 @@
 				00EB78952C9B9E9600BEEEAA /* UIImage+Extensions.swift in Sources */,
 				009104412CA43C3100F1AA54 /* UserDefaultsManager.swift in Sources */,
 				00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */,
+				00D6F3002CAAEF01008841E6 /* PhotoPickerView.swift in Sources */,
 				0091043D2CA3F91400F1AA54 /* PickerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
