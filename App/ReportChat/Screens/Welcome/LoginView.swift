@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct LoginView: View {
-    
-    @ObservedObject var viewModel: LoginViewModel
+
+    @EnvironmentObject var viewModel: WelcomeViewModel
     
     var body: some View {
         ZStack {
@@ -61,7 +61,7 @@ struct LoginView: View {
                 }
                 .padding()
                 .padding(.bottom,24)
-                .background(.back)
+                .background(.tab)
                 .clipShape(.rect(cornerRadius: 32))
                 .ignoresSafeArea(.all, edges: .bottom)
             }
@@ -72,5 +72,6 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(viewModel: LoginViewModel(router: Router()))
+    LoginView()
+        .environmentObject(WelcomeViewModel(router: Router()))
 }

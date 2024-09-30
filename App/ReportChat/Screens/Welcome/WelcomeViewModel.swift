@@ -1,8 +1,8 @@
 //
-//  LoginViewModel.swift
+//  WelcomeViewModel.swift
 //  ReportChat
 //  
-//  Created by SATTSAT on 2024/09/01
+//  Created by SATTSAT on 2024/09/30
 //  
 //
 
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 @MainActor
-final class LoginViewModel: ObservableObject {
+final class WelcomeViewModel: ObservableObject {
     
     @Published var id = ""
     @Published var password = ""
