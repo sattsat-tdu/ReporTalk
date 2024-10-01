@@ -24,23 +24,29 @@ final class ContentViewModel: ObservableObject {
             return
         }
         Task {
-            let currentUserResponse = await FirebaseManager.shared.fetchUser(userId: uid)
-            if let user = currentUserResponse {
-                self.roomsViewModel = RoomsViewModel(user: user) 
+            let currentUserResult = await FirebaseManager.shared.fetchUser(userId: uid)
+            switch currentUserResult {
+            case .success(let user):
+                self.roomsViewModel = RoomsViewModel(user: user)
                 self.currentUser = user
-            }
-            else {
-                print("FireStoreが上限突破した可能性があります。不明なエラーとかしよかな")
+            case .failure(let userFetchError):
                 UIApplication.showModal(
                     modalItem: ModalItem(
                         type: .error,
-                        title: "サーバーエラー",
-                        description: "サーバー側で何らかの問題が発生しています。\nお手数おかけしますが、後でもう一度お試しください。\nリトライしますか？",
+                        title: userFetchError.rawValue,
+                        description: userFetchError.errorDescription,
                         alignment: .center,
                         isCancelable: false,
                         onTapped: {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                self.fetchCurrentUser()  // 再試行
+                            switch userFetchError {
+                            case .userNotFound:
+                                Task { //再ログインの促し
+                                    await FirebaseManager.shared.handleLogout()
+                                }
+                            case .unknown:
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    self.fetchCurrentUser()  // 再試行
+                                }
                             }
                         }
                     )
