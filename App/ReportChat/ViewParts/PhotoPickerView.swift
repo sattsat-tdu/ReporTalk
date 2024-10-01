@@ -30,6 +30,7 @@ struct PhotoPickerView: View {
                     .shadow(radius: 3)
             } else {
                 FontIcon.text(.materialIcon(code: .account_circle), fontsize: 80)
+                    .foregroundStyle(.fieldBack)
             }
         }
         .onChange(of: selectedPhoto) {
