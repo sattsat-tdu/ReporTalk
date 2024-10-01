@@ -68,20 +68,33 @@ class FirebaseManager: ObservableObject {
         }
     }
     
-    //idからユーザー情報を取得
-    func fetchUser(userId: String) async -> UserResponse? {
+    //新規登録
+    func register(id: String, password: String) async -> Result<AuthDataResult, Error> {
         do {
-            let snapshot = try await 
-            FirebaseManager.shared.fireStore
+            let result = try await self.auth.createUser(withEmail: id, password: password)
+            return .success(result)
+        } catch let error as NSError {
+            return .failure(error)
+        }
+    }
+    
+    // idからユーザー情報を取得
+    func fetchUser(userId: String) async -> Result<UserResponse, UserFetchError> {
+        
+        do {
+            let snapshot = try await FirebaseManager.shared.fireStore
                 .collection("users")
                 .document(userId)
                 .getDocument()
             
-            return try snapshot.data(as: UserResponse.self)
+            print("userId: \(userId)\nでログインしています。")
+            // snapshotをデコードしてUserResponseに変換
+            return try .success(snapshot.data(as: UserResponse.self))
             
-        } catch _ as NSError {
-            print("ユーザーが見つかりませんでした。")
-            return nil
+        } catch let decodeError as DecodingError {
+            return .failure(.userNotFound)
+        } catch {
+            return .failure(.unknown)
         }
     }
     
@@ -123,6 +136,24 @@ class FirebaseManager: ObservableObject {
         } catch _ as NSError {
             print("ルーム内メッセージを取得できませんでした")
             return nil
+        }
+    }
+    
+    //FirebaseStorageに画像をアップロード
+    func uploadImage(userId: String, imageData: Data) async -> Result<String, Error> {
+        let storageRef = storage.reference().child("userIcons/\(userId).jpg")
+
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"  // JPEG形式の画像を指定
+
+        do {
+            // メタデータを使用して画像データをアップロード
+            let _ = try await storageRef.putDataAsync(imageData, metadata: metadata)
+            let downloadURL = try await storageRef.downloadURL().absoluteString
+            return .success(downloadURL)
+            
+        } catch let error as NSError {
+            return .failure(error)
         }
     }
     
