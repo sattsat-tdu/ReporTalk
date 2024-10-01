@@ -26,4 +26,20 @@ struct UserResponse: Decodable {
         case photoURL
         case rooms
     }
+    
+    // Firebaseに書き込むための辞書変換
+    func toDictionary() -> [String: Any] {
+        var dict: [String: Any] = [
+            "displayName": userName,
+            "email": email,
+            "friends": friends,
+            "rooms": rooms,
+        ]
+        
+        // photoURLがnilでない場合のみ追加
+        if let photoURL = photoURL {
+            dict["photoURL"] = photoURL
+        }
+        return dict
+    }
 }
