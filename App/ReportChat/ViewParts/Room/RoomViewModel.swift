@@ -45,8 +45,13 @@ final class RoomViewModel: ObservableObject {
         if room.members.count == 2 {
             guard let currentUser = FirebaseManager.shared.currentUser else { return nil }
             guard let partnerID = room.members.first(where: { $0 != currentUser }) else { return nil }
-            let partnerUserResponse = await FirebaseManager.shared.fetchUser(userId: partnerID)
-            return partnerUserResponse
+            let partnerUserResult = await FirebaseManager.shared.fetchUser(userId: partnerID)
+            switch partnerUserResult {
+            case .success(let user):
+                return user
+            case .failure(_):
+                return nil
+            }
         }
         return nil
     }
