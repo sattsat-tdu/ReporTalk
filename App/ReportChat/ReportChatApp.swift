@@ -48,12 +48,11 @@ struct ReportChatApp: App {
             case .splash:
                 SplashView(viewModel: SplashViewModel(router: router))
             case .login:
-                WelcomeView()
+                WelcomeSwitchView()
                     .environmentObject(WelcomeViewModel(router: router))
             case .tab:
                 ContentView()
             }
-            
         }
     }
 }

@@ -29,7 +29,9 @@
 		009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104752CA6C57C00F1AA54 /* OverlayModel.swift */; };
 		00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2F92CAAA923008841E6 /* WelcomeView.swift */; };
 		00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */; };
+		00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FD2CAAE541008841E6 /* RegisterView.swift */; };
 		00D6F3002CAAEF01008841E6 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */; };
+		00D6F3022CAAF925008841E6 /* WelcomeSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F3012CAAF925008841E6 /* WelcomeSwitchView.swift */; };
 		00D6F3042CAAFCC6008841E6 /* BackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */; };
 		00EB78622C8B58F900BEEEAA /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78612C8B58F900BEEEAA /* View+Extensions.swift */; };
 		00EB78642C8B5AB300BEEEAA /* ErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78632C8B5AB300BEEEAA /* ErrorHandling.swift */; };
@@ -91,7 +93,9 @@
 		009104752CA6C57C00F1AA54 /* OverlayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayModel.swift; sourceTree = "<group>"; };
 		00D6F2F92CAAA923008841E6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
+		00D6F2FD2CAAE541008841E6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
+		00D6F3012CAAF925008841E6 /* WelcomeSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSwitchView.swift; sourceTree = "<group>"; };
 		00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonView.swift; sourceTree = "<group>"; };
 		00EB78612C8B58F900BEEEAA /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		00EB78632C8B5AB300BEEEAA /* ErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandling.swift; sourceTree = "<group>"; };
@@ -217,8 +221,10 @@
 		00D6F2F82CAAA8CF008841E6 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				00D6F3012CAAF925008841E6 /* WelcomeSwitchView.swift */,
 				00D6F2F92CAAA923008841E6 /* WelcomeView.swift */,
 				00F7BE112C80B63F00E0CB5C /* LoginView.swift */,
+				00D6F2FD2CAAE541008841E6 /* RegisterView.swift */,
 				00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */,
 			);
 			path = Welcome;
@@ -279,8 +285,8 @@
 			isa = PBXGroup;
 			children = (
 				009104452CA53D8400F1AA54 /* Profile */,
-				009104342CA3C77900F1AA54 /* SettingsView.swift */,
 				00EB787D2C981F6300BEEEAA /* MyPageView.swift */,
+				009104342CA3C77900F1AA54 /* SettingsView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -457,11 +463,13 @@
 				0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */,
 				00F7BE4D2C835B9200E0CB5C /* FirebaseManager.swift in Sources */,
 				009104392CA3D9B300F1AA54 /* SettingsResource.swift in Sources */,
+				00D6F3042CAAFCC6008841E6 /* BackButtonView.swift in Sources */,
 				00EB78792C9814B600BEEEAA /* SplashView.swift in Sources */,
 				00EB787B2C98150000BEEEAA /* SplashViewModel.swift in Sources */,
 				00EB786E2C980AD100BEEEAA /* HomeView.swift in Sources */,
 				00EB78902C9B29DE00BEEEAA /* MessageResponse.swift in Sources */,
 				00EB788B2C9ABBD600BEEEAA /* IconImageView.swift in Sources */,
+				00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */,
 				00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */,
 				00F7BE392C8222DF00E0CB5C /* TabView.swift in Sources */,
 				009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */,
@@ -481,6 +489,7 @@
 				00EB78992C9BE5FB00BEEEAA /* Date+Extensions.swift in Sources */,
 				00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */,
 				0091043B2CA3DC4400F1AA54 /* SettingModel.swift in Sources */,
+				00D6F3022CAAF925008841E6 /* WelcomeSwitchView.swift in Sources */,
 				0091046A2CA674F400F1AA54 /* LoadingView.swift in Sources */,
 				00EB78642C8B5AB300BEEEAA /* ErrorHandling.swift in Sources */,
 				0091046E2CA6928200F1AA54 /* ToastView.swift in Sources */,

@@ -19,11 +19,17 @@ struct LoginView: View {
             
             VStack(spacing: 0) {
                 
+                BackButtonView(onClicked: {
+                    viewModel.navigate(to: .welcome)
+                })
+                .padding(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
                 Spacer().frame(height: 112)
                 
                 VStack(alignment: .leading, spacing: 24) {
                     
-                    Text("お帰りなさい。\n報告をしましょう！")
+                    Text("ログイン")
                         .font(.title).bold()
                         .padding(.top)
                     
@@ -39,33 +45,29 @@ struct LoginView: View {
                         placeholder: "パスワードを入力...",
                         text: $viewModel.password)
                     
-                    Text(viewModel.errorMessage)
-                        .foregroundStyle(.red)
-                        .padding(.vertical)
-                    
                     Spacer()
                     
-                    Group {
-                        CapsuleButton(text: "ログイン",
-                                      onClicked: {
-                            viewModel.login()
-                        })
-                        
-                        HStack {
-                            Capsule().frame(height: 1)
-                            Text("または...")
-                                .lineLimit(1)
-                                .font(.caption)
-                            Capsule().frame(height: 1)
-                        }
-                        .foregroundStyle(.secondary)
-                        
-                        CapsuleButton(text: "新規登録",
-                                      onClicked: {
-                            viewModel.login()
-                        })
-                    }
+                    CapsuleButton(text: "ログイン",
+                                  onClicked: {
+                        viewModel.login()
+                    })
                     .disabled(viewModel.id.isEmpty || viewModel.password.isEmpty)
+                    
+                    HStack {
+                        Capsule().frame(height: 1)
+                        Text("または...")
+                            .lineLimit(1)
+                            .font(.caption)
+                        Capsule().frame(height: 1)
+                    }
+                    .foregroundStyle(.secondary)
+                    
+                    CapsuleButton(
+                        text: "新規登録",
+                        onClicked: {
+                            viewModel.navigate(to: .register)
+                        }
+                    )
                 }
                 .padding()
                 .padding(.bottom,24)
