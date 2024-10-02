@@ -91,7 +91,7 @@ class FirebaseManager: ObservableObject {
             // snapshotをデコードしてUserResponseに変換
             return try .success(snapshot.data(as: UserResponse.self))
             
-        } catch let decodeError as DecodingError {
+        } catch _ as DecodingError {
             return .failure(.userNotFound)
         } catch {
             return .failure(.unknown)
