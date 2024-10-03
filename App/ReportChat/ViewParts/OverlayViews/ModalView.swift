@@ -42,13 +42,14 @@ struct ModalView: View {
                 }
                 
                 VStack {
-                    CapsuleButton(text: "はい",
+                    CapsuleButton(
+                        style: .denger, text: "はい",
                                   onClicked: {
                         modalItem.onTapped?()
                         hideModel()
                     })
                     
-                    CapsuleButton(text: "いいえ",
+                    CapsuleButton(style: .primary, text: "いいえ",
                                   onClicked: {
                         hideModel()
                     })
