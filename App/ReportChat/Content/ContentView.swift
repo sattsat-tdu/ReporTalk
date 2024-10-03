@@ -33,7 +33,7 @@ struct ContentView: View {
                     Text("ローディング中...")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                TabView(selectedTab: $selectedTab)
+                CustomTabView(selectedTab: $selectedTab)
             }
         }
     }
