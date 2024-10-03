@@ -8,15 +8,7 @@
 
 import SwiftUI
 import FirebaseCore
-
-//Firebase初期化コード
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication,
-                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        FirebaseApp.configure()
-        return true
-    }
-}
+import FirebaseAuth
 
 enum RouteType: Equatable {
     case splash
@@ -27,26 +19,55 @@ enum RouteType: Equatable {
 @MainActor
 final class Router: ObservableObject {
     @Published var selectedRoute: RouteType = .splash
-
-    func switchRootView(to routeType: RouteType) {
-        selectedRoute = routeType
+    private var authListenerHandle: AuthStateDidChangeListenerHandle?
+    
+    init() {
+        self.startListeningAuthChange()
     }
 
+    func switchRootView(to routeType: RouteType) {
+        withAnimation(.easeInOut) {
+            self.selectedRoute = routeType
+        }
+    }
+    
+    func startListeningAuthChange() {
+        if authListenerHandle == nil {
+            authListenerHandle = FirebaseManager.shared.auth.addStateDidChangeListener { auth, user in
+                if let _ = user {
+                    print("ログインに成功しました(Router)")
+                    self.switchRootView(to: .tab)
+                } else {
+                    print("ログイントークンが切れています(Router)")
+                    self.switchRootView(to: .login)
+                }
+            }
+        }
+    }
+    
+    func stopListeningAuthChange() {
+        if let handle = authListenerHandle {
+            FirebaseManager.shared.auth.removeStateDidChangeListener(handle)
+            authListenerHandle = nil
+        }
+    }
 }
 
 
 @main
 struct ReportChatApp: App {
-    // 追加
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
-    @ObservedObject private var router = Router()
+    @StateObject private var router = Router()
+    
+    init() {
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
             switch router.selectedRoute {
             case .splash:
-                SplashView(viewModel: SplashViewModel(router: router))
+                SplashView()
             case .login:
                 WelcomeSwitchView()
                     .environmentObject(WelcomeViewModel(router: router))
