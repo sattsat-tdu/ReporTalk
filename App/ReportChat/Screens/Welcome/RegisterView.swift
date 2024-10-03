@@ -34,25 +34,6 @@ struct RegisterView: View {
                             .font(.title).bold()
                             .padding(.top)
                         
-                        Text("アイコン設定(任意)")
-                            .font(.callout)
-                            .fontWeight(.semibold)
-                            .foregroundColor(.secondary)
-                        
-                        HStack(spacing: 16){
-                            PhotoPickerView(selectedImageData: $viewModel.imageData)
-                            
-                            Text("アイコンタップで画像\((viewModel.imageData != nil) ? "変更" : "追加")")
-                                .font(.headline)
-                                .foregroundStyle(.secondary)
-                        }
-                        
-                        InputFormView(
-                            secureType: .normal,
-                            title: "名前",
-                            placeholder: "田中 太郎",
-                            text: $viewModel.userName)
-                        
                         InputFormView(
                             secureType: .normal,
                             title: "メールアドレス",
@@ -74,7 +55,6 @@ struct RegisterView: View {
                             onClicked: {
                                 viewModel.register()
                             })
-                        .disabled(viewModel.userName.isEmpty || viewModel.id.isEmpty || viewModel.password.isEmpty)
                         
                         HStack {
                             Capsule().frame(height: 1)
