@@ -75,7 +75,18 @@ struct ProfileDetailView: View {
                 .foregroundStyle(.red)
                 
                 Button("アカウントを削除する"){
-                    
+                    UIApplication.showModal(
+                        modalItem: ModalItem(
+                            type: .error,
+                            title: "アカウントを削除しますか？",
+                            description: "アカウントを削除すると、ルーム内メッセージの確認、メッセージの送信、友達との会話は見れなくなってしまいます。よろしいですか？",
+                            alignment: .bottom,
+                            isCancelable: true,
+                            onTapped: {
+                                viewModel.deleteUser()
+                            }
+                        )
+                    )
                 }
                 .foregroundStyle(.red)
             }
