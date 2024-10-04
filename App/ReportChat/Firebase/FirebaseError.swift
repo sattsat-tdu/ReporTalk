@@ -95,7 +95,7 @@ class FirebaseError {
     
     func getErrorMessage(_ error: Error) -> String {
         switch error {
-        case let authError as FirebaseAuthError:
+        case _ as FirebaseAuthError:
 //            handleAuthError(authError)
             return "はにゃ"
             

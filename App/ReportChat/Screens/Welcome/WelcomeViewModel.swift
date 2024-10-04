@@ -17,6 +17,8 @@ final class WelcomeViewModel: ObservableObject {
     @Published var password = ""
     @Published var userName = ""
     @Published var imageData: Data?
+    @Published var welcomeSettingsFlg = false
+    private var userId: String?
     private let router: Router
 
     init(router: Router) {
@@ -44,40 +46,43 @@ final class WelcomeViewModel: ObservableObject {
         }
     }
     
-    //新規登録
     func register() {
+        UIApplication.showLoading(message: "アカウントを作成中...")
+        self.router.stopListeningAuthChange() //認証状態を一時的に停止
         Task {
-            UIApplication.showLoading()
             let registerResult = await FirebaseManager.shared.register(id: self.id, password: self.password)
             switch registerResult {
             case .success(let response):
-                let uid = response.user.uid
-                do {
-                    // FireStoreにデータ追加
-                    let imageUrl = await self.uploadImage(uid: uid) // 画像アップロード
-                    let userData = UserResponse(
-                        userName: self.userName,
-                        email: self.id,
-                        friends: [],
-                        photoURL: imageUrl, // 画像のURLがある場合のみ追加
-                        rooms: []
-                    ).toDictionary()
-                    
-                    try await FirebaseManager.shared.fireStore.collection("users")
-                        .document(uid).setData(userData)
-                    
-                    UIApplication.hideLoading()
-                    UIApplication.showToast(type: .success, message: "登録が完了しました！")
-                } catch {
-                    // FireStoreの書き込みに失敗した場合のエラーハンドリング
-                    UIApplication.hideLoading()
-                    UIApplication.showToast(type: .error, message: "ユーザー情報の追加に失敗: \(error.localizedDescription)")
-                }
-                
+                self.userId = response.user.uid
+                UIApplication.hideLoading()
+                self.welcomeSettingsFlg.toggle()
             case .failure(let registerError):
                 UIApplication.hideLoading()
                 UIApplication.showToast(type: .error, message: registerError.localizedDescription)
             }
+        }
+    }
+    
+    func addUserToFirestore() {
+        UIApplication.showLoading()
+        Task {
+            guard let uid = self.userId else { print("addUserToFireStore(WelcomeViewModel)"); return }
+            let imageUrl = await self.uploadImage(uid: uid) // 画像アップロード
+            let userData = UserResponse(
+                userName: self.userName,
+                email: self.id,
+                friends: [],
+                photoURL: imageUrl, // 画像のURLがある場合のみ追加
+                rooms: []
+            ).toDictionary()
+            
+            
+            try await FirebaseManager.shared.fireStore.collection("users")
+                .document(uid).setData(userData)
+            
+            self.router.startListeningAuthChange() //認証状態の監視を再開
+            UIApplication.showToast(type: .success, message: "登録が完了しました！")
+            UIApplication.hideLoading()
         }
     }
     

@@ -47,11 +47,12 @@ struct LoginView: View {
                     
                     Spacer()
                     
-                    CapsuleButton(text: "ログイン",
-                                  onClicked: {
-                        viewModel.login()
+                    CapsuleButton(
+                        style: viewModel.id.isEmpty || viewModel.password.isEmpty ? .disable : .primary,
+                        text: "ログイン",
+                        onClicked: {
+                            viewModel.login()
                     })
-                    .disabled(viewModel.id.isEmpty || viewModel.password.isEmpty)
                     
                     HStack {
                         Capsule().frame(height: 1)
@@ -63,6 +64,7 @@ struct LoginView: View {
                     .foregroundStyle(.secondary)
                     
                     CapsuleButton(
+                        style: .primary, 
                         text: "新規登録",
                         onClicked: {
                             viewModel.navigate(to: .register)

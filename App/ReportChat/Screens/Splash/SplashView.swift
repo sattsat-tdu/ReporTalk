@@ -10,8 +10,6 @@ import SwiftUI
 
 struct SplashView: View {
     
-    @ObservedObject var viewModel: SplashViewModel
-    
     var body: some View {
         Text("REPORT CHAT")
             .font(.largeTitle.bold())
@@ -20,5 +18,5 @@ struct SplashView: View {
 }
 
 #Preview {
-    SplashView(viewModel: SplashViewModel(router: Router()))
+    SplashView()
 }

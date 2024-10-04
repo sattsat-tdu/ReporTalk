@@ -9,38 +9,68 @@
 import SwiftUI
 
 struct CapsuleButton: View {
+    
+    enum ButtonType {
+        case primary
+        case denger
+        case disable
+        case contrast
+        
+        var buttonBackColor: Color {
+            switch self {
+            case .primary:
+                return .buttonBack
+            case .denger:
+                return .red
+            case .disable:
+                return .secondary.opacity(0.5)
+            case .contrast:
+                return .buttonText
+            }
+        }
+    }
+    
+    let style: ButtonType
     let text: String
     let destination: AnyView? // オプションの NavigationLink 用ビュー
     let onClicked: (() -> Void)?
     
-    init(text: String, destination: AnyView? = nil, onClicked: (() -> Void)? = nil) {
+    init(style: ButtonType, text: String, destination: AnyView? = nil, onClicked: (() -> Void)? = nil) {
+        self.style = style
         self.text = text
         self.destination = destination
         self.onClicked = onClicked
     }
     
     var body: some View {
-        if let destination = destination {
-            NavigationLink(destination: destination) {
-                capsuleView
+        Group {
+            if let destination = destination {
+                NavigationLink(destination: destination) {
+                    capsuleView
+                }
+            } else {
+                Button(action: {
+                    onClicked?()
+                }, label: {
+                    capsuleView
+                })
             }
-        } else {
-            Button(action: {
-                onClicked?()
-            }, label: {
-                capsuleView
-            })
         }
+        .disabled(style == .disable)
     }
     
     private var capsuleView: some View {
         Text(text)
             .font(.headline)
-            .foregroundStyle(.buttonText)
+            .foregroundStyle(style == .contrast ? .buttonBack : .buttonText)
             .padding()
             .frame(maxWidth: .infinity)
-            .background(.buttonBack)
+            .background(style.buttonBackColor)
             .clipShape(Capsule())
+            .overlay(
+                Capsule()
+                    .stroke(style == .contrast ? .rounded : .clear, lineWidth: 2)
+            )
     }
 }
 
@@ -48,10 +78,10 @@ struct CapsuleButton: View {
     NavigationStack {
         VStack {
             // NavigationLinkとして動作するCapsuleButton
-            CapsuleButton(text: "ナビゲーションボタン", destination: AnyView(Text("Next View")))
+            CapsuleButton(style: .primary, text: "ナビゲーションボタン", destination: AnyView(Text("Next View")))
             
             // 通常のボタンとして動作するCapsuleButton（クリックでアクション）
-            CapsuleButton(text: "ボタン処理", onClicked: {
+            CapsuleButton(style: .denger, text: "ボタン処理", onClicked: {
                 print("Button clicked")
             })
         }

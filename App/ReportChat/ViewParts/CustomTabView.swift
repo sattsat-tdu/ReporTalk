@@ -43,7 +43,7 @@ enum TabList: CaseIterable {
     
 }
 
-struct TabView: View {
+struct CustomTabView: View {
     
     @Binding var selectedTab: TabList
     
@@ -83,5 +83,5 @@ struct TabView: View {
 }
 
 #Preview {
-    TabView(selectedTab: .constant(.home))
+    CustomTabView(selectedTab: .constant(.home))
 }
