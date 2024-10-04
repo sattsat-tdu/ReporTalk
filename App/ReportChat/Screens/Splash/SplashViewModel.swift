@@ -21,10 +21,10 @@ final class SplashViewModel: ObservableObject {
     func checkLoginStatus() {
         _ = FirebaseManager.shared.auth.addStateDidChangeListener { auth, user in
              if let _ = user {
-                 print("ログイン状態が保持されています")
+                 print("ログインに成功しました(SplashViewModel)")
                  self.router.selectedRoute = .tab
              } else {
-                 print("ログイントークンが切れています")
+                 print("ログイントークンが切れています(SplashViewModel)")
                  self.router.selectedRoute = .login
              }
          }

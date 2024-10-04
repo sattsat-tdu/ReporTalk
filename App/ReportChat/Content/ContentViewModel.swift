@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 @MainActor
 final class ContentViewModel: ObservableObject {
@@ -23,10 +24,33 @@ final class ContentViewModel: ObservableObject {
             return
         }
         Task {
-            let currentUserResponse = await FirebaseManager.shared.fetchUser(userId: uid)
-            if let user = currentUserResponse {
-                self.roomsViewModel = RoomsViewModel(user: user) 
+            let currentUserResult = await FirebaseManager.shared.fetchUser(userId: uid)
+            switch currentUserResult {
+            case .success(let user):
+                self.roomsViewModel = RoomsViewModel(user: user)
                 self.currentUser = user
+            case .failure(let userFetchError):
+                UIApplication.showModal(
+                    modalItem: ModalItem(
+                        type: .error,
+                        title: userFetchError.rawValue,
+                        description: userFetchError.errorDescription,
+                        alignment: .center,
+                        isCancelable: false,
+                        onTapped: {
+                            switch userFetchError {
+                            case .userNotFound:
+                                Task { //再ログインの促し
+                                    await FirebaseManager.shared.handleLogout()
+                                }
+                            case .unknown:
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                    self.fetchCurrentUser()  // 再試行
+                                }
+                            }
+                        }
+                    )
+                )
             }
         }
     }

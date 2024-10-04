@@ -72,6 +72,20 @@ enum FirebaseLoginError: Error, LocalizedError {
     }
 }
 
+enum UserFetchError: String, Error {
+    case userNotFound = "ユーザーが存在しません"
+    case unknown = "予期せぬエラー"
+    
+    var errorDescription: String {
+        switch self {
+        case .userNotFound:
+            "ユーザーが存在していません。\nお手数おかけしますが、\n再度ログインしてください。"
+        case .unknown:
+            "ユーザー取得時に予期せぬエラーが発生しました。"
+        }
+    }
+}
+
 class FirebaseError {
     static let shared = FirebaseError()
     

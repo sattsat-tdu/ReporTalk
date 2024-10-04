@@ -8,71 +8,56 @@
 
 import SwiftUI
 
-enum Style {
-    case id
-    case password
-    
-    var title: String {
-        switch self {
-        case .id:
-            return "メールアドレス"
-        case .password:
-            return "パスワード"
-        }
-    }
-    
-    var placeholder: String {
-        switch self {
-        case .id:
-            return "name@domain.com"
-        case .password:
-            return "パスワードを入力"
-        }
-    }
+enum SecureType {
+    case normal
+    case secure
 }
 
 struct InputFormView: View {
     
-    let style: Style
+    let secureType: SecureType
+    let title: String
+    let placeholder: String
     @Binding var text: String
     
     var body: some View {
         VStack(alignment: .leading) {
 
-            Text(style.title)
+            Text(self.title)
                 .font(.callout)
                 .fontWeight(.semibold)
                 .foregroundColor(.secondary)
             
-            if style == .password {
-                SecureField(style.placeholder, text: $text)
-                    .padding()
-                    .keyboardType(.alphabet)
-                    .textInputAutocapitalization(.none)
-                    .frame(height: 45)
-                    .background(.tab)
-                    .clipShape(.rect(cornerRadius: 8))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(.rounded, lineWidth: 2)
-                    )
-            } else {
-                TextField(style.placeholder, text: $text)
-                    .padding()
-                    .keyboardType(.alphabet)
-                    .textInputAutocapitalization(.never)
-                    .frame(height: 45)
-                    .background(.tab)
-                    .clipShape(.rect(cornerRadius: 8))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(.rounded, lineWidth: 2)
-                    )
+            Group {
+                if secureType == .secure {
+                    SecureField(self.placeholder, text: $text)
+                        .textInputAutocapitalization(.none)
+                } else {
+                    TextField(self.placeholder, text: $text)
+                        .textInputAutocapitalization(.never)
+                }
             }
+            .padding()
+            .keyboardType(.alphabet)
+            .frame(height: 45)
+            .background(.fieldBack)
+            .clipShape(.rect(cornerRadius: 8))
         }
     }
 }
 
 #Preview {
-    InputFormView(style: .id, text: .constant(""))
+    VStack {
+        InputFormView(
+            secureType: .normal, 
+            title: "メールアドレス",
+            placeholder: "name@domain.com",
+            text: .constant(""))
+        
+        InputFormView(
+            secureType: .secure, 
+            title: "パスワード",
+            placeholder: "パスワードを入力...",
+            text: .constant(""))
+    }
 }
