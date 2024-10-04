@@ -24,7 +24,8 @@ struct MessagesView: View {
                             ForEach(messages, id: \.id) { message in
                                 let isCurrentUser = viewModel.currentUser == message.senderId
                                 MessageCell(
-                                    message: message
+                                    message: message, 
+                                    isCurrentUser: isCurrentUser
                                 )
                                 .frame(maxWidth: .infinity, alignment: isCurrentUser ? .trailing : .leading)
                                 .id(message.id)
