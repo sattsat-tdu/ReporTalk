@@ -27,6 +27,7 @@
 		0091046E2CA6928200F1AA54 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0091046D2CA6928200F1AA54 /* ToastView.swift */; };
 		009104742CA6C47000F1AA54 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104732CA6C47000F1AA54 /* ModalView.swift */; };
 		009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104752CA6C57C00F1AA54 /* OverlayModel.swift */; };
+		0096C64A2CAD05E100C6FD42 /* WelcomeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096C6492CAD05E000C6FD42 /* WelcomeSettingsView.swift */; };
 		00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2F92CAAA923008841E6 /* WelcomeView.swift */; };
 		00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */; };
 		00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FD2CAAE541008841E6 /* RegisterView.swift */; };
@@ -41,7 +42,6 @@
 		00EB78742C980EA500BEEEAA /* RoomResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78732C980EA500BEEEAA /* RoomResponse.swift */; };
 		00EB78762C980EE500BEEEAA /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78752C980EE500BEEEAA /* UserResponse.swift */; };
 		00EB78792C9814B600BEEEAA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78782C9814B600BEEEAA /* SplashView.swift */; };
-		00EB787B2C98150000BEEEAA /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB787A2C98150000BEEEAA /* SplashViewModel.swift */; };
 		00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB787D2C981F6300BEEEAA /* MyPageView.swift */; };
 		00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78812C987BC100BEEEAA /* RoomsViewModel.swift */; };
 		00EB78842C994DE700BEEEAA /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78832C994DE700BEEEAA /* RoomCell.swift */; };
@@ -58,7 +58,7 @@
 		00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE112C80B63F00E0CB5C /* LoginView.swift */; };
 		00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE142C80B8D800E0CB5C /* InputFormView.swift */; };
 		00F7BE372C82216C00E0CB5C /* SwiftUIFontIcon in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE362C82216C00E0CB5C /* SwiftUIFontIcon */; };
-		00F7BE392C8222DF00E0CB5C /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE382C8222DF00E0CB5C /* TabView.swift */; };
+		00F7BE392C8222DF00E0CB5C /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE382C8222DF00E0CB5C /* CustomTabView.swift */; };
 		00F7BE3B2C832EDC00E0CB5C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */; };
 		00F7BE462C835AF600E0CB5C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE452C835AF600E0CB5C /* FirebaseAuth */; };
 		00F7BE482C835AF600E0CB5C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 00F7BE472C835AF600E0CB5C /* FirebaseFirestore */; };
@@ -91,6 +91,7 @@
 		0091046D2CA6928200F1AA54 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		009104732CA6C47000F1AA54 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		009104752CA6C57C00F1AA54 /* OverlayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayModel.swift; sourceTree = "<group>"; };
+		0096C6492CAD05E000C6FD42 /* WelcomeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSettingsView.swift; sourceTree = "<group>"; };
 		00D6F2F92CAAA923008841E6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		00D6F2FD2CAAE541008841E6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		00EB78732C980EA500BEEEAA /* RoomResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomResponse.swift; sourceTree = "<group>"; };
 		00EB78752C980EE500BEEEAA /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
 		00EB78782C9814B600BEEEAA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		00EB787A2C98150000BEEEAA /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		00EB787D2C981F6300BEEEAA /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		00EB78812C987BC100BEEEAA /* RoomsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsViewModel.swift; sourceTree = "<group>"; };
 		00EB78832C994DE700BEEEAA /* RoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		00EB78BA2C9D694600BEEEAA /* ResignKeyboardOnDragGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignKeyboardOnDragGesture.swift; sourceTree = "<group>"; };
 		00F7BE112C80B63F00E0CB5C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		00F7BE142C80B8D800E0CB5C /* InputFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFormView.swift; sourceTree = "<group>"; };
-		00F7BE382C8222DF00E0CB5C /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		00F7BE382C8222DF00E0CB5C /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		00F7BE4C2C835B9200E0CB5C /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		00F7BE532C8392E200E0CB5C /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
@@ -225,6 +225,7 @@
 				00D6F2F92CAAA923008841E6 /* WelcomeView.swift */,
 				00F7BE112C80B63F00E0CB5C /* LoginView.swift */,
 				00D6F2FD2CAAE541008841E6 /* RegisterView.swift */,
+				0096C6492CAD05E000C6FD42 /* WelcomeSettingsView.swift */,
 				00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */,
 			);
 			path = Welcome;
@@ -276,7 +277,6 @@
 			isa = PBXGroup;
 			children = (
 				00EB78782C9814B600BEEEAA /* SplashView.swift */,
-				00EB787A2C98150000BEEEAA /* SplashViewModel.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -336,7 +336,7 @@
 				009104292CA3127200F1AA54 /* SettingCells */,
 				00EB78872C9AAEB200BEEEAA /* Room */,
 				00F7BE142C80B8D800E0CB5C /* InputFormView.swift */,
-				00F7BE382C8222DF00E0CB5C /* TabView.swift */,
+				00F7BE382C8222DF00E0CB5C /* CustomTabView.swift */,
 				00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */,
 				00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */,
 				00EB78962C9BE58200BEEEAA /* MessageCell.swift */,
@@ -465,13 +465,12 @@
 				009104392CA3D9B300F1AA54 /* SettingsResource.swift in Sources */,
 				00D6F3042CAAFCC6008841E6 /* BackButtonView.swift in Sources */,
 				00EB78792C9814B600BEEEAA /* SplashView.swift in Sources */,
-				00EB787B2C98150000BEEEAA /* SplashViewModel.swift in Sources */,
 				00EB786E2C980AD100BEEEAA /* HomeView.swift in Sources */,
 				00EB78902C9B29DE00BEEEAA /* MessageResponse.swift in Sources */,
 				00EB788B2C9ABBD600BEEEAA /* IconImageView.swift in Sources */,
 				00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */,
 				00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */,
-				00F7BE392C8222DF00E0CB5C /* TabView.swift in Sources */,
+				00F7BE392C8222DF00E0CB5C /* CustomTabView.swift in Sources */,
 				009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */,
 				0091046C2CA67FD300F1AA54 /* UIApplication+Extension.swift in Sources */,
 				00EB788E2C9B254E00BEEEAA /* MessagesView.swift in Sources */,
@@ -483,6 +482,7 @@
 				00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */,
 				00FA5C1F2CA2BD0300301A1B /* CustomNavCell.swift in Sources */,
 				00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */,
+				0096C64A2CAD05E100C6FD42 /* WelcomeSettingsView.swift in Sources */,
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
 				009104742CA6C47000F1AA54 /* ModalView.swift in Sources */,
 				00EB78932C9B327400BEEEAA /* ContentViewModel.swift in Sources */,
