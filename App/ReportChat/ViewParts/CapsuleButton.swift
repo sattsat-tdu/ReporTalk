@@ -14,15 +14,18 @@ struct CapsuleButton: View {
         case primary
         case denger
         case disable
+        case contrast
         
-        var buttonColor: Color {
+        var buttonBackColor: Color {
             switch self {
             case .primary:
                 return .buttonBack
             case .denger:
                 return .red
             case .disable:
-                return .secondary
+                return .secondary.opacity(0.5)
+            case .contrast:
+                return .buttonText
             }
         }
     }
@@ -59,11 +62,15 @@ struct CapsuleButton: View {
     private var capsuleView: some View {
         Text(text)
             .font(.headline)
-            .foregroundStyle(.buttonText)
+            .foregroundStyle(style == .contrast ? .buttonBack : .buttonText)
             .padding()
             .frame(maxWidth: .infinity)
-            .background(style.buttonColor)
+            .background(style.buttonBackColor)
             .clipShape(Capsule())
+            .overlay(
+                Capsule()
+                    .stroke(style == .contrast ? .rounded : .clear, lineWidth: 2)
+            )
     }
 }
 
