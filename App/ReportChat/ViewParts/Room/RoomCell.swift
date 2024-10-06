@@ -1,9 +1,9 @@
 //
 //  RoomsCell.swift
 //  ReportChat
-//  
+//
 //  Created by SATTSAT on 2024/09/17
-//  
+//
 //
 
 import SwiftUI
@@ -14,18 +14,37 @@ struct RoomCell: View {
     
     var body: some View {
         HStack(spacing: 16) {
-            if let imageUrlString = viewModel.roomIconUrlString {
-                IconImageView(
-                    urlString: imageUrlString,
-                    size: 48
-                )
-                .clipShape(Circle())
-            } else {
-                Image("ninjinIMG")
-                    .resizable()
-                    .frame(width: 48, height: 48)
-                    .clipShape(Circle())
+            //            if let imageUrlString = viewModel.roomIconUrlString {
+            //                IconImageView(
+            //                    urlString: imageUrlString,
+            //                    size: 48
+            //                )
+            //                .clipShape(Circle())
+            //            } else {
+            //                Image("ninjinIMG")
+            //                    .resizable()
+            //                    .frame(width: 48, height: 48)
+            //                    .clipShape(Circle())
+            //            }
+            Group {
+                if let icon = viewModel.roomIcon {
+                    Rectangle().aspectRatio(1, contentMode: .fill)
+                        .overlay {
+                            Image(uiImage: icon)
+                                .resizable()
+                                .scaledToFill()
+                        }
+                        .clipped()
+                        .frame(width: 48, height: 48)
+                }
+                else {
+                    Image("ninjinIMG")
+                        .resizable()
+                        .frame(width: 48, height: 48)
+                }
             }
+            .clipShape(Circle())
+            
             
             Text(viewModel.roomName)
                 .font(.subheadline)
