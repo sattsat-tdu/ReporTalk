@@ -74,7 +74,7 @@ struct MessagesView: View {
             .background(.tab)
         }
         .navigationTitle(viewModel.roomName)
-        .background(.tab)
+        .background(.roomBack)
     }
 }
 

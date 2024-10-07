@@ -12,14 +12,20 @@ struct MessageCell: View {
     
     let message: MessageResponse
     let isCurrentUser: Bool
+    let cornerRadius:CGFloat = 8
     
     var body: some View {
         VStack(alignment: isCurrentUser ? .trailing : .leading) {
             Text(message.text)
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
                 .padding()
-                .background(.blue)
-                .clipShape(.rect(cornerRadius: 8))
+                .background(isCurrentUser ? .sendMessage : .receivedMessage)
+                .clipShape(.rect(
+                    topLeadingRadius: cornerRadius,
+                    bottomLeadingRadius: isCurrentUser ? cornerRadius : 0,
+                    bottomTrailingRadius: isCurrentUser ? 0 : cornerRadius,
+                    topTrailingRadius: cornerRadius
+                ))
             
             Text(message.timestamp.toString())
                 .font(.caption2)

@@ -21,20 +21,20 @@ struct CustomAlertView: View {
     var body: some View {
         VStack(spacing: 16) {
             Text(title)
-                .foregroundStyle(.title)
+                .foregroundStyle(.primary)
                 .font(.title.bold())
             
             Text(message)
-                .foregroundStyle(.title)
+                .foregroundStyle(.primary)
             
             Button(action: {
                 action?()
             }, label: {
                 Text("閉じる")
-                    .foregroundStyle(.title)
+                    .foregroundStyle(.primary)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(.thema)
+                    .background(.buttonBack)
                     .clipShape(Capsule())
                     .padding(.top)
             })
