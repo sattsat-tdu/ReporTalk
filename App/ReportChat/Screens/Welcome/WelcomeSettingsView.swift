@@ -11,6 +11,7 @@ import SwiftUI
 struct WelcomeSettingsView: View {
     
     private enum WelcomeStep: Int, CaseIterable {
+        case userIdSetting
         case userNameSetting
         case iconSetting
         case addFriends
@@ -34,6 +35,8 @@ struct WelcomeSettingsView: View {
         
         var title: String {
             switch self {
+            case .userIdSetting:
+                return "ユーザーIDを設定しましょう！"
             case .userNameSetting:
                 return "ニックネームを教えてください！"
             case .iconSetting:
@@ -47,6 +50,8 @@ struct WelcomeSettingsView: View {
         
         var description: String {
             switch self {
+            case .userIdSetting:
+                return "ユーザー検索・追加に使用します。\n（いつでも変更可能です）"
             case .userNameSetting:
                 return "ここで設定した名前は公開されます。"
             case .iconSetting:
@@ -60,7 +65,7 @@ struct WelcomeSettingsView: View {
     }
     let totalSteps = Double(WelcomeStep.allCases.count - 1)
     @EnvironmentObject var viewModel: WelcomeViewModel
-    @State private var welcomeStep: WelcomeStep = .userNameSetting
+    @State private var welcomeStep: WelcomeStep = .userIdSetting
     var body: some View {
         VStack(spacing : 16) {
             ProgressView(value: Double(self.welcomeStep.rawValue), total: totalSteps)
@@ -68,14 +73,18 @@ struct WelcomeSettingsView: View {
             
             Text(welcomeStep.title)
                 .font(.largeTitle.bold())
+                .multilineTextAlignment(.center)
             
             Text(welcomeStep.description)
                 .font(.callout)
                 .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
             
             Spacer()
             
             TabView(selection: $welcomeStep) {
+                userIdSettingView
+                    .tag(WelcomeStep.userIdSetting)
                 userNameSettingView
                     .tag(WelcomeStep.userNameSetting)
                 iconSettingView
@@ -95,18 +104,33 @@ struct WelcomeSettingsView: View {
                     }
                 })
                 
-                if welcomeStep == .finishSetting {
-                    CapsuleButton(style: .primary, text: "始める",onClicked: {
-                        viewModel.addUserToFirestore()
-                        viewModel.welcomeSettingsFlg.toggle()
-                    })
-                } else {
-                    CapsuleButton(style: viewModel.userName.isEmpty ? .disable : .primary, text: "次へ",onClicked: {
+                let buttonProperties: (style: CapsuleButton.ButtonType, text: String) = {
+                    switch welcomeStep {
+                    case .userIdSetting:
+                        return (viewModel.handle.isEmpty ? .disable : .primary, "次へ")
+                    case .userNameSetting:
+                        return (viewModel.userName.isEmpty ? .disable : .primary, "次へ")
+                    case .iconSetting:
+                        return (.primary, "次へ（スキップ可能）")
+                    case .addFriends:
+                        return (.primary, "次へ（スキップ可能）")
+                    case .finishSetting:
+                        return (.primary, "始める")
+                    }
+                }()
+
+                CapsuleButton(
+                    style: buttonProperties.style,
+                    text: buttonProperties.text,
+                    onClicked: {
                         if let nextStep = welcomeStep.nextStep {
                             self.welcomeStep = nextStep
+                        } else {
+                            viewModel.addUserToFirestore()
+                            viewModel.welcomeSettingsFlg.toggle()
                         }
-                    })
-                }
+                    }
+                )
             }
             
 
@@ -114,6 +138,23 @@ struct WelcomeSettingsView: View {
         .animation(.easeInOut, value: welcomeStep)
         .padding()
         .background(.tab)
+    }
+    
+    private var userIdSettingView: some View {
+        InputFormView(
+            secureType: .normal,
+            title:
+"""
+ユーザーID
+- 6~20文字
+- 英字（a~z）および数字（0~9）のみ
+- 特殊文字は(_)と(.)のみ使用可能
+""",
+            placeholder: "user1234",
+            text: $viewModel.handle
+        )
+        .keyboardType(.alphabet)
+        .padding(.bottom)
     }
     
     private var userNameSettingView: some View {

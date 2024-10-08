@@ -13,6 +13,7 @@ import SwiftUI
 final class WelcomeViewModel: ObservableObject {
     
     @Published var welcomeRouter: WelcomeRouter = .welcome
+    @Published var handle = ""
     @Published var id = ""
     @Published var password = ""
     @Published var userName = ""
