@@ -70,6 +70,7 @@ final class WelcomeViewModel: ObservableObject {
             guard let uid = self.userId else { print("addUserToFireStore(WelcomeViewModel)"); return }
             let imageUrl = await self.uploadImage(uid: uid) // 画像アップロード
             let userData = UserResponse(
+                handle: self.handle,
                 userName: self.userName,
                 email: self.id,
                 friends: [],

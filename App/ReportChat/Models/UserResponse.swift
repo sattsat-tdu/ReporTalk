@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 struct UserResponse: Decodable {
     @DocumentID var id: String?
+    let handle: String
     let userName: String
     let email: String
     let friends: [String]
@@ -20,6 +21,7 @@ struct UserResponse: Decodable {
     //Firebaseのフィールド名と一致させる
     enum CodingKeys: String, CodingKey {
         case id
+        case handle
         case userName = "displayName"
         case email
         case friends
@@ -30,6 +32,7 @@ struct UserResponse: Decodable {
     // Firebaseに書き込むための辞書変換
     func toDictionary() -> [String: Any] {
         var dict: [String: Any] = [
+            "handle": handle,
             "displayName": userName,
             "email": email,
             "friends": friends,
