@@ -17,7 +17,7 @@ class FirebaseManager: ObservableObject {
     let auth: Auth
     let storage: Storage
     let fireStore: Firestore
-    var currentUser: String? {
+    var currentUserId: String? {
         return auth.currentUser?.uid
     }
     

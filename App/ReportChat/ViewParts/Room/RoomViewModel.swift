@@ -18,7 +18,7 @@ final class RoomViewModel: ObservableObject {
     @Published var lastMessageId: String? = nil
     @Published var messageText = ""
     private let room: RoomResponse
-    let currentUser = FirebaseManager.shared.currentUser
+    let currentUser = FirebaseManager.shared.currentUserId
     private var listener: ListenerRegistration?  // メッセージのリスナー
     
     init(room: RoomResponse) {
@@ -54,7 +54,7 @@ final class RoomViewModel: ObservableObject {
     // 2人の時に、相手のUser情報を取得
     func fetchPartner() async -> UserResponse? {
         if room.members.count == 2 {
-            guard let currentUser = FirebaseManager.shared.currentUser else { return nil }
+            guard let currentUser = FirebaseManager.shared.currentUserId else { return nil }
             guard let partnerID = room.members.first(where: { $0 != currentUser }) else { return nil }
             let partnerUserResult = await FirebaseManager.shared.fetchUser(userId: partnerID)
             switch partnerUserResult {
