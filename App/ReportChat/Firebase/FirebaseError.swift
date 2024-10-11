@@ -73,37 +73,21 @@ enum FirebaseLoginError: Error, LocalizedError {
 }
 
 enum UserFetchError: String, Error {
+    case authDataNotFound = "認証データが見つかりません"
     case userNotFound = "ユーザー情報がありません"
+    case networkError = "ネットワークに接続できません。"
     case unknown = "予期せぬエラー"
     
     var errorDescription: String {
         switch self {
+        case .authDataNotFound:
+            "ユーザー認証に失敗しました。\n再度ログインしてください。"
         case .userNotFound:
             "ユーザー情報の登録ができていないようです。\nプロフィールの入力をお願いいたします。"
+        case .networkError:
+            "接続を確認してください。\nやり直すには「はい」をタップしてください。"
         case .unknown:
             "ユーザー取得時に予期せぬエラーが発生しました。"
-        }
-    }
-}
-
-class FirebaseError {
-    static let shared = FirebaseError()
-    
-    func handle(_ error: Error) {
-
-    }
-    
-    func getErrorMessage(_ error: Error) -> String {
-        switch error {
-        case _ as FirebaseAuthError:
-//            handleAuthError(authError)
-            return "はにゃ"
-            
-        case let loginError as FirebaseLoginError:
-            return loginError.errorDescription
-            
-        default:
-            return "不明なエラーが発生しました: \(error.localizedDescription)"
         }
     }
 }
@@ -117,4 +101,33 @@ enum HandleNameError: String, Error {
     case onlyNumber = "数字のみの登録はできません"
     case containsUppercase = "大文字が含まれています。"
     case serverError = "サーバーエラーが発生しています。"
+}
+
+class FirebaseError {
+    static let shared = FirebaseError()
+    
+    
+    // エラーメッセージを取得するメソッド
+    func getErrorMessage(_ error: Error) -> String {
+        switch error {
+        case let authError as FirebaseAuthError:
+            return authError.errorMessage
+            
+        case let loginError as FirebaseLoginError:
+            return loginError.errorDescription
+            
+        case let userFetchError as UserFetchError:
+            return userFetchError.rawValue
+            
+        case let handleNameError as HandleNameError:
+            return handleNameError.rawValue
+            
+        default:
+            return "不明なエラーが発生しました: \(error.localizedDescription)"
+        }
+    }
+    
+    func showErrorToast(_ error: Error) {
+        UIApplication.showToast(type: .error, message: getErrorMessage(error))
+    }
 }
