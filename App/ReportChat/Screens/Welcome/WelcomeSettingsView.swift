@@ -63,6 +63,7 @@ struct WelcomeSettingsView: View {
             }
         }
     }
+
     let totalSteps = Double(WelcomeStep.allCases.count - 1)
     @EnvironmentObject var viewModel: WelcomeViewModel
     @State private var welcomeStep: WelcomeStep = .userIdSetting
@@ -107,7 +108,7 @@ struct WelcomeSettingsView: View {
                 let buttonProperties: (style: CapsuleButton.ButtonType, text: String) = {
                     switch welcomeStep {
                     case .userIdSetting:
-                        return (viewModel.handle.isEmpty ? .disable : .primary, "次へ")
+                        return (viewModel.handleState == .success ? .primary : .disable, "次へ")
                     case .userNameSetting:
                         return (viewModel.userName.isEmpty ? .disable : .primary, "次へ")
                     case .iconSetting:
@@ -127,7 +128,6 @@ struct WelcomeSettingsView: View {
                             self.welcomeStep = nextStep
                         } else {
                             viewModel.addUserToFirestore()
-                            viewModel.welcomeSettingsFlg.toggle()
                         }
                     }
                 )
@@ -141,20 +141,31 @@ struct WelcomeSettingsView: View {
     }
     
     private var userIdSettingView: some View {
-        InputFormView(
-            secureType: .normal,
-            title:
-"""
-ユーザーID
-- 6~20文字
-- 英字（a~z）および数字（0~9）のみ
-- 特殊文字は(_)と(.)のみ使用可能
-""",
-            placeholder: "user1234",
-            text: $viewModel.handle
-        )
-        .keyboardType(.alphabet)
-        .padding(.bottom)
+        VStack(alignment: .leading) {
+            InputFormView(
+                secureType: .normal,
+                title:
+                    """
+                    - 6~20文字
+                    - 英字（a~z）および数字（0~9）のみ
+                    - 特殊文字は(_)と(.)のみ使用可能
+                    ※ 数字のみの登録はできません。
+                    """,
+                placeholder: "user1234",
+                text: $viewModel.handle
+            )
+            .keyboardType(.alphabet)
+            
+            HStack {
+                viewModel.handleState.icon
+                
+                Text(viewModel.handleErrorMessage)
+            }
+            .hidden(viewModel.handle.isEmpty)
+            .foregroundStyle(viewModel.handleState.color)
+            
+            Spacer()
+        }
     }
     
     private var userNameSettingView: some View {

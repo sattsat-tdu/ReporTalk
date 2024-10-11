@@ -8,22 +8,60 @@
 
 import Foundation
 import SwiftUI
+import Combine
+import SwiftUIFontIcon
 
 @MainActor
 final class WelcomeViewModel: ObservableObject {
     
+    enum HandleState {
+        case loading
+        case success
+        case error
+        
+        var icon: Text {
+            switch self {
+            case .loading:
+                FontIcon.text(.materialIcon(code: .data_usage))
+            case .success:
+                FontIcon.text(.materialIcon(code: .check_circle))
+            case .error:
+                FontIcon.text(.materialIcon(code: .error))
+            }
+        }
+        
+        var color: Color {
+            switch self {
+            case .loading:
+                return .secondary
+            case .success:
+                return .green
+            case .error:
+                return .red
+            }
+        }
+    }
     @Published var welcomeRouter: WelcomeRouter = .welcome
     @Published var handle = ""
+    @Published var handleState: HandleState = .loading
+    @Published var handleErrorMessage = ""
     @Published var id = ""
     @Published var password = ""
     @Published var userName = ""
     @Published var imageData: Data?
-    @Published var welcomeSettingsFlg = false
     private var userId: String?
     private let router: Router
+    private var handleNameObserver: AnyCancellable?
+    @Published var isValidHandle = false
 
     init(router: Router) {
         self.router = router
+        
+        //ハンドルネームの監視
+        handleNameObserver = $handle
+            .debounce(for: .milliseconds(100), scheduler: RunLoop.main)
+            .removeDuplicates() // 重複する入力値は無視
+            .sink(receiveValue: validateHandleName)
     }
     
     func navigate(to newRoute: WelcomeRouter) {
@@ -49,14 +87,12 @@ final class WelcomeViewModel: ObservableObject {
     
     func register() {
         UIApplication.showLoading(message: "アカウントを作成中...")
-        self.router.stopListeningAuthChange() //認証状態を一時的に停止
         Task {
             let registerResult = await FirebaseManager.shared.register(id: self.id, password: self.password)
             switch registerResult {
             case .success(let response):
                 self.userId = response.user.uid
                 UIApplication.hideLoading()
-                self.welcomeSettingsFlg.toggle()
             case .failure(let registerError):
                 UIApplication.hideLoading()
                 UIApplication.showToast(type: .error, message: registerError.localizedDescription)
@@ -147,24 +183,35 @@ final class WelcomeViewModel: ObservableObject {
     func addUserToFirestore() {
         UIApplication.showLoading()
         Task {
-            guard let uid = self.userId else { print("addUserToFireStore(WelcomeViewModel)"); return }
-            let imageUrl = await self.uploadImage(uid: uid) // 画像アップロード
+            guard let authUser = FirebaseManager.shared.auth.currentUser else {
+                print("Error:addUserToFireStore(WelcomeViewModel)")
+                return
+            }
+            let imageUrl = await self.uploadImage(uid: authUser.uid) // 画像アップロード
             let userData = UserResponse(
                 handle: self.handle,
                 userName: self.userName,
-                email: self.id,
+                email: authUser.email ?? "ErrorEmail",
                 friends: [],
                 photoURL: imageUrl, // 画像のURLがある場合のみ追加
                 rooms: []
             ).toDictionary()
             
-            
-            try await FirebaseManager.shared.fireStore.collection("users")
-                .document(uid).setData(userData)
-            
-            self.router.startListeningAuthChange() //認証状態の監視を再開
-            UIApplication.showToast(type: .success, message: "登録が完了しました！")
-            UIApplication.hideLoading()
+            do {
+                try await FirebaseManager.shared.fireStore.collection("users")
+                    .document(authUser.uid).setData(userData)
+                
+                DispatchQueue.main.async {
+                    UIApplication.showToast(type: .success, message: "登録が完了しました！")
+                    UIApplication.hideLoading()
+                    self.router.switchRootView(to: .tab) // UI更新はメインスレッドで実行
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    UIApplication.showToast(type: .error, message: "ユーザー情報の保存に失敗しました。")
+                    UIApplication.hideLoading()
+                }
+            }
         }
     }
     

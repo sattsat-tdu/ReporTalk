@@ -11,46 +11,22 @@ import UIKit
 
 @MainActor
 final class ContentViewModel: ObservableObject {
-    @Published var currentUser: UserResponse?
+    @Published var currentUser: UserResponse? = nil
     @Published var roomsViewModel: RoomsViewModel?  // RoomsViewModelを保持
-    
+
     init() {
-        self.fetchCurrentUser()
+        self.onAppear()
     }
     
-    func fetchCurrentUser() {
-        guard let uid = FirebaseManager.shared.currentUser else {
-            print("エラーです。。。。")
-            return
-        }
+    func onAppear() {
         Task {
-            let currentUserResult = await FirebaseManager.shared.fetchUser(userId: uid)
-            switch currentUserResult {
-            case .success(let user):
-                self.roomsViewModel = RoomsViewModel(user: user)
-                self.currentUser = user
-            case .failure(let userFetchError):
-                UIApplication.showModal(
-                    modalItem: ModalItem(
-                        type: .error,
-                        title: userFetchError.rawValue,
-                        description: userFetchError.errorDescription,
-                        alignment: .center,
-                        isCancelable: false,
-                        onTapped: {
-                            switch userFetchError {
-                            case .userNotFound:
-                                Task { //再ログインの促し
-                                    await FirebaseManager.shared.handleLogout()
-                                }
-                            case .unknown:
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                    self.fetchCurrentUser()  // 再試行
-                                }
-                            }
-                        }
-                    )
-                )
+            let userResult = await UserManager.shared.fetchCurrentUser()
+            switch userResult {
+            case .success(let currentUser):
+                self.roomsViewModel = RoomsViewModel(user: currentUser)
+                self.currentUser = currentUser
+            case .failure(let error):
+                FirebaseError.shared.showErrorToast(error)
             }
         }
     }

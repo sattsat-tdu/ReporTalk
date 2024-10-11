@@ -33,9 +33,6 @@ struct WelcomeSwitchView: View {
             }
         }
         .animation(.easeInOut, value: viewModel.welcomeRouter)
-        .fullScreenCover(isPresented: $viewModel.welcomeSettingsFlg) {
-            WelcomeSettingsView()
-        }
     }
 }
 

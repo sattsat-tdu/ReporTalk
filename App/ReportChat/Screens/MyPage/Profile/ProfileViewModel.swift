@@ -33,15 +33,24 @@ final class ProfileViewModel: ObservableObject {
         let userId = currentUser.uid
         
         Task {
-            //FireStoreの"users"からアカウント削除
-            await FirebaseManager.shared.deleteUserData(userId: userId)
             
-            //設定していたアイコンを削除
-            await FirebaseManager.shared.deleteUserImage(userId: userId)
+            let isConnected = await FirebaseManager.shared.checkNetworkConnection()
             
-            //最後にUser認証情報を削除
-            await FirebaseManager.shared.deleteAuthUser(deleteUser: currentUser)
-            
+            if isConnected {
+                //FireStoreの"users"からアカウント削除
+                await FirebaseManager.shared.deleteUserData(userId: userId)
+                
+                //設定していたアイコンを削除
+                await FirebaseManager.shared.deleteUserImage(userId: userId)
+                
+                //最後にUser認証情報を削除
+                await FirebaseManager.shared.deleteAuthUser(deleteUser: currentUser)
+                
+            } else {
+                print("ネットワークに接続されていません。")
+                UIApplication.showToast(type: .error, message: "インターネット接続できません。")
+                // 接続されていない場合の処理
+            }
             UIApplication.hideLoading()
         }
     }
