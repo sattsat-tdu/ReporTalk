@@ -78,6 +78,28 @@ class FirebaseManager: ObservableObject {
         }
     }
     
+    //ハンドルネームがすでに存在するか確認
+    func checkHandleNameAvailibility(handleName: String) async -> Result<Void, HandleNameError> {
+        do {
+            // FirestoreのusersコレクションでhandleNameが既に使われているか確認
+            let snapshot = try await fireStore.collection("users")
+                .whereField("handle", isEqualTo: handleName)
+                .getDocuments()
+            
+            // ドキュメントが存在する場合（ハンドルネームが既に使われている）
+            if !snapshot.isEmpty {
+                return .failure(.alreadyInUse)
+            } else {
+                // ドキュメントが存在しない場合（ハンドルネームが利用可能）
+                return .success(())
+            }
+        } catch {
+            // Firebaseのクエリ中にエラーが発生した場合
+            print("ハンドルネーム認証でサーバーエラーが発生: \(error.localizedDescription)")
+            return .failure(.serverError)
+        }
+    }
+
     func deleteAuthUser(deleteUser: FirebaseAuth.User) async {
         do {
             try await deleteUser.delete()

@@ -64,6 +64,86 @@ final class WelcomeViewModel: ObservableObject {
         }
     }
     
+    //ハンドルネームが使用可能か判定
+    func validateHandleName(for handleName: String){
+        
+        self.handleState = .loading
+        self.handleErrorMessage = ""
+        
+        if handleName.isEmpty {
+            return
+        }
+        
+        // 1. 文頭または文末に (_) または (.) がないか判定
+        if let firstChar = handleName.first, let lastChar = handleName.last {
+            // 文頭または文末が (_) または (.) ならエラーを返す
+            if firstChar == "_" || firstChar == "." || lastChar == "_" || lastChar == "." {
+                setError(.invalidBoundaryCharacter)
+                return
+            }
+        }
+        
+        // 追加: ハンドルネーム全体が (_) または (.) だけで構成されていないかをチェック
+        let allDotsOrUnderscoresRegex = "^[_.]+$"
+        if NSPredicate(format: "SELF MATCHES %@", allDotsOrUnderscoresRegex).evaluate(with: handleName) {
+            setError(.invalidBoundaryCharacter)
+            return
+        }
+        // 2. 大文字判定
+        let uppercaseRegex = ".*[A-Z]+.*"  // 文字列中に大文字が含まれているかをチェック
+        if NSPredicate(format: "SELF MATCHES %@", uppercaseRegex).evaluate(with: handleName) {
+            setError(.containsUppercase)
+            return
+        }
+        
+        // 3. 数字のみの登録
+        let numberRegex = "^[0-9]+$"  // 完全に数字のみかどうかをチェック
+        if NSPredicate(format: "SELF MATCHES %@", numberRegex).evaluate(with: handleName) {
+            setError(.onlyNumber)
+            return
+        }
+        
+        // 4. 禁止文字の判定
+        let regexPattern = "^[a-z0-9_.]+$"
+        let regex = NSPredicate(format: "SELF MATCHES %@", regexPattern)
+        if !regex.evaluate(with: handleName) {
+            setError(.invalidFormat)
+            return
+        }
+        
+        // 5. 長さ制限チェック - 短すぎないか
+        if handleName.count < 6 {
+            setError(.tooShort)
+            return
+        }
+        
+        // 6. 長さ制限チェック - 長すぎないか
+        if handleName.count > 20 {
+            setError(.tooLong)
+            return
+        }
+        
+        // 7. 被りがないかチェック
+        Task {
+            let checkResult = await FirebaseManager.shared.checkHandleNameAvailibility(handleName: handleName)
+            DispatchQueue.main.async {
+                switch checkResult {
+                case .success:
+                    self.handleState = .success
+                    self.handleErrorMessage = "唯一無二のユーザーIDです！"
+                case .failure(let error):
+                    self.setError(error)
+                }
+            }
+        }
+    }
+    
+    // エラーメッセージを設定するメソッド
+    private func setError(_ error: HandleNameError) {
+        self.handleState = .error
+        self.handleErrorMessage = error.rawValue
+    }
+    
     func addUserToFirestore() {
         UIApplication.showLoading()
         Task {
