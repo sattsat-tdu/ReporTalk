@@ -36,15 +36,20 @@ class UserManager: ObservableObject {
             print("キャッシュからユーザー情報を取得しました")
             return .success(cachedUser)
         }
-        
+
         // 進行中のリクエストがあればそのタスクを待機する
         if let currentFetchTask = currentFetchTask {
             print("リクエストが進行中のため、その結果を待っています")
             return await currentFetchTask.value
         }
-        
+
         // 新しいリクエストを開始
         let fetchTask = Task { () -> Result<UserResponse, UserFetchError> in
+            defer {
+                // タスク完了後に必ずタスク変数をクリア
+                self.currentFetchTask = nil
+            }
+            
             do {
                 guard let uid = self.auth.currentUser?.uid else {
                     return .failure(.authDataNotFound)
@@ -53,25 +58,19 @@ class UserManager: ObservableObject {
                     .collection("users")
                     .document(uid)
                     .getDocument()
-                
-                // IDが存在しない場合のチェック
+
                 guard snapshot.exists else {
                     print("ユーザーIDがFirestoreに存在しません")
                     return .failure(.userNotFound)
                 }
-                
+
                 print("ログインユーザー情報の取得に成功しました")
                 let userResponse = try snapshot.data(as: UserResponse.self)
                 // キャッシュに保存
                 self.userCache = userResponse
-                
-                // 進行中のタスクをクリア
-                self.currentFetchTask = nil
-                
+
                 return .success(userResponse)
             } catch let error as NSError {
-                // エラーハンドリング
-                self.currentFetchTask = nil
                 if error.domain == NSURLErrorDomain {
                     print("ネットワークに接続できません: \(error.localizedDescription)")
                     return .failure(.networkError)
@@ -81,10 +80,10 @@ class UserManager: ObservableObject {
                 }
             }
         }
-        
+
         // 現在進行中のリクエストとして保存
         currentFetchTask = fetchTask
-        
+
         // リクエストの結果を返す
         return await fetchTask.value
     }

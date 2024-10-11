@@ -38,7 +38,7 @@ struct MyPageView: View {
                                 Text(user.userName)
                                     .font(.headline)
                                 
-                                Text(user.email)
+                                Text("@\(user.handle)")
                                     .font(.callout)
                             }
                         }
