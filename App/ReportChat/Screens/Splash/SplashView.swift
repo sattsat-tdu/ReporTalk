@@ -11,7 +11,8 @@ import SwiftUI
 struct SplashView: View {
     
     var body: some View {
-        Text("REPORT CHAT")
+        Text("レポートーク")
+            .padding(.bottom)
             .font(.largeTitle.bold())
             .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
