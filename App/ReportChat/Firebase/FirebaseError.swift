@@ -73,13 +73,13 @@ enum FirebaseLoginError: Error, LocalizedError {
 }
 
 enum UserFetchError: String, Error {
-    case userNotFound = "ユーザーが存在しません"
+    case userNotFound = "ユーザー情報がありません"
     case unknown = "予期せぬエラー"
     
     var errorDescription: String {
         switch self {
         case .userNotFound:
-            "ユーザーが存在していません。\nお手数おかけしますが、\n再度ログインしてください。"
+            "ユーザー情報の登録ができていないようです。\nプロフィールの入力をお願いいたします。"
         case .unknown:
             "ユーザー取得時に予期せぬエラーが発生しました。"
         }
@@ -106,4 +106,15 @@ class FirebaseError {
             return "不明なエラーが発生しました: \(error.localizedDescription)"
         }
     }
+}
+
+enum HandleNameError: String, Error {
+    case alreadyInUse = "すでに利用されています。"
+    case invalidBoundaryCharacter = "文頭や文末に (_) または (.) を使用できません。"
+    case invalidFormat = "(_)と(.)以外の特殊文字は禁止されています。"
+    case tooShort = "6文字以上にしてください。"
+    case tooLong = "20文字以内にしてください。"
+    case onlyNumber = "数字のみの登録はできません"
+    case containsUppercase = "大文字が含まれています。"
+    case serverError = "サーバーエラーが発生しています。"
 }
