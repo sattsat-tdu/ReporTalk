@@ -19,7 +19,7 @@ struct ContentView: View {
                 VStack(spacing: 0) {
                     switch selectedTab {
                     case .home:
-                        HomeView()
+                        HomeView(currentUser: currentUser)
                     case .rooms:
                         if let viewModel = viewModel.roomsViewModel {
                             RoomsView(viewModel: viewModel)
