@@ -138,6 +138,29 @@ class FirebaseManager: ObservableObject {
         }
     }
     
+    // ユーザー検索メソッド
+    func searchUsers(byHandle handle: String) async -> Result<[UserResponse], UserFetchError> {
+        do {
+            let snapshot = try await fireStore.collection("users")
+                .whereField("handle", isGreaterThanOrEqualTo: handle)
+                .whereField("handle", isLessThanOrEqualTo: handle + "\u{f8ff}")  // 前方一致
+                .getDocuments()
+            
+            let users = snapshot.documents.compactMap { document -> UserResponse? in
+                try? document.data(as: UserResponse.self)
+            }
+            
+            if users.isEmpty {
+                return .failure(.userNotFound)
+            } else {
+                return .success(users)
+            }
+            
+        } catch {
+            return .failure(.unknown)
+        }
+    }
+    
     //idからルーム情報を取得
     func fetchRoom(roomID: String) async -> RoomResponse? {
         do {
