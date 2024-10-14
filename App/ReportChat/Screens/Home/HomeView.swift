@@ -1,9 +1,9 @@
 //
 //  HomeView.swift
 //  ReportChat
-//  
+//
 //  Created by SATTSAT on 2024/09/16
-//  
+//
 //
 
 import SwiftUI
@@ -12,6 +12,8 @@ import SwiftUIFontIcon
 struct HomeView: View {
     
     let currentUser: UserResponse
+    @State private var selectModalFlg = false
+    private let itemColor: Color = .tab
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -29,8 +31,13 @@ struct HomeView: View {
                             case .empty:
                                 ProgressView()
                             case .success(let image):
-                                image
-                                    .resizable()
+                                Rectangle().aspectRatio(1, contentMode: .fill)
+                                    .overlay {
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    }
+                                    .clipped()
                             case .failure(_):
                                 Image(systemName: "person.circle")
                                     .resizable()
@@ -59,7 +66,7 @@ struct HomeView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background()
+                        .background(itemColor)
                         .clipShape(.rect(cornerRadius: 8))
                     })
                     
@@ -75,7 +82,7 @@ struct HomeView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background()
+                        .background(itemColor)
                         .clipShape(.rect(cornerRadius: 8))
                     })
                 }
@@ -85,10 +92,10 @@ struct HomeView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .frame(height: 200)
-                .background()
+                .background(itemColor)
                 .clipShape(.rect(cornerRadius: 8))
                 
-                NavigationLink(destination: Text("友達追加View"),
+                NavigationLink(destination: AddFriendsView(),
                                label: {
                     HStack {
                         FontIcon.text(.materialIcon(code: .group_add),
@@ -106,7 +113,7 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity)
                     }
                     .padding()
-                    .background()
+                    .background(itemColor)
                     .clipShape(.rect(cornerRadius: 8))
                 })
                 
@@ -125,11 +132,9 @@ struct HomeView: View {
                             .scaledToFit()
                     }
                 }
-                .buttonStyle(.plain)
-                .foregroundStyle(.black)
                 .frame(height: 80)
                 .padding()
-                .background()
+                .background(itemColor)
                 .clipShape(.rect(cornerRadius: 8))
             }
             .padding()
@@ -141,10 +146,15 @@ struct HomeView: View {
             ToolbarItem(placement: .confirmationAction) {
                 FontIcon.button(.materialIcon(code: .add_box),
                                 action: {
-                    
+                    selectModalFlg = true
                 },
-                fontsize: 32)
+                                fontsize: 32)
             }
+        }
+        .sheet(isPresented: $selectModalFlg) {
+            SelectModalView(showModal: $selectModalFlg)
+                .presentationDetents([.fraction(0.4), .large])
+                .presentationDragIndicator(.visible)
         }
     }
 }
@@ -159,4 +169,80 @@ struct HomeView: View {
         photoURL: "https://picsum.photos/300/200",
         rooms: ["room1", "room2"]
     ))
+}
+
+struct SelectModalView: View {
+    @Binding var showModal: Bool
+    @State private var addRoomFlg = false
+    @State private var addFriendFlg = false
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("追加する内容を選んでください。")
+                    .font(.title2.bold())
+                
+                Spacer()
+                
+                FontIcon.button(.materialIcon(code: .close), action: {
+                    showModal.toggle()
+                }
+                ,fontsize: 24)
+                .padding(10)
+                .background(.tab)
+                .clipShape(Circle())
+            }
+            .padding(.top)
+            
+            Spacer()
+            
+            HStack(spacing: 16) {
+                Button(action: {
+                    addFriendFlg.toggle()
+                }, label: {
+                    VStack {
+                        FontIcon.text(.materialIcon(code: .group_add),
+                                      fontsize: 56)
+                        .foregroundStyle(.secondary)
+                        
+                        Text("友達")
+                            .font(.headline)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 160)
+                    .background(.tab)
+                    .clipShape(.rect(cornerRadius: 8))
+                })
+                .sheet(isPresented: $addFriendFlg) {
+                    AddFriendsView()
+                }
+                
+                Button(action: {
+                    addRoomFlg.toggle()
+                }, label: {
+                    VStack {
+                        FontIcon.text(.materialIcon(code: .library_add),
+                                      fontsize: 56)
+                        .foregroundStyle(.secondary)
+                        
+                        Text("ルーム")
+                            .font(.headline)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 160)
+                    .background(.tab)
+                    .clipShape(.rect(cornerRadius: 8))
+                })
+                .sheet(isPresented: $addRoomFlg) {
+                    Text("ルーム追加View")
+                }
+            }
+            
+            Spacer()
+        }
+        .padding()
+        .background(.roomBack)
+    }
 }
