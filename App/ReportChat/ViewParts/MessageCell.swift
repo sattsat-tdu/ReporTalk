@@ -12,7 +12,7 @@ struct MessageCell: View {
     
     let message: MessageResponse
     let isCurrentUser: Bool
-    let cornerRadius:CGFloat = 8
+    private let cornerRadius:CGFloat = 8
     
     var body: some View {
         VStack(alignment: isCurrentUser ? .trailing : .leading) {
@@ -41,6 +41,6 @@ struct MessageCell: View {
                         text: "サンプルテキスト",
                         senderId: "id1",
                         timestamp: Date()),
-                isCurrentUser: false
+                isCurrentUser: true
     )
 }
