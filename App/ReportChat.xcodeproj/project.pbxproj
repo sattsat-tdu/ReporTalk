@@ -37,6 +37,8 @@
 		0096C64A2CAD05E100C6FD42 /* WelcomeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096C6492CAD05E000C6FD42 /* WelcomeSettingsView.swift */; };
 		009B0F2D2CBE0CFB00D3D08A /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */; };
 		009B0F2F2CBE2C5200D3D08A /* FriendListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F2E2CBE2C5100D3D08A /* FriendListView.swift */; };
+		009B0F312CBEA8DC00D3D08A /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F302CBEA8DC00D3D08A /* NotificationModel.swift */; };
+		009B0F342CBEACEB00D3D08A /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F332CBEACEB00D3D08A /* NotificationManager.swift */; };
 		00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2F92CAAA923008841E6 /* WelcomeView.swift */; };
 		00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */; };
 		00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FD2CAAE541008841E6 /* RegisterView.swift */; };
@@ -110,6 +112,8 @@
 		0096C6492CAD05E000C6FD42 /* WelcomeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSettingsView.swift; sourceTree = "<group>"; };
 		009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		009B0F2E2CBE2C5100D3D08A /* FriendListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListView.swift; sourceTree = "<group>"; };
+		009B0F302CBEA8DC00D3D08A /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
+		009B0F332CBEACEB00D3D08A /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		00D6F2F92CAAA923008841E6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		00D6F2FD2CAAE541008841E6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 				00EB78712C980E7B00BEEEAA /* Models */,
 				00EB78602C8B567000BEEEAA /* Extensions */,
 				00FA5C202CA2CA7800301A1B /* ViewModifiers */,
+				009B0F322CBEABDA00D3D08A /* Managers */,
 				00F7BE4B2C835B6800E0CB5C /* Firebase */,
 				00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */,
 				00F7BE0F2C80B56800E0CB5C /* Screens */,
@@ -244,6 +249,14 @@
 			path = CoreViews;
 			sourceTree = "<group>";
 		};
+		009B0F322CBEABDA00D3D08A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				009B0F332CBEACEB00D3D08A /* NotificationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		00D6F2F82CAAA8CF008841E6 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -294,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				00EB78732C980EA500BEEEAA /* RoomResponse.swift */,
+				009B0F302CBEA8DC00D3D08A /* NotificationModel.swift */,
 				00EB78752C980EE500BEEEAA /* UserResponse.swift */,
 				00EB788F2C9B29DE00BEEEAA /* MessageResponse.swift */,
 				0091043A2CA3DC4400F1AA54 /* SettingModel.swift */,
@@ -492,6 +506,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				009B0F312CBEA8DC00D3D08A /* NotificationModel.swift in Sources */,
 				008346D62CBC15C7001ADAD2 /* UserCell.swift in Sources */,
 				00F7BE542C8392E200E0CB5C /* FirebaseError.swift in Sources */,
 				00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */,
@@ -513,6 +528,7 @@
 				00EB788E2C9B254E00BEEEAA /* MessagesView.swift in Sources */,
 				00FA5C222CA2CB2000301A1B /* HiddenModifier.swift in Sources */,
 				009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */,
+				009B0F342CBEACEB00D3D08A /* NotificationManager.swift in Sources */,
 				00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */,
 				008346D02CBA1155001ADAD2 /* CachedImage.swift in Sources */,
 				00EB78B92C9D562900BEEEAA /* AutoResizingTextEditor.swift in Sources */,
