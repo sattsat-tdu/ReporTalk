@@ -12,6 +12,7 @@ import SwiftUIFontIcon
 struct HomeView: View {
     
     let currentUser: UserResponse
+    @State private var myProfileFlg = false
     @State private var selectModalFlg = false
     private let itemColor: Color = .tab
     
@@ -25,31 +26,36 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    if let photoURL = currentUser.photoURL {
-                        CachedImage(url: photoURL) { phase in
-                            switch phase {
-                            case .empty:
-                                ProgressView()
-                            case .success(let image):
-                                Rectangle().aspectRatio(1, contentMode: .fill)
-                                    .overlay {
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    }
-                                    .clipped()
-                            case .failure(_):
-                                Image(systemName: "person.circle")
-                                    .resizable()
-                            @unknown default:
-                                EmptyView()
+                    Group {
+                        if let photoURL = currentUser.photoURL {
+                            CachedImage(url: photoURL) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let image):
+                                    Rectangle().aspectRatio(1, contentMode: .fill)
+                                        .overlay {
+                                            image
+                                                .resizable()
+                                                .scaledToFill()
+                                        }
+                                        .clipped()
+                                case .failure(_):
+                                    Image(systemName: "person.circle")
+                                        .resizable()
+                                @unknown default:
+                                    EmptyView()
+                                }
                             }
+                        } else {
+                            Image(systemName: "person.circle")
+                                .resizable()
                         }
-                        .frame(width: 48, height: 48)
-                        .clipShape(Circle())
-                    } else {
-                        Image(systemName: "person.circle")
-                            .resizable().frame(width: 48, height: 48)
+                    }
+                    .frame(width: 48, height: 48)
+                    .clipShape(Circle())
+                    .onTapGesture {
+                        myProfileFlg.toggle()
                     }
                 }
                 
@@ -150,6 +156,9 @@ struct HomeView: View {
                 },
                                 fontsize: 32)
             }
+        }
+        .sheet(isPresented: $myProfileFlg) {
+            UserDetailView(user: currentUser)
         }
         .sheet(isPresented: $selectModalFlg) {
             SelectModalView(showModal: $selectModalFlg)
