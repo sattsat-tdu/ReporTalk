@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftUIFontIcon
 
 struct CapsuleButton: View {
     
@@ -30,12 +31,14 @@ struct CapsuleButton: View {
         }
     }
     
+    let icon: MaterialIconCode?
     let style: ButtonType
     let text: String
     let destination: AnyView? // オプションの NavigationLink 用ビュー
     let onClicked: (() -> Void)?
     
-    init(style: ButtonType, text: String, destination: AnyView? = nil, onClicked: (() -> Void)? = nil) {
+    init(icon: MaterialIconCode? = nil, style: ButtonType, text: String, destination: AnyView? = nil, onClicked: (() -> Void)? = nil) {
+        self.icon = icon
         self.style = style
         self.text = text
         self.destination = destination
@@ -60,17 +63,23 @@ struct CapsuleButton: View {
     }
     
     private var capsuleView: some View {
-        Text(text)
-            .font(.headline)
-            .foregroundStyle(style == .contrast ? .buttonBack : .buttonText)
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(style.buttonBackColor)
-            .clipShape(Capsule())
-            .overlay(
-                Capsule()
-                    .stroke(style == .contrast ? .rounded : .clear, lineWidth: 2)
-            )
+        HStack {
+            if let icon = icon {
+                FontIcon.text(.materialIcon(code: icon),fontsize: 24)
+            }
+            
+            Text(text)
+        }
+        .font(.headline)
+        .foregroundStyle(style == .contrast ? .buttonBack : .buttonText)
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background(style.buttonBackColor)
+        .clipShape(Capsule())
+        .overlay(
+            Capsule()
+                .stroke(style == .contrast ? .rounded : .clear, lineWidth: 2)
+        )
     }
 }
 
@@ -78,10 +87,19 @@ struct CapsuleButton: View {
     NavigationStack {
         VStack {
             // NavigationLinkとして動作するCapsuleButton
-            CapsuleButton(style: .primary, text: "ナビゲーションボタン", destination: AnyView(Text("Next View")))
+            CapsuleButton(style: .primary, 
+                          text: "ナビゲーションボタン",
+                          destination: AnyView(Text("Next View")))
+            
+            CapsuleButton(icon: .message,
+                          style: .primary,
+                          text: "ナビゲーションボタン",
+                          destination: AnyView(Text("Next View")))
             
             // 通常のボタンとして動作するCapsuleButton（クリックでアクション）
-            CapsuleButton(style: .denger, text: "ボタン処理", onClicked: {
+            CapsuleButton(style: .denger, 
+                          text: "ボタン処理",
+                          onClicked: {
                 print("Button clicked")
             })
         }
