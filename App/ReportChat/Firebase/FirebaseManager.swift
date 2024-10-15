@@ -17,7 +17,7 @@ class FirebaseManager: ObservableObject {
     let auth: Auth
     let storage: Storage
     let fireStore: Firestore
-    var currentUser: String? {
+    var currentUserId: String? {
         return auth.currentUser?.uid
     }
     
@@ -62,6 +62,7 @@ class FirebaseManager: ObservableObject {
     func handleLogout() async {
         do {
             try self.auth.signOut()
+            UserManager.shared.clearUserCache()
             print("ログアウトに成功しました！")
         } catch let signOutError as NSError {
             print("ログアウトに失敗しました: %@", signOutError)
@@ -78,6 +79,28 @@ class FirebaseManager: ObservableObject {
         }
     }
     
+    //ハンドルネームがすでに存在するか確認
+    func checkHandleNameAvailibility(handleName: String) async -> Result<Void, HandleNameError> {
+        do {
+            // FirestoreのusersコレクションでhandleNameが既に使われているか確認
+            let snapshot = try await fireStore.collection("users")
+                .whereField("handle", isEqualTo: handleName)
+                .getDocuments()
+            
+            // ドキュメントが存在する場合（ハンドルネームが既に使われている）
+            if !snapshot.isEmpty {
+                return .failure(.alreadyInUse)
+            } else {
+                // ドキュメントが存在しない場合（ハンドルネームが利用可能）
+                return .success(())
+            }
+        } catch {
+            // Firebaseのクエリ中にエラーが発生した場合
+            print("ハンドルネーム認証でサーバーエラーが発生: \(error.localizedDescription)")
+            return .failure(.serverError)
+        }
+    }
+
     func deleteAuthUser(deleteUser: FirebaseAuth.User) async {
         do {
             try await deleteUser.delete()
@@ -89,6 +112,7 @@ class FirebaseManager: ObservableObject {
     func deleteUserData(userId: String) async {
         do {
             try await fireStore.collection("users").document(userId).delete()
+            UserManager.shared.clearUserCache()
         } catch {
             print("FireStoreでのアカウント削除に失敗しました: \(error.localizedDescription)")
         }
@@ -201,6 +225,32 @@ class FirebaseManager: ObservableObject {
             try await storageRef.delete()
         } catch {
             print("FireStorageでのアイコン削除に失敗しました: \(error.localizedDescription)")
+        }
+    }
+    
+    // URLSessionを使ってネットワーク接続を確認
+    func checkNetworkConnection() async -> Bool {
+        let url = URL(string: "https://www.google.com")!
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "HEAD"
+
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                // 接続が成功した場合
+                print("ネットワーク接続に成功しました。")
+                return true
+            } else {
+                // 無効なレスポンスの場合
+                print("無効なレスポンスを受け取りました。")
+                return false
+            }
+        } catch {
+            // その他のエラーをキャッチ
+            print("接続エラーが発生しました: \(error.localizedDescription)")
+            return false
         }
     }
 }

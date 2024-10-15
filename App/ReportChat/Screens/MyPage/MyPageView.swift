@@ -38,7 +38,7 @@ struct MyPageView: View {
                                 Text(user.userName)
                                     .font(.headline)
                                 
-                                Text(user.email)
+                                Text("@\(user.handle)")
                                     .font(.callout)
                             }
                         }
@@ -96,7 +96,8 @@ struct MyPageView: View {
 
 #Preview {
     MyPageView(user: UserResponse(
-        id: "12345",
+        id: "12345", 
+        handle: "user1234",
         userName: "Preview User",
         email: "preview@example.com",
         friends: ["Friend 1", "Friend 2"],

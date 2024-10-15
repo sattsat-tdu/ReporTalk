@@ -46,6 +46,7 @@ struct RoomsView: View {
     RoomsView(viewModel: RoomsViewModel(
         user: UserResponse(
         id: "12345",
+        handle: "user1234",
         userName: "Preview User",
         email: "preview@example.com",
         friends: ["Friend 1", "Friend 2"],

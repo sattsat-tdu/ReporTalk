@@ -11,12 +11,12 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var selectedTab: TabList = .home
-    @StateObject var viewModel = ContentViewModel()
+    @ObservedObject var viewModel: ContentViewModel
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                if let user = viewModel.currentUser {
+            if let currentUser = viewModel.currentUser {
+                VStack(spacing: 0) {
                     switch selectedTab {
                     case .home:
                         HomeView()
@@ -27,18 +27,16 @@ struct ContentView: View {
                     case .timeline:
                         Color.clear
                     case .mypage:
-                        MyPageView(user: user)
+                        MyPageView(user: currentUser)
                     }
-                } else {
-                    Text("ローディング中...")
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    CustomTabView(selectedTab: $selectedTab)
                 }
-                CustomTabView(selectedTab: $selectedTab)
+            } else {
+                SplashView()
             }
         }
     }
 }
-
 #Preview {
-    ContentView()
+    ContentView(viewModel: ContentViewModel())
 }

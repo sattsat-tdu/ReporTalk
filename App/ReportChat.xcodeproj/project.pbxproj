@@ -12,6 +12,7 @@
 		006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB1972C7F804E00A63EAA /* Assets.xcassets */; };
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
+		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0091042A2CA313AB00F1AA54 /* ToggleCell.swift */; };
 		009104312CA3ABD200F1AA54 /* SafariCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104302CA3ABD200F1AA54 /* SafariCell.swift */; };
 		009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104322CA3AF0A00F1AA54 /* SafariWebView.swift */; };
@@ -77,6 +78,7 @@
 		006EB1972C7F804E00A63EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		0091042A2CA313AB00F1AA54 /* ToggleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleCell.swift; sourceTree = "<group>"; };
 		009104302CA3ABD200F1AA54 /* SafariCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariCell.swift; sourceTree = "<group>"; };
 		009104322CA3AF0A00F1AA54 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 			children = (
 				00F7BE4C2C835B9200E0CB5C /* FirebaseManager.swift */,
 				00F7BE532C8392E200E0CB5C /* FirebaseError.swift */,
+				008346CB2CB90ECF001ADAD2 /* UserManager.swift */,
 			);
 			path = Firebase;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				009104412CA43C3100F1AA54 /* UserDefaultsManager.swift in Sources */,
 				00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */,
 				00D6F3002CAAEF01008841E6 /* PhotoPickerView.swift in Sources */,
+				008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */,
 				0091043D2CA3F91400F1AA54 /* PickerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
