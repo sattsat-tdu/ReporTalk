@@ -78,6 +78,22 @@ class FirebaseManager: ObservableObject {
         }
     }
     
+    func deleteAuthUser(deleteUser: FirebaseAuth.User) async {
+        do {
+            try await deleteUser.delete()
+        } catch {
+            print("認証情報の削除に失敗しました: \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteUserData(userId: String) async {
+        do {
+            try await fireStore.collection("users").document(userId).delete()
+        } catch {
+            print("FireStoreでのアカウント削除に失敗しました: \(error.localizedDescription)")
+        }
+    }
+    
     // idからユーザー情報を取得
     func fetchUser(userId: String) async -> Result<UserResponse, UserFetchError> {
         
@@ -175,6 +191,16 @@ class FirebaseManager: ObservableObject {
         } catch {
             print("非同期の画像取得でエラー: \(error)")
             return nil
+        }
+    }
+    
+    func deleteUserImage(userId: String) async {
+        let storageRef = storage.reference().child("userIcons/\(userId).jpg")
+        
+        do {
+            try await storageRef.delete()
+        } catch {
+            print("FireStorageでのアイコン削除に失敗しました: \(error.localizedDescription)")
         }
     }
 }

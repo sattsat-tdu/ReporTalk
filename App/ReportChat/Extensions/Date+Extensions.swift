@@ -9,7 +9,10 @@
 import SwiftUI
 
 extension Date {
-    func toText() -> String {
-        return "昨日"
+    func toString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        dateFormatter.dateFormat = "M月d日 HH:mm"
+        return dateFormatter.string(from: self)
     }
 }

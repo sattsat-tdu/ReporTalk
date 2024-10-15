@@ -12,6 +12,7 @@ import FirebaseFirestore
 @MainActor
 final class RoomViewModel: ObservableObject {
     @Published var roomIconUrlString: String? = nil
+    @Published var roomIcon: UIImage? = nil
     @Published var roomName: String = " --- "
     @Published var messages: [MessageResponse]? = nil
     @Published var lastMessageId: String? = nil
@@ -35,8 +36,18 @@ final class RoomViewModel: ObservableObject {
     func fetchRoomInfo() {
         Task {
             guard let partner = await fetchPartner() else { return }
+            
+            //ルームアイコンの取得
+            let roomIconURL = room.roomIcon ?? partner.photoURL
+            if let iconURL = roomIconURL {
+                if let imageData = await iconURL.fetchImageData(),
+                   let image = UIImage(data: imageData) {
+                    self.roomIcon = image
+                }
+            }
+            
             self.roomName = partner.userName
-            if let iconURL = partner.photoURL { self.roomIconUrlString = iconURL }
+//            if let iconURL = partner.photoURL { self.roomIconUrlString = iconURL }
         }
     }
     
