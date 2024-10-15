@@ -35,6 +35,7 @@
 		009104742CA6C47000F1AA54 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104732CA6C47000F1AA54 /* ModalView.swift */; };
 		009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104752CA6C57C00F1AA54 /* OverlayModel.swift */; };
 		0096C64A2CAD05E100C6FD42 /* WelcomeSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0096C6492CAD05E000C6FD42 /* WelcomeSettingsView.swift */; };
+		009B0F2D2CBE0CFB00D3D08A /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */; };
 		00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2F92CAAA923008841E6 /* WelcomeView.swift */; };
 		00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */; };
 		00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FD2CAAE541008841E6 /* RegisterView.swift */; };
@@ -106,6 +107,7 @@
 		009104732CA6C47000F1AA54 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		009104752CA6C57C00F1AA54 /* OverlayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayModel.swift; sourceTree = "<group>"; };
 		0096C6492CAD05E000C6FD42 /* WelcomeSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSettingsView.swift; sourceTree = "<group>"; };
+		009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		00D6F2F92CAAA923008841E6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		00D6F2FD2CAAE541008841E6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -232,6 +234,14 @@
 			path = OverlayViews;
 			sourceTree = "<group>";
 		};
+		009B0F2B2CBE0CC900D3D08A /* CoreViews */ = {
+			isa = PBXGroup;
+			children = (
+				009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */,
+			);
+			path = CoreViews;
+			sourceTree = "<group>";
+		};
 		00D6F2F82CAAA8CF008841E6 /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +347,7 @@
 		00F7BE0F2C80B56800E0CB5C /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				009B0F2B2CBE0CC900D3D08A /* CoreViews */,
 				00D6F2F82CAAA8CF008841E6 /* Welcome */,
 				00EB787C2C981F4100BEEEAA /* MyPage */,
 				00EB78772C98149700BEEEAA /* Splash */,
@@ -532,6 +543,7 @@
 				00EB78742C980EA500BEEEAA /* RoomResponse.swift in Sources */,
 				00EB78BB2C9D694600BEEEAA /* ResignKeyboardOnDragGesture.swift in Sources */,
 				00EB78952C9B9E9600BEEEAA /* UIImage+Extensions.swift in Sources */,
+				009B0F2D2CBE0CFB00D3D08A /* UserDetailView.swift in Sources */,
 				009104412CA43C3100F1AA54 /* UserDefaultsManager.swift in Sources */,
 				008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */,
 				00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */,
