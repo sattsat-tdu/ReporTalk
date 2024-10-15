@@ -93,4 +93,29 @@ class UserManager: ObservableObject {
         self.userCache = nil
         self.currentFetchTask = nil // 進行中のリクエストもクリア
     }
+    
+    func addRoom(roomId: String) async -> Result<Void, AddIdError> {
+        do {
+            guard case let .success(loginUser) = await self.fetchCurrentUser() else { return .failure(.userNotFound) }
+            
+            guard let uid = loginUser.id else { return .failure(.userNotFound) }
+            var updatedFriends: [String] = loginUser.friends
+
+            if !updatedFriends.contains(roomId) {
+                updatedFriends.append(roomId)
+                
+                try await self.fireStore
+                    .collection("users")
+                    .document(uid)
+                    .updateData(["friends": updatedFriends])
+                
+                print("ルームが追加されました: \(roomId)")
+                return .success(())
+            } else {
+                return .failure(.alreadyExists)
+            }
+        } catch {
+            return .failure(.unknownError)
+        }
+    }
 }

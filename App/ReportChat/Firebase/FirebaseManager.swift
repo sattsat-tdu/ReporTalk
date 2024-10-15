@@ -164,8 +164,7 @@ class FirebaseManager: ObservableObject {
     //idからルーム情報を取得
     func fetchRoom(roomID: String) async -> RoomResponse? {
         do {
-            let snapshot = try await
-            FirebaseManager.shared.fireStore
+            let snapshot = try await self.fireStore
                 .collection("rooms")
                 .document(roomID)
                 .getDocument()
@@ -173,6 +172,48 @@ class FirebaseManager: ObservableObject {
             return try snapshot.data(as: RoomResponse.self)
         } catch _ as NSError {
             print("ルームが見つかりませんでした。")
+            return nil
+        }
+    }
+    
+    // プライベートなルームの作成・存在していればfetchする
+    func fetchPrivateRoom(partnerId: String) async -> RoomResponse? {
+        guard let currentUserId = self.currentUserId else { return nil }
+        
+        let sortedUIDs = [currentUserId, partnerId].sorted()
+        let roomId = "\(sortedUIDs[0])_\(sortedUIDs[1])"
+        
+        do {
+            // ルームが存在するかチェック
+            let snapshot = try await self.fireStore
+                .collection("rooms")
+                .document(roomId)
+                .getDocument()
+            
+            if snapshot.exists {
+                // ルームが見つかった場合はそのルームを返す
+                return try snapshot.data(as: RoomResponse.self)
+            } else {
+                // ルームが存在しない場合、新しいルームを作成する
+                let newRoom = RoomResponse(
+                    id: roomId, // ルームIDを設定
+                    members: [currentUserId, partnerId],
+                    roomIcon: nil,
+                    roomName: nil
+                )
+
+                try await self.fireStore
+                    .collection("rooms")
+                    .document(roomId)
+                    .setData(newRoom.toDictionary())
+                
+                print("新しいルームを作成しました: \(roomId)")
+                
+                return newRoom
+            }
+            
+        } catch {
+            print("ルームの作成に失敗しました: \(error.localizedDescription)")
             return nil
         }
     }

@@ -103,6 +103,14 @@ enum HandleNameError: String, Error {
     case serverError = "サーバーエラーが発生しています。"
 }
 
+enum AddIdError: String, Error {
+    case userNotFound = "ユーザー情報が読み込めません。"
+    case alreadyExists = "すでに追加しています。"
+    case invalidData = "データが不正です。"
+    case serverError = "サーバーエラーが発生しました。"
+    case unknownError = "追加時に不明なエラーが発生しました。"
+}
+
 class FirebaseError {
     static let shared = FirebaseError()
     
