@@ -15,12 +15,15 @@ struct AddFriendsView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.isPresented) private var isPresented
     @State private var isModal = false
+    @FocusState var isFocused: Bool
     
     var body: some View {
         VStack {
             HStack {
                 SearchTextField(placeholder: "ユーザーIDを検索",
                                 text: $viewModel.searchText)
+                .focused($isFocused)
+                .keyboardType(.alphabet)
                 
                 // モーダルの場合は閉じるボタンを表示
                 if isModal {
@@ -65,8 +68,11 @@ struct AddFriendsView: View {
         .background(.tab)
         .onAppear {
             isModal = isPresented //モーダルかどうかの判定。即時適応不可だったのでAppearで
+            isFocused = true
         }
         .navigationTitle("ユーザーID検索")
+        //検索時はモーダルを閉じないように
+        .interactiveDismissDisabled(!viewModel.searchText.isEmpty)
     }
 }
 
