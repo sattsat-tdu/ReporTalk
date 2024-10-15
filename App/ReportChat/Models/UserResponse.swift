@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct UserResponse: Decodable {
+struct UserResponse: Identifiable, Decodable {
     @DocumentID var id: String?
     let handle: String
     let userName: String
