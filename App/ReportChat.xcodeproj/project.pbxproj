@@ -13,6 +13,11 @@
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
+		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
+		008346D02CBA1155001ADAD2 /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CF2CBA1155001ADAD2 /* CachedImage.swift */; };
+		008346D42CBC118C001ADAD2 /* AddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346D32CBC118C001ADAD2 /* AddFriendsView.swift */; };
+		008346D62CBC15C7001ADAD2 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346D52CBC15C6001ADAD2 /* UserCell.swift */; };
+		008346D82CBC1A7E001ADAD2 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346D72CBC1A7E001ADAD2 /* SearchTextField.swift */; };
 		0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0091042A2CA313AB00F1AA54 /* ToggleCell.swift */; };
 		009104312CA3ABD200F1AA54 /* SafariCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104302CA3ABD200F1AA54 /* SafariCell.swift */; };
 		009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104322CA3AF0A00F1AA54 /* SafariWebView.swift */; };
@@ -79,6 +84,11 @@
 		006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		008346CF2CBA1155001ADAD2 /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
+		008346D32CBC118C001ADAD2 /* AddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsView.swift; sourceTree = "<group>"; };
+		008346D52CBC15C6001ADAD2 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		008346D72CBC1A7E001ADAD2 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		0091042A2CA313AB00F1AA54 /* ToggleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleCell.swift; sourceTree = "<group>"; };
 		009104302CA3ABD200F1AA54 /* SafariCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariCell.swift; sourceTree = "<group>"; };
 		009104322CA3AF0A00F1AA54 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
@@ -251,6 +261,8 @@
 			isa = PBXGroup;
 			children = (
 				00EB786D2C980AD100BEEEAA /* HomeView.swift */,
+				008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */,
+				008346D32CBC118C001ADAD2 /* AddFriendsView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -341,6 +353,7 @@
 				009104292CA3127200F1AA54 /* SettingCells */,
 				00EB78872C9AAEB200BEEEAA /* Room */,
 				00F7BE142C80B8D800E0CB5C /* InputFormView.swift */,
+				008346D72CBC1A7E001ADAD2 /* SearchTextField.swift */,
 				00F7BE382C8222DF00E0CB5C /* CustomTabView.swift */,
 				00EB78692C8F3D4100BEEEAA /* CapsuleButton.swift */,
 				00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */,
@@ -348,6 +361,8 @@
 				00EB78B82C9D562900BEEEAA /* AutoResizingTextEditor.swift */,
 				00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */,
 				00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */,
+				008346CF2CBA1155001ADAD2 /* CachedImage.swift */,
+				008346D52CBC15C6001ADAD2 /* UserCell.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -463,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				008346D62CBC15C7001ADAD2 /* UserCell.swift in Sources */,
 				00F7BE542C8392E200E0CB5C /* FirebaseError.swift in Sources */,
 				00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */,
 				009104352CA3C77900F1AA54 /* SettingsView.swift in Sources */,
@@ -483,6 +499,7 @@
 				00FA5C222CA2CB2000301A1B /* HiddenModifier.swift in Sources */,
 				009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */,
 				00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */,
+				008346D02CBA1155001ADAD2 /* CachedImage.swift in Sources */,
 				00EB78B92C9D562900BEEEAA /* AutoResizingTextEditor.swift in Sources */,
 				009104472CA5593200F1AA54 /* ProfileViewModel.swift in Sources */,
 				00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */,
@@ -496,6 +513,7 @@
 				00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */,
 				0091043B2CA3DC4400F1AA54 /* SettingModel.swift in Sources */,
 				00D6F3022CAAF925008841E6 /* WelcomeSwitchView.swift in Sources */,
+				008346D82CBC1A7E001ADAD2 /* SearchTextField.swift in Sources */,
 				0091046A2CA674F400F1AA54 /* LoadingView.swift in Sources */,
 				00EB78642C8B5AB300BEEEAA /* ErrorHandling.swift in Sources */,
 				0091046E2CA6928200F1AA54 /* ToastView.swift in Sources */,
@@ -504,6 +522,7 @@
 				006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */,
 				00EB78762C980EE500BEEEAA /* UserResponse.swift in Sources */,
 				008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */,
+				008346D42CBC118C001ADAD2 /* AddFriendsView.swift in Sources */,
 				00EB78702C980C5900BEEEAA /* RoomsView.swift in Sources */,
 				009104442CA53D3800F1AA54 /* ProfileDetailView.swift in Sources */,
 				009104312CA3ABD200F1AA54 /* SafariCell.swift in Sources */,
@@ -514,6 +533,7 @@
 				00EB78BB2C9D694600BEEEAA /* ResignKeyboardOnDragGesture.swift in Sources */,
 				00EB78952C9B9E9600BEEEAA /* UIImage+Extensions.swift in Sources */,
 				009104412CA43C3100F1AA54 /* UserDefaultsManager.swift in Sources */,
+				008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */,
 				00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */,
 				00D6F3002CAAEF01008841E6 /* PhotoPickerView.swift in Sources */,
 				008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */,
