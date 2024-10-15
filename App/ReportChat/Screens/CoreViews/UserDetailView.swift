@@ -21,10 +21,8 @@ struct UserDetailView: View {
             HStack {
                 FontIcon.button(.materialIcon(code: .close), action: {
                     dismiss()
-                }, fontsize: 24)
-                .padding(10)
-                .foregroundStyle(.buttonText)
-                .background(.buttonBack)
+                }, fontsize: 28)
+                .foregroundStyle(.buttonBack)
                 .clipShape(Circle())
                 
                 Text("プロフィール")
@@ -32,14 +30,11 @@ struct UserDetailView: View {
                     .frame(maxWidth: .infinity)
                 
                 FontIcon.button(.materialIcon(code: .more_horiz), action: {
-                    dismiss()
-                }, fontsize: 24)
-                .padding(10)
-                .foregroundStyle(.buttonText)
-                .background(.buttonBack)
+                }, fontsize: 28)
+                .foregroundStyle(.buttonBack)
                 .clipShape(Circle())
             }
-            .padding(.top)
+            .padding([.top, .horizontal])
             
             HStack(spacing: 8) {
                 Group {

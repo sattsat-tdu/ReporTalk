@@ -60,7 +60,7 @@ struct HomeView: View {
                 }
                 
                 HStack(spacing: 16) {
-                    NavigationLink(destination: Text("友達リストView"),
+                    NavigationLink(destination: FriendListView(),
                                    label: {
                         VStack {
                             FontIcon.text(.materialIcon(code: .people_outline),
