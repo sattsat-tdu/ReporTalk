@@ -27,8 +27,10 @@ struct CachedImage<Content: View>: View {
                 content(.empty)
             }
         }
-        .task {
-            await manager.load(url)
+        .onAppear {
+            Task {
+                await manager.load(url)
+            }
         }
     }
 }
@@ -45,38 +47,47 @@ extension CachedImage {
     }
 }
 
-
-
-import SwiftUI
-
 final class CachedImageManager: ObservableObject {
     @Published private(set) var currentState: CurrentState?
     
-    private let imageRetriver = ImageRetriver()
+    private let imageRetriever = ImageRetriever()
     
-    @MainActor
     func load(_ imageUrl: String, cache: ImageCache = .shared) async {
         
-        self.currentState = .loading
+        // メインスレッドでローディング状態に更新
+        await MainActor.run {
+            self.currentState = .loading
+        }
         
         // キャッシュが存在する場合、キャッシュからUIImageを取得
         if let cachedImage = cache.object(forKey: imageUrl as NSString) {
-            self.currentState = .success(image: cachedImage)
+            await MainActor.run {
+                self.currentState = .success(image: cachedImage)
+            }
             return
         }
         
-        // 画像をネットワークから取得
+        // 画像をネットワークから取得（バックグラウンドスレッド）
         do {
-            let data = try await imageRetriver.fetch(imageUrl)
+            let data = try await imageRetriever.fetch(imageUrl)
             if let image = UIImage(data: data) {
-                self.currentState = .success(image: image)
+                // メインスレッドで成功状態に更新
+                await MainActor.run {
+                    self.currentState = .success(image: image)
+                }
                 // 取得したUIImageをキャッシュに保存
                 cache.set(object: image, forKey: imageUrl as NSString)
             } else {
-                self.currentState = .failed(error: CachedImageError.invalidData)
+                // メインスレッドでエラー状態に更新
+                await MainActor.run {
+                    self.currentState = .failed(error: CachedImageError.invalidData)
+                }
             }
         } catch {
-            self.currentState = .failed(error: error)
+            // メインスレッドでエラー状態に更新
+            await MainActor.run {
+                self.currentState = .failed(error: error)
+            }
         }
     }
 }
@@ -116,7 +127,7 @@ class ImageCache {
     }
 }
 
-struct ImageRetriver {
+struct ImageRetriever {
     func fetch(_ imageUrl: String) async throws -> Data {
         guard let url = URL(string: imageUrl) else {
             throw RetriverError.invalidUrl
@@ -126,7 +137,7 @@ struct ImageRetriver {
     }
 }
 
-private extension ImageRetriver {
+private extension ImageRetriever {
     enum RetriverError: Error {
         case invalidUrl
     }
