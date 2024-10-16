@@ -12,6 +12,7 @@ struct ContentView: View {
     
     @State private var selectedTab: TabList = .home
     @ObservedObject var viewModel: ContentViewModel
+    @StateObject var notificationManager = NotificationManager()
     
     var body: some View {
         NavigationStack {
@@ -35,6 +36,7 @@ struct ContentView: View {
                 SplashView()
             }
         }
+        .environmentObject(notificationManager)
     }
 }
 #Preview {

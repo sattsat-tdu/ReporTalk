@@ -142,6 +142,11 @@ struct HomeView: View {
                 .padding()
                 .background(itemColor)
                 .clipShape(.rect(cornerRadius: 8))
+                
+                NavigationLink(destination: NotificationView(),
+                               label: {
+                    Text("通知を確認")
+                })
             }
             .padding()
         }

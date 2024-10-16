@@ -26,11 +26,14 @@ struct ToastView: View {
                 Text(message)
                     .font(.headline)
                     .lineLimit(2)
+                    .minimumScaleFactor(0.1)
             }
             .foregroundStyle(type.color)
             .padding()
-            .background(.gray)
+            .frame(maxWidth: .infinity)
+            .background(.ultraThinMaterial)
             .clipShape(Capsule())
+            .padding(.horizontal)
             .offset(y: offsetY)
             
             Spacer()

@@ -94,20 +94,95 @@ class UserManager: ObservableObject {
         self.currentFetchTask = nil // 進行中のリクエストもクリア
     }
     
-    func addRoom(roomId: String) async -> Result<Void, AddIdError> {
+    //お互いのフレンズにユーザーidを追加しなければならない。
+    func addFriend(userId: String) async -> Result<Void, AddIdError> {
         do {
+            // 現在のユーザーを取得
             guard case let .success(loginUser) = await self.fetchCurrentUser() else { return .failure(.userNotFound) }
-            
             guard let uid = loginUser.id else { return .failure(.userNotFound) }
-            var updatedFriends: [String] = loginUser.friends
-
-            if !updatedFriends.contains(roomId) {
-                updatedFriends.append(roomId)
+            
+            var updatedFriends = loginUser.friends
+            
+            if !updatedFriends.contains(userId) {
+                updatedFriends.append(userId)
+                
+                // 自分の friends に相手を追加
+                try await self.fireStore
+                    .collection("users")
+                    .document(uid)
+                    .updateData(["friends": updatedFriends])
+                
+                // 相手の friends に自分を追加
+                let otherUserResult = await FirebaseManager.shared.fetchUser(userId: userId)
+                switch otherUserResult {
+                case .success(let otherUser):
+                    var otherUserFriends = otherUser.friends
+                    if !otherUserFriends.contains(uid) {
+                        otherUserFriends.append(uid)
+                        
+                        try await self.fireStore
+                            .collection("users")
+                            .document(userId)
+                            .updateData(["friends": otherUserFriends])
+                        
+                        print("友達が増えました: \(userId)")
+                        return .success(())
+                    } else {
+                        return .failure(.alreadyExists)
+                    }
+                case .failure(_):
+                    return .failure(.otherUserNotFound)
+                }
+            } else {
+                return .failure(.alreadyExists)
+            }
+        } catch {
+            return .failure(.unknownError)
+        }
+    }
+    
+    // 片方のフレンドリストから相手を削除する関数
+    func removeFriend(userId: String) async -> Result<Void, RemoveIdError> {
+        do {
+            // 現在のユーザーを取得
+            guard case let .success(loginUser) = await self.fetchCurrentUser() else { return .failure(.userNotFound) }
+            guard let uid = loginUser.id else { return .failure(.userNotFound) }
+            
+            var updatedFriends = loginUser.friends
+            
+            // 自分の friends から相手を削除
+            if let index = updatedFriends.firstIndex(of: userId) {
+                updatedFriends.remove(at: index)
                 
                 try await self.fireStore
                     .collection("users")
                     .document(uid)
                     .updateData(["friends": updatedFriends])
+                
+                print("友達を削除しました: \(userId)")
+                return .success(())
+            } else {
+                return .failure(.notFound)
+            }
+        } catch {
+            return .failure(.unknownError)
+        }
+    }
+    
+    func addRoom(roomId: String) async -> Result<Void, AddIdError> {
+        do {
+            guard case let .success(loginUser) = await self.fetchCurrentUser() else { return .failure(.userNotFound) }
+            
+            guard let uid = loginUser.id else { return .failure(.userNotFound) }
+            var updatedRooms: [String] = loginUser.friends
+
+            if !updatedRooms.contains(roomId) {
+                updatedRooms.append(roomId)
+                
+                try await self.fireStore
+                    .collection("users")
+                    .document(uid)
+                    .updateData(["rooms": updatedRooms])
                 
                 print("ルームが追加されました: \(roomId)")
                 return .success(())
