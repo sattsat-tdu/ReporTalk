@@ -105,10 +105,20 @@ enum HandleNameError: String, Error {
 
 enum AddIdError: String, Error {
     case userNotFound = "ユーザー情報が読み込めません。"
+    case otherUserNotFound = "追加先のユーザー情報が読み込めません。"
     case alreadyExists = "すでに追加しています。"
     case invalidData = "データが不正です。"
     case serverError = "サーバーエラーが発生しました。"
     case unknownError = "追加時に不明なエラーが発生しました。"
+}
+
+enum RemoveIdError: String, Error {
+    case userNotFound = "ユーザー情報が読み込めません。"
+    case otherUserNotFound = "削除先のユーザー情報が読み込めません。"
+    case notFound = "削除対象が存在しません。"
+    case invalidData = "データが不正です。"
+    case serverError = "サーバーエラーが発生しました。"
+    case unknownError = "削除時に不明なエラーが発生しました。"
 }
 
 class FirebaseError {
