@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct RoomsView: View {
-    
     @ObservedObject var viewModel: RoomsViewModel
     
     var body: some View {
@@ -43,14 +42,5 @@ struct RoomsView: View {
 
 
 #Preview {
-    RoomsView(viewModel: RoomsViewModel(
-        user: UserResponse(
-        id: "12345",
-        handle: "user1234",
-        userName: "Preview User",
-        email: "preview@example.com",
-        friends: ["Friend 1", "Friend 2"],
-        photoURL: nil,
-        rooms: ["room1", "room2"]
-    )))
+    RoomsView(viewModel: RoomsViewModel())
 }

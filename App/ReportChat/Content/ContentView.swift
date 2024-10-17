@@ -11,20 +11,19 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var selectedTab: TabList = .home
-    @ObservedObject var viewModel: ContentViewModel
     @StateObject var notificationManager = NotificationManager()
+    @StateObject private var roomsViewModel = RoomsViewModel()
+    @EnvironmentObject var appManager: AppManager
     
     var body: some View {
         NavigationStack {
-            if let currentUser = viewModel.currentUser {
+            if let currentUser = appManager.currentUser {
                 VStack(spacing: 0) {
                     switch selectedTab {
                     case .home:
                         HomeView(currentUser: currentUser)
                     case .rooms:
-                        if let viewModel = viewModel.roomsViewModel {
-                            RoomsView(viewModel: viewModel)
-                        }
+                        RoomsView(viewModel: roomsViewModel)
                     case .timeline:
                         Color.clear
                     case .mypage:
@@ -40,5 +39,6 @@ struct ContentView: View {
     }
 }
 #Preview {
-    ContentView(viewModel: ContentViewModel())
+    ContentView()
+        .environmentObject(AppManager.shared)
 }

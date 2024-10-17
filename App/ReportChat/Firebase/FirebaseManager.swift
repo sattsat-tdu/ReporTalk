@@ -13,6 +13,7 @@ import FirebaseFirestore
 class FirebaseManager: ObservableObject {
     //どこでも共有させる。
     static let shared = FirebaseManager()
+    private let appManager = AppManager.shared
     
     let auth: Auth
     let storage: Storage
@@ -62,7 +63,7 @@ class FirebaseManager: ObservableObject {
     func handleLogout() async {
         do {
             try self.auth.signOut()
-            UserManager.shared.clearUserCache()
+            appManager.stopListening()
             print("ログアウトに成功しました！")
         } catch let signOutError as NSError {
             print("ログアウトに失敗しました: %@", signOutError)
@@ -112,7 +113,7 @@ class FirebaseManager: ObservableObject {
     func deleteUserData(userId: String) async {
         do {
             try await fireStore.collection("users").document(userId).delete()
-            UserManager.shared.clearUserCache()
+            appManager.stopListening()
         } catch {
             print("FireStoreでのアカウント削除に失敗しました: \(error.localizedDescription)")
         }
@@ -320,28 +321,25 @@ class FirebaseManager: ObservableObject {
     //友達申請通知の送信
     func sendFriendRequestNotification(to userId: String) {
         let noticeType = NoticeType.friendRequest.rawValue
-        Task {
-            let userResult = await UserManager.shared.fetchCurrentUser()
-            switch userResult {
-            case .success(let loginUser):
-                let message = "\(loginUser.userName)から友達申請が届いています"
-                let newNotification = NotificationModel(
-                    senderId: loginUser.id!,
-                    receiverId: userId,
-                    message: message,
-                    url: "",
-                    noticeType: noticeType,
-                    timestamp: Date())
-                
-                do {
-                    _ = try Firestore.firestore().collection("notifications").addDocument(from: newNotification)
-                    print("\(userId)に友達申請を送りました")
-                } catch {
-                    print("通知の送信に失敗しました: \(error)")
-                }
-            case .failure(let error):
-                print(error.errorDescription)
-            }
+        guard let currentUser = appManager.currentUser else { return }
+        
+        let message = "「\(currentUser.userName)」から友達申請が届いています"
+        let newNotification = NotificationModel(
+            senderId: currentUser.id!,
+            receiverId: userId,
+            message: message,
+            url: "",
+            noticeType: noticeType,
+            timestamp: Date())
+        
+        do {
+            _ = try fireStore
+                .collection("notifications")
+                .addDocument(from: newNotification)
+            
+            print("\(userId)に友達申請を送りました")
+        } catch {
+            print("通知の送信に失敗しました: \(error)")
         }
     }
     

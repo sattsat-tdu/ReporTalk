@@ -12,15 +12,16 @@ import Foundation
 final class RoomsViewModel: ObservableObject {
     @Published var rooms: [RoomResponse]? = nil
     private var roomCellViewModels: [String: RoomViewModel] = [:] // RoomごとのViewModelをキャッシュ
-    private let user: UserResponse
+    private let appManager = AppManager.shared
     
-    init(user: UserResponse) {
-        self.user = user
-        self.fetchRooms(roomIDs: user.rooms)
+    init() {
+        self.fetchRooms()
     }
     
-    func fetchRooms(roomIDs: [String]) {
+    func fetchRooms() {
         var rooms: [RoomResponse] = []
+        guard let currentUser = appManager.currentUser else { return }
+        let roomIDs = currentUser.rooms
         Task {
             for roomID in roomIDs {
                 let roomResult = await FirebaseManager.shared.fetchRoom(roomID: roomID)

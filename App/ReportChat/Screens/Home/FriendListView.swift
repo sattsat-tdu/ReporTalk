@@ -1,9 +1,9 @@
 //
 //  FriendListView.swift
 //  ReportChat
-//  
+//
 //  Created by SATTSAT on 2024/10/15
-//  
+//
 //
 
 import SwiftUI
@@ -17,6 +17,7 @@ struct FriendListView: View {
     @State private var isModal = false
     @FocusState var isFocused: Bool
     @State private var selectedUser: UserResponse? = nil
+    @EnvironmentObject var appManager: AppManager
     
     var body: some View {
         VStack {
@@ -28,7 +29,7 @@ struct FriendListView: View {
             if let friendList = friendList {
                 if filteredFriendList.isEmpty {
                     VStack {
-                        Text(friendList.isEmpty 
+                        Text(friendList.isEmpty
                              ? "友達がいないようです..."
                              : "「\(searchText)」に一致する友達がいません"
                         )
@@ -68,25 +69,22 @@ struct FriendListView: View {
     @MainActor
     private func onAppear() {
         var users: [UserResponse] = []
+        guard let currentUser = appManager.currentUser else { return }
         Task {
-            let userResult = await UserManager.shared.fetchCurrentUser()
-            switch userResult {
-            case .success(let currentUser):
-                for userId in currentUser.friends {
-                    let friendResult = await FirebaseManager.shared.fetchUser(userId: userId)
-                    switch friendResult {
-                    case .success(let friend):
-                        users.append(friend)
-                    case .failure(_):
-                        print("友達のロードに失敗")
-                    }
+            for userId in currentUser.friends {
+                let friendResult = await FirebaseManager.shared.fetchUser(userId: userId)
+                switch friendResult {
+                case .success(let friend):
+                    users.append(friend)
+                case .failure(_):
+                    print("友達のロードに失敗")
                 }
-                self.filteredFriendList = users
-                self.friendList = users
-            case .failure(_): break
             }
+            self.filteredFriendList = users
+            self.friendList = users
         }
     }
+    
     private func filterFriendList(_ query: String) {
         guard let friendList = self.friendList else { return }
         if query.isEmpty {
@@ -103,4 +101,5 @@ struct FriendListView: View {
 
 #Preview {
     FriendListView()
+        .environmentObject(AppManager.shared)
 }

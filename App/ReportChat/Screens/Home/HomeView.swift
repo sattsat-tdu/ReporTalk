@@ -133,9 +133,6 @@ struct HomeView: View {
                                 .font(.footnote)
                         }
                         Spacer()
-                        Image("MyAppAdIMG")
-                            .resizable()
-                            .scaledToFit()
                     }
                 }
                 .frame(height: 80)

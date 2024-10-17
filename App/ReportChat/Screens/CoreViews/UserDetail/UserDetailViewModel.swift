@@ -23,7 +23,7 @@ class UserDetailViewModel: ObservableObject {
     @Published var partnerState: PartnerState? = nil
     
     func checkPartnerState(for user: UserResponse) async {
-        guard case let .success(loginUser) = await UserManager.shared.fetchCurrentUser() else { return }
+        guard let loginUser = AppManager.shared.currentUser else { return }
         guard let partnerId = user.id else { return }
 
         // 自分のプロフィールか判定
