@@ -16,7 +16,6 @@ final class RoomsViewModel: ObservableObject {
     
     init() {
         self.fetchRooms()
-        print("RoomsViewのinitが呼ばれました")
     }
     
     func fetchRooms() {
@@ -26,7 +25,7 @@ final class RoomsViewModel: ObservableObject {
         
         if roomIDs.isEmpty {
             self.rooms = []
-            print("ユーザーのルームが一つも存在しません。")
+            print("ユーザーのルームが1つも存在しません。")
             return
         }
         

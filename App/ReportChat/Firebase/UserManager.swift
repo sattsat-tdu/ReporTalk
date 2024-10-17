@@ -57,6 +57,19 @@ class UserManager: ObservableObject {
                             .document(userId)
                             .updateData(["friends": otherUserFriends])
                         
+                        // フレンドリクエストの通知を削除
+                        let snapshot = try await fireStore
+                            .collection("notifications")
+                            .whereField("senderId", isEqualTo: userId)
+                            .whereField("receiverId", isEqualTo: uid)
+                            .whereField("noticeType", isEqualTo: NoticeType.friendRequest.rawValue)
+                            .getDocuments()
+
+                        for document in snapshot.documents {
+                            try await document.reference.delete()
+                            print("友達を追加したため、対象のリクエストを削除しました")
+                        }
+                        
                         print("友達が増えました: \(userId)")
                         return .success(())
                     } else {

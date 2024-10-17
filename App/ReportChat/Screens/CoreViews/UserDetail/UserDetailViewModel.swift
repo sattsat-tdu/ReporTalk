@@ -59,7 +59,7 @@ class UserDetailViewModel: ObservableObject {
         Task {
             let friendResult = await UserManager.shared.addFriend(userId: userId)
             switch friendResult {
-            case .success(_):
+            case .success(()):
                 self.partnerState = .friend
                 UIApplication.showToast(type: .success,
                                         message: "友達が増えました！")

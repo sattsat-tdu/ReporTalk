@@ -102,6 +102,18 @@ struct WelcomeSettingsView: View {
                 BackButtonView(onClicked: {
                     if let previousStep = welcomeStep.previousStep {
                         self.welcomeStep = previousStep
+                    } else {
+                        UIApplication.showModal(modalItem: ModalItem(
+                            type: .error,
+                            title: "ログアウトしますか？",
+                            alignment: .center,
+                            isCancelable: true,
+                            onTapped: {
+                                Task {
+                                    await FirebaseManager.shared.handleLogout()
+                                }
+                            }
+                        ))
                     }
                 })
                 

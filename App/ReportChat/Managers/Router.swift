@@ -53,11 +53,12 @@ final class Router: ObservableObject {
                             self.switchRootView(to: .tab)
                         } else {
                             // Firestoreにユーザー情報が存在しない場合、設定画面に遷移
+                            print("Auth情報の取得に成功したものの、DBに存在しません(AuthListener)")
                             self.switchRootView(to: .welcomeSettings)
                         }
                     }
             } else {
-                print("ログイントークンが切れています(AuthListener)")
+                print("ログインしていません(AuthListener)")
                 self.switchRootView(to: .login)
             }
         }
