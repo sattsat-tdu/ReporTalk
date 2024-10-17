@@ -23,22 +23,25 @@ class AppManager: ObservableObject {
         listenerRegistration = firestore.collection("users")
             .document(userId)
             .addSnapshotListener { [weak self] snapshot, error in
-                if let error = error {
-                    print("ユーザーフェッチエラー: \(error.localizedDescription)")
-                    return
-                }
-                
-                do {
-                    self?.currentUser = try snapshot?.data(as: UserResponse.self)
-                    print("ログインユーザー情報が更新されました(AppManager)")
-                } catch {
-                    print("ユーザーデータのデコードに失敗: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print("ユーザーフェッチエラー: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    do {
+                        self?.currentUser = try snapshot?.data(as: UserResponse.self)
+                    } catch {
+                        print("ユーザーデータのデコードに失敗(AppManager): \(error.localizedDescription)")
+                    }
                 }
             }
     }
     
     func stopListening() {
-        listenerRegistration?.remove() // リスナーを解除
-        currentUser = nil // ユーザー情報をクリア
+        listenerRegistration?.remove()
+        DispatchQueue.main.async {
+            self.currentUser = nil // ユーザー情報をクリア
+        }
     }
 }

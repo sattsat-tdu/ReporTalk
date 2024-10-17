@@ -29,8 +29,12 @@ struct ReportChatApp: App {
                     WelcomeSwitchView()
                         .environmentObject(WelcomeViewModel(router: router))
                 case .tab:
-                    ContentView()
-                        .environmentObject(appManager)
+                    if appManager.currentUser != nil {
+                        ContentView()
+                            .environmentObject(appManager)
+                    } else {
+                        SplashView()
+                    }
                 case .welcomeSettings: // WelcomeSettingsView を表示
                     WelcomeSettingsView()
                         .environmentObject(WelcomeViewModel(router: router))

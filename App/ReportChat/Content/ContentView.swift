@@ -17,27 +17,24 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            if let currentUser = appManager.currentUser {
-                VStack(spacing: 0) {
-                    switch selectedTab {
-                    case .home:
-                        HomeView(currentUser: currentUser)
-                    case .rooms:
-                        RoomsView(viewModel: roomsViewModel)
-                    case .timeline:
-                        Color.clear
-                    case .mypage:
-                        MyPageView(user: currentUser)
-                    }
-                    CustomTabView(selectedTab: $selectedTab)
+            VStack(spacing: 0) {
+                switch selectedTab {
+                case .home:
+                    HomeView()
+                case .rooms:
+                    RoomsView(viewModel: roomsViewModel)
+                case .timeline:
+                    Color.clear
+                case .mypage:
+                    MyPageView()
                 }
-            } else {
-                SplashView()
+                CustomTabView(selectedTab: $selectedTab)
             }
         }
         .environmentObject(notificationManager)
     }
 }
+
 #Preview {
     ContentView()
         .environmentObject(AppManager.shared)

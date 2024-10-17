@@ -102,9 +102,18 @@ class FirebaseManager: ObservableObject {
         }
     }
 
-    func deleteAuthUser(deleteUser: FirebaseAuth.User) async {
+    func deleteAuthUser(deleteUser: FirebaseAuth.User, password: String) async {
         do {
+            guard let email = auth.currentUser?.email else { return }
+            // 再認証に必要なクレデンシャルを作成
+            let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+            
+            // 再認証
+            try await deleteUser.reauthenticate(with: credential)
+            
+            // 再認証が成功した後、ユーザーを削除
             try await deleteUser.delete()
+            print("認証情報の削除に成功しました")
         } catch {
             print("認証情報の削除に失敗しました: \(error.localizedDescription)")
         }

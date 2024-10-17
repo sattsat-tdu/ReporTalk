@@ -16,12 +16,20 @@ final class RoomsViewModel: ObservableObject {
     
     init() {
         self.fetchRooms()
+        print("RoomsViewのinitが呼ばれました")
     }
     
     func fetchRooms() {
         var rooms: [RoomResponse] = []
         guard let currentUser = appManager.currentUser else { return }
         let roomIDs = currentUser.rooms
+        
+        if roomIDs.isEmpty {
+            self.rooms = []
+            print("ユーザーのルームが一つも存在しません。")
+            return
+        }
+        
         Task {
             for roomID in roomIDs {
                 let roomResult = await FirebaseManager.shared.fetchRoom(roomID: roomID)

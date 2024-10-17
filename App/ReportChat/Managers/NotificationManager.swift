@@ -12,8 +12,7 @@ import FirebaseAuth
 
 @MainActor
 class NotificationManager: ObservableObject {
-    @Published var notifications: [NotificationModel] = []
-    let title = "aaa"
+    @Published var notifications: [NotificationModel]? = nil
     
     private let db = Firestore.firestore()
     
@@ -37,14 +36,15 @@ class NotificationManager: ObservableObject {
                     return
                 }
                 
-                self.notifications = documents.compactMap { document in
+                let fetchedNotifications = documents.compactMap { document in
                     try? document.data(as: NotificationModel.self)
                 }
                 
-                let newMessage = self.notifications.first?.message
-                
-                UIApplication.showToast(type: .info,
-                                        message: newMessage ?? "取得エラー")
+                if self.notifications != nil {
+                    let newMessage = fetchedNotifications.first?.message
+                    UIApplication.showToast(type: .info,message: newMessage ?? "メッセージを取得できません")
+                }
+                self.notifications = fetchedNotifications
             }
     }
 }
