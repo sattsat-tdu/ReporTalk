@@ -18,6 +18,7 @@ struct NotificationModel: Identifiable, Codable {
     let url: String
     let noticeType: String
     let timestamp: Date
+    let isRead: Bool
     
     var toNoticeType: NoticeType? {
         return NoticeType(rawValue: noticeType) // NoticeTypeに変換
