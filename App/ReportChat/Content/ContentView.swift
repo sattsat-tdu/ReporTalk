@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var selectedTab: TabList = .home
-    @StateObject var notificationManager = NotificationManager()
+    @StateObject private var notificationManager = NotificationManager.shared
     @StateObject private var roomsViewModel = RoomsViewModel()
     @EnvironmentObject var appManager: AppManager
     

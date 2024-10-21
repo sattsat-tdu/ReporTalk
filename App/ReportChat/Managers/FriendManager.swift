@@ -62,7 +62,7 @@ final class FriendManager {
     }
     
     //fromUserのfriendsに指定のuserIdを追加する関数
-    private func addFriend(fromUser: UserResponse, toId: String) async -> Result<Void, FriendManagerError> {
+    func addFriend(fromUser: UserResponse, toId: String) async -> Result<Void, FriendManagerError> {
         guard let uid = fromUser.id else { return .failure(.userNotFound) }
         
         var updatedFriends: [String] = fromUser.friends

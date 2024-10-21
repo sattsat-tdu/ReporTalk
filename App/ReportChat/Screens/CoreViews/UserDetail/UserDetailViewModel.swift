@@ -39,13 +39,13 @@ class UserDetailViewModel: ObservableObject {
         }
         
         // 友達申請を送ったか判定
-        if await FirebaseManager.shared.checkSentFriendRequest(from: loginUser.id!, to: partnerId) {
+        if await NotificationManager.shared.checkSentFriendRequest(from: loginUser.id!, to: partnerId) {
             self.partnerState = .pendingRequest
             return
         }
         
         // 友達申請を受け取ったか判定
-        if await FirebaseManager.shared.checkSentFriendRequest(from: partnerId, to: loginUser.id!) {
+        if await NotificationManager.shared.checkSentFriendRequest(from: partnerId, to: loginUser.id!) {
             self.partnerState = .pendingReceivedRequest
             return
         }
@@ -54,15 +54,17 @@ class UserDetailViewModel: ObservableObject {
     }
     
     //双方のフレンド追加処理
-    func addFriend(userId: String) {
+    func addFriend(to user: UserResponse) {
         UIApplication.showLoading()
+        guard let loginUser = AppManager.shared.currentUser else { return }
         Task {
-            let friendResult = await FriendManager.shared.addMutualFriends(userId: userId)
+            let friendResult = await FriendManager.shared.addMutualFriends(userId: user.id!)
             switch friendResult {
             case .success(()):
+                NotificationManager.shared.sendAnnouncement(to: user.id!,
+                                                            message: "「\(loginUser.userName)」が友達申請を承認しました！")
                 self.partnerState = .friend
-                UIApplication.showToast(type: .success,
-                                        message: "友達が増えました！")
+                UIApplication.showToast(type: .success, message: "「\(user.userName)」と友達になりました！")
             case .failure(let error):
                 print(error.rawValue)
             }
@@ -70,19 +72,41 @@ class UserDetailViewModel: ObservableObject {
         }
     }
     
-    func removeFriend(userId: String) {
+    func removeFriend(to user: UserResponse) {
         UIApplication.showLoading()
         Task {
-            let removeFriendResult = await FriendManager.shared.removeFriend(userId: userId)
+            let removeFriendResult = await FriendManager.shared.removeFriend(userId: user.id!)
             switch removeFriendResult {
             case .success(_):
                 self.partnerState = .stranger
-                UIApplication.showToast(type: .info,
-                                        message: "友達を削除しました")
+                UIApplication.showToast(type: .info, message: "「\(user.userName)」を友達から削除しました")
             case .failure(let error):
                 print(error.rawValue)
             }
             UIApplication.hideLoading()
+        }
+    }
+    
+    func sendFriendRequest(to user: UserResponse) {
+        guard let loginUser = AppManager.shared.currentUser else { return }
+        //すでに相手側にフレンド追加されているか確認
+        if user.friends.contains(loginUser.id!) {
+            UIApplication.showLoading()
+            Task {
+                let result = await FriendManager.shared.addFriend(fromUser: loginUser, toId: user.id!)
+                switch result {
+                case .success(_):
+                    self.partnerState = .friend
+                    UIApplication.showToast(type: .success, message: "「\(user.userName)」と友達になりました！")
+                case .failure(let error):
+                    print("\(error.rawValue)")
+                }
+                UIApplication.hideLoading()
+            }
+        } else {
+            NotificationManager.shared.sendFriendRequestNotification(to: user.id!)
+            self.partnerState = .pendingRequest
+            UIApplication.showToast(type: .info, message: "「\(user.userName)」に友達申請を送りました")
         }
     }
 }

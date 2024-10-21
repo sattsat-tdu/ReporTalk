@@ -66,5 +66,5 @@ struct NotificationView: View {
 }
 #Preview {
     NotificationView()
-        .environmentObject(NotificationManager())
+        .environmentObject(NotificationManager.shared)
 }

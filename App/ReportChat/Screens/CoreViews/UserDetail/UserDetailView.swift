@@ -153,7 +153,7 @@ struct UserDetailView: View {
                     style: .denger,
                     text: "友達から削除",
                     onClicked: {
-                        viewModel.removeFriend(userId: user.id!)
+                        viewModel.removeFriend(to: user)
                     }
                 )
             case .pendingRequest:
@@ -168,7 +168,7 @@ struct UserDetailView: View {
                     style: .primary,
                     text: "友達申請を承認する",
                     onClicked: {
-                        viewModel.addFriend(userId: user.id!)
+                        viewModel.addFriend(to: user)
                     }
                 )
             case .stranger:
@@ -177,10 +177,7 @@ struct UserDetailView: View {
                     style: .primary,
                     text: "友達申請する",
                     onClicked: {
-                        FirebaseManager
-                            .shared
-                            .sendFriendRequestNotification(to: user.id!)
-                        viewModel.partnerState = .pendingRequest
+                        viewModel.sendFriendRequest(to: user)
                     }
                 )
             }
