@@ -57,7 +57,7 @@ class UserDetailViewModel: ObservableObject {
     func addFriend(userId: String) {
         UIApplication.showLoading()
         Task {
-            let friendResult = await UserManager.shared.addFriend(userId: userId)
+            let friendResult = await FriendManager.shared.addMutualFriends(userId: userId)
             switch friendResult {
             case .success(()):
                 self.partnerState = .friend
@@ -73,7 +73,7 @@ class UserDetailViewModel: ObservableObject {
     func removeFriend(userId: String) {
         UIApplication.showLoading()
         Task {
-            let removeFriendResult = await UserManager.shared.removeFriend(userId: userId)
+            let removeFriendResult = await FriendManager.shared.removeFriend(userId: userId)
             switch removeFriendResult {
             case .success(_):
                 self.partnerState = .stranger

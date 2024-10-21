@@ -112,6 +112,15 @@ enum AddIdError: String, Error {
     case unknownError = "追加時に不明なエラーが発生しました。"
 }
 
+enum FriendManagerError: String, Error {
+    case userNotFound = "ユーザー情報が読み込めません。"
+    case otherUserNotFound = "追加先のユーザー情報が読み込めません。"
+    case alreadyExists = "すでに追加しています。"
+    case updateFailed = "友達リストを更新できませんでした。"
+    case serverError = "サーバーエラーが発生しました。"
+    case unknownError = "追加時に不明なエラーが発生しました。"
+}
+
 enum RemoveIdError: String, Error {
     case userNotFound = "ユーザー情報が読み込めません。"
     case otherUserNotFound = "削除先のユーザー情報が読み込めません。"
@@ -139,6 +148,9 @@ class FirebaseError {
             
         case let handleNameError as HandleNameError:
             return handleNameError.rawValue
+            
+        case let friendMangerError as FriendManagerError:
+            return friendMangerError.rawValue
             
         default:
             return "不明なエラーが発生しました: \(error.localizedDescription)"
