@@ -16,7 +16,7 @@ struct ContentView: View {
     @EnvironmentObject var appManager: AppManager
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $appManager.navigationPath) {
             VStack(spacing: 0) {
                 switch selectedTab {
                 case .home:
@@ -29,6 +29,14 @@ struct ContentView: View {
                     MyPageView()
                 }
                 CustomTabView(selectedTab: $selectedTab)
+            }
+            .navigationDestination(for: NavigationDestination.self) { destination in
+                switch destination {
+                case .roomView(let room):
+                    MessagesView()
+                        .resignKeyboardOnDragGesture()
+                        .environmentObject(RoomViewModel(room: room))
+                }
             }
         }
         .environmentObject(notificationManager)

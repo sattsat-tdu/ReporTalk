@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct RoomResponse: Decodable {
+struct RoomResponse: Decodable, Hashable {
 //    let id: String
     @DocumentID var id: String?
     let members: [String]

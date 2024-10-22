@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+import SwiftUI
 
 //自分と相手のプロフィールを管理
 enum PartnerState {
@@ -21,9 +21,10 @@ enum PartnerState {
 @MainActor
 class UserDetailViewModel: ObservableObject {
     @Published var partnerState: PartnerState? = nil
+    private let appManager = AppManager.shared
     
     func checkPartnerState(for user: UserResponse) async {
-        guard let loginUser = AppManager.shared.currentUser else { return }
+        guard let loginUser = appManager.currentUser else { return }
         guard let partnerId = user.id else { return }
 
         // 自分のプロフィールか判定
@@ -51,6 +52,21 @@ class UserDetailViewModel: ObservableObject {
         }
 
         self.partnerState = .stranger
+    }
+    
+    //プロフィールユーザーとのプライベートルームを開くor作成
+    func navigateToRoom(partner: UserResponse) {
+        UIApplication.showLoading()
+        Task {
+            let roomResult = await RoomManager.shared.fetchPrivateRoom(partner: partner)
+            switch roomResult {
+            case .success(let room):
+                appManager.navigationPath.append(NavigationDestination.roomView(room))
+            case .failure(let error):
+                FirebaseError.shared.showErrorToast(error)
+            }
+            UIApplication.hideLoading()
+        }
     }
     
     //双方のフレンド追加処理

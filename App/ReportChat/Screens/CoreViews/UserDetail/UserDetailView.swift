@@ -133,7 +133,7 @@ struct UserDetailView: View {
                 style: .primary,
                 text: "メッセージ",
                 onClicked: {
-                    // メッセージ処理
+                    viewModel.navigateToRoom(partner: user)
                 })
             .hidden(partnerState == .selfProfile)
             

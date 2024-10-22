@@ -9,11 +9,17 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import SwiftUI
+
+enum NavigationDestination: Hashable {
+    case roomView(RoomResponse)
+}
 
 class AppManager: ObservableObject {
     static let shared = AppManager()
     
     @Published var currentUser: UserResponse?
+    @Published var navigationPath = NavigationPath()
     private let firestore = Firestore.firestore()
     private var listenerRegistration: ListenerRegistration?
     
