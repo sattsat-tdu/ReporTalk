@@ -141,11 +141,6 @@ struct HomeView: View {
                         .padding()
                         .background(itemColor)
                         .clipShape(.rect(cornerRadius: 8))
-                        
-                        NavigationLink(destination: NotificationView(),
-                                       label: {
-                            Text("通知を確認")
-                        })
                     }
                     .padding()
                 }
@@ -153,7 +148,14 @@ struct HomeView: View {
                 .navigationTitle("ホーム")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
+                    ToolbarItemGroup(placement: .confirmationAction) {
+                        
+                        NavigationLink(destination: NotificationView(),
+                                       label: {
+                            FontIcon.text(.materialIcon(code: .notifications),
+                                          fontsize: 32)
+                        })
+                        
                         FontIcon.button(.materialIcon(code: .add_box),
                                         action: {
                             selectModalFlg = true
