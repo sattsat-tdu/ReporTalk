@@ -31,7 +31,7 @@ final class RoomsViewModel: ObservableObject {
         
         Task {
             for roomID in roomIDs {
-                let roomResult = await FirebaseManager.shared.fetchRoom(roomID: roomID)
+                let roomResult = await RoomManager.shared.fetchRoom(roomID: roomID)
                 if let room = roomResult {
                     rooms.append(room)
                 }

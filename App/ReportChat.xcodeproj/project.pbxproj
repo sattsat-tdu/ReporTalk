@@ -40,6 +40,7 @@
 		009994402CBFFCA7008697EC /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0099943F2CBFFCA7008697EC /* AppManager.swift */; };
 		009994422CC087F3008697EC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009994412CC087EE008697EC /* Router.swift */; };
 		009994442CC64BCA008697EC /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009994432CC64BAC008697EC /* FriendManager.swift */; };
+		009994462CC7304C008697EC /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009994452CC73046008697EC /* RoomManager.swift */; };
 		009B0F2D2CBE0CFB00D3D08A /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */; };
 		009B0F2F2CBE2C5200D3D08A /* FriendListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F2E2CBE2C5100D3D08A /* FriendListView.swift */; };
 		009B0F312CBEA8DC00D3D08A /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F302CBEA8DC00D3D08A /* NotificationModel.swift */; };
@@ -120,6 +121,7 @@
 		0099943F2CBFFCA7008697EC /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
 		009994412CC087EE008697EC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		009994432CC64BAC008697EC /* FriendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
+		009994452CC73046008697EC /* RoomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomManager.swift; sourceTree = "<group>"; };
 		009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		009B0F2E2CBE2C5100D3D08A /* FriendListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListView.swift; sourceTree = "<group>"; };
 		009B0F302CBEA8DC00D3D08A /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 		009B0F322CBEABDA00D3D08A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				009994452CC73046008697EC /* RoomManager.swift */,
 				009994432CC64BAC008697EC /* FriendManager.swift */,
 				009994412CC087EE008697EC /* Router.swift */,
 				0099943F2CBFFCA7008697EC /* AppManager.swift */,
@@ -565,6 +568,7 @@
 				00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */,
 				0096C64A2CAD05E100C6FD42 /* WelcomeSettingsView.swift in Sources */,
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
+				009994462CC7304C008697EC /* RoomManager.swift in Sources */,
 				009104742CA6C47000F1AA54 /* ModalView.swift in Sources */,
 				00EB78992C9BE5FB00BEEEAA /* Date+Extensions.swift in Sources */,
 				00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */,
