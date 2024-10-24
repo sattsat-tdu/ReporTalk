@@ -22,7 +22,7 @@ struct MessagesView: View {
                     LazyVStack(spacing: 8) {
                         if let messages = viewModel.messages {
                             ForEach(messages, id: \.id) { message in
-                                let isCurrentUser = viewModel.currentUser == message.senderId
+                                let isCurrentUser = viewModel.loginUserId == message.senderId
                                 MessageCell(
                                     message: message, 
                                     isCurrentUser: isCurrentUser
@@ -73,6 +73,8 @@ struct MessagesView: View {
             .frame(height: min(dynamicHeight, maxHeight) + 16)
             .background(.tab)
         }
+        .onAppear(perform: viewModel.onMessageViewAppear)
+        .onDisappear(perform: viewModel.onMessageViewDisappear)
         .navigationTitle(viewModel.roomName)
         .background(.roomBack)
     }

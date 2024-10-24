@@ -25,29 +25,5 @@ class UserManager: ObservableObject {
         self.storage = Storage.storage()
         self.fireStore = Firestore.firestore()
     }
-    
-    func addRoom(roomId: String) async -> Result<Void, AddIdError> {
-        do {
-            guard let loginUser = AppManager.shared.currentUser else { return .failure(.userNotFound) }
-            
-            guard let uid = loginUser.id else { return .failure(.userNotFound) }
-            var updatedRooms: [String] = loginUser.friends
 
-            if !updatedRooms.contains(roomId) {
-                updatedRooms.append(roomId)
-                
-                try await self.fireStore
-                    .collection("users")
-                    .document(uid)
-                    .updateData(["rooms": updatedRooms])
-                
-                print("ルームが追加されました: \(roomId)")
-                return .success(())
-            } else {
-                return .failure(.alreadyExists)
-            }
-        } catch {
-            return .failure(.unknownError)
-        }
-    }
 }

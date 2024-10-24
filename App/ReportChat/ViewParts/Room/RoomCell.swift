@@ -7,44 +7,43 @@
 //
 
 import SwiftUI
+import SwiftUIFontIcon
 
 struct RoomCell: View {
     
     @ObservedObject var viewModel: RoomViewModel
+    private let iconSize: CGFloat = 48
     
     var body: some View {
         HStack(spacing: 16) {
-            //            if let imageUrlString = viewModel.roomIconUrlString {
-            //                IconImageView(
-            //                    urlString: imageUrlString,
-            //                    size: 48
-            //                )
-            //                .clipShape(Circle())
-            //            } else {
-            //                Image("ninjinIMG")
-            //                    .resizable()
-            //                    .frame(width: 48, height: 48)
-            //                    .clipShape(Circle())
-            //            }
             Group {
-                if let icon = viewModel.roomIcon {
-                    Rectangle().aspectRatio(1, contentMode: .fill)
-                        .overlay {
-                            Image(uiImage: icon)
-                                .resizable()
-                                .scaledToFill()
+                if let iconUrl = viewModel.iconUrlString {
+                    CachedImage(url: iconUrl) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            Rectangle().aspectRatio(1, contentMode: .fill)
+                                .overlay {
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                }
+                                .clipped()
+                        case .failure(_):
+                            FontIcon.text(.materialIcon(code: .account_circle),
+                                          fontsize: iconSize)
+                        @unknown default:
+                            EmptyView()
                         }
-                        .clipped()
-                        .frame(width: 48, height: 48)
-                }
-                else {
-                    Image("ninjinIMG")
-                        .resizable()
-                        .frame(width: 48, height: 48)
+                    }
+                } else {
+                    FontIcon.text(.materialIcon(code: .account_circle),
+                                  fontsize: iconSize)
                 }
             }
+            .frame(width: iconSize, height: iconSize)
             .clipShape(Circle())
-            
             
             Text(viewModel.roomName)
                 .font(.subheadline)

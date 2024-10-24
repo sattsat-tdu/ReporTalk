@@ -12,24 +12,37 @@ import FirebaseFirestore
 @MainActor
 final class RoomViewModel: ObservableObject {
     @Published var roomIconUrlString: String? = nil
-    @Published var roomIcon: UIImage? = nil
+    @Published var iconUrlString: String? = nil
     @Published var roomName: String = " --- "
     @Published var messages: [MessageResponse]? = nil
     @Published var lastMessageId: String? = nil
     @Published var messageText = ""
     let room: RoomResponse
-    let currentUser = FirebaseManager.shared.currentUserId
+    private let appManager = AppManager.shared
+    var loginUserId: String {
+        return  (appManager.currentUser?.id)!
+    }
     private var listener: ListenerRegistration?  // メッセージのリスナー
     
     init(room: RoomResponse) {
-        print("RoomViewModelが初期化されました")
         self.room = room
         fetchRoomInfo()
-        listenForRoomMessages() // メッセージをリアルタイムで取得
     }
     
     deinit {
         // ViewModelが破棄される際にリスナーを削除
+        listener?.remove()
+    }
+    
+    //メッセージViewを開いた時にリスナーをスタート
+    func onMessageViewAppear() {
+        print("メッセージのリスナーが起動")
+        listenForRoomMessages()
+    }
+    
+    //メッセージViewを閉じた時にリスナーを解除
+    func onMessageViewDisappear() {
+        print("メッセージリスナー解除")
         listener?.remove()
     }
     
@@ -39,16 +52,10 @@ final class RoomViewModel: ObservableObject {
             guard let partner = await fetchPartner() else { return }
             
             //ルームアイコンの取得
-            let roomIconURL = room.roomIcon ?? partner.photoURL
-            if let iconURL = roomIconURL {
-                if let imageData = await iconURL.fetchImageData(),
-                   let image = UIImage(data: imageData) {
-                    self.roomIcon = image
-                }
-            }
+            let roomIconUrl = room.roomIcon ?? partner.photoURL
+            self.iconUrlString = roomIconUrl
             
             self.roomName = partner.userName
-//            if let iconURL = partner.photoURL { self.roomIconUrlString = iconURL }
         }
     }
     
@@ -56,8 +63,8 @@ final class RoomViewModel: ObservableObject {
     func fetchPartner() async -> UserResponse? {
         if room.members.count == 2 {
             guard let currentUser = FirebaseManager.shared.currentUserId else { return nil }
-            guard let partnerID = room.members.first(where: { $0 != currentUser }) else { return nil }
-            let partnerUserResult = await FirebaseManager.shared.fetchUser(userId: partnerID)
+            guard let partnerId = room.members.first(where: { $0 != currentUser }) else { return nil }
+            let partnerUserResult = await FirebaseManager.shared.fetchUser(userId: partnerId)
             switch partnerUserResult {
             case .success(let user):
                 return user
@@ -72,9 +79,9 @@ final class RoomViewModel: ObservableObject {
     func listenForRoomMessages() {
         guard let roomId = room.id else { return }
         
-        let db = FirebaseManager.shared.fireStore
+        let firestore = Firestore.firestore()
         
-        listener = db.collection("rooms")
+        listener = firestore.collection("rooms")
             .document(roomId)
             .collection("messages")
             .order(by: "timestamp", descending: false)  // メッセージをタイムスタンプ順に取得
@@ -104,7 +111,7 @@ final class RoomViewModel: ObservableObject {
             return
         }
             
-        guard let senderId = currentUser else { return }
+        guard let senderId = appManager.currentUser?.id else { return }
         guard let roomId = room.id else { return }
         
         let document = FirebaseManager.shared.fireStore
