@@ -85,7 +85,8 @@ struct MessagesView: View {
                             RoomResponse(
                                 members: [],
                                 roomIcon: "",
-                                roomName: "")
+                                roomName: "",
+                                lastUpdated: Date())
                          )
         )
 }

@@ -29,6 +29,27 @@ final class RoomManager {
         }
     }
     
+    func fetchUserRecentRooms() async -> Result<[RoomResponse], RoomManagerError> {
+        guard let loginUser = AppManager.shared.currentUser,
+              let loginUserId = loginUser.id else { return .failure(.userNotFound) }
+        
+        do {
+            let snapshot = try await firestore.collection("rooms")
+                .whereField("members", arrayContains: loginUserId) // メンバーにユーザーIDが含まれるルームのみ
+                .order(by: "lastUpdated", descending: true) // タイムスタンプ順
+                .limit(to: 10) // 必要なら、最近の10件だけを取得
+                .getDocuments()
+            
+            let rooms = snapshot.documents.compactMap { document -> RoomResponse? in
+                return try? document.data(as: RoomResponse.self)
+            }
+            
+            return .success(rooms)
+        } catch {
+            return .failure(.roomsFetchError)
+        }
+    }
+    
     // プライベートなルームの作成・存在していればfetchする
     func fetchPrivateRoom(partner: UserResponse) async -> Result<RoomResponse, RoomManagerError> {
         guard let loginUser = AppManager.shared.currentUser,
@@ -48,7 +69,8 @@ final class RoomManager {
                 id: roomId, // ルームIDを設定
                 members: [loginUserId, partnerId],
                 roomIcon: nil,
-                roomName: nil
+                roomName: nil,
+                lastUpdated: Date()
             )
             
             do {

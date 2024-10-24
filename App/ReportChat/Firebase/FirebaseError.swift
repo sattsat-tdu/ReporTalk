@@ -124,6 +124,7 @@ enum FriendManagerError: String, Error {
 enum RoomManagerError: String, Error {
     case userNotFound = "ユーザー情報が読み込めません。"
     case roomNotFound = "ルーム情報が読み込めません。"
+    case roomsFetchError = "ルーム一覧の取得に失敗しました。"
     case otherUserNotFound = "追加先のユーザー情報が読み込めません。"
     case alreadyExists = "すでに追加しています。"
     case updateFailed = "ルームリストを更新できませんでした。"

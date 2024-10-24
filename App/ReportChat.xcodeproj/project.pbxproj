@@ -41,6 +41,7 @@
 		009994422CC087F3008697EC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009994412CC087EE008697EC /* Router.swift */; };
 		009994442CC64BCA008697EC /* FriendManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009994432CC64BAC008697EC /* FriendManager.swift */; };
 		009994462CC7304C008697EC /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009994452CC73046008697EC /* RoomManager.swift */; };
+		0099944B2CC74FD4008697EC /* RoomCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0099944A2CC74FCB008697EC /* RoomCache.swift */; };
 		009B0F2D2CBE0CFB00D3D08A /* UserDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */; };
 		009B0F2F2CBE2C5200D3D08A /* FriendListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F2E2CBE2C5100D3D08A /* FriendListView.swift */; };
 		009B0F312CBEA8DC00D3D08A /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009B0F302CBEA8DC00D3D08A /* NotificationModel.swift */; };
@@ -122,6 +123,7 @@
 		009994412CC087EE008697EC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		009994432CC64BAC008697EC /* FriendManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendManager.swift; sourceTree = "<group>"; };
 		009994452CC73046008697EC /* RoomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomManager.swift; sourceTree = "<group>"; };
+		0099944A2CC74FCB008697EC /* RoomCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCache.swift; sourceTree = "<group>"; };
 		009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailView.swift; sourceTree = "<group>"; };
 		009B0F2E2CBE2C5100D3D08A /* FriendListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListView.swift; sourceTree = "<group>"; };
 		009B0F302CBEA8DC00D3D08A /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				00EB78712C980E7B00BEEEAA /* Models */,
 				00EB78602C8B567000BEEEAA /* Extensions */,
 				00FA5C202CA2CA7800301A1B /* ViewModifiers */,
+				009994492CC74FAB008697EC /* Caches */,
 				009B0F322CBEABDA00D3D08A /* Managers */,
 				00F7BE4B2C835B6800E0CB5C /* Firebase */,
 				00F7BE3A2C832EDC00E0CB5C /* GoogleService-Info.plist */,
@@ -260,6 +263,14 @@
 				0099943D2CBFBD24008697EC /* UserDetailViewModel.swift */,
 			);
 			path = UserDetail;
+			sourceTree = "<group>";
+		};
+		009994492CC74FAB008697EC /* Caches */ = {
+			isa = PBXGroup;
+			children = (
+				0099944A2CC74FCB008697EC /* RoomCache.swift */,
+			);
+			path = Caches;
 			sourceTree = "<group>";
 		};
 		009B0F2B2CBE0CC900D3D08A /* CoreViews */ = {
@@ -584,6 +595,7 @@
 				006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */,
 				00EB78762C980EE500BEEEAA /* UserResponse.swift in Sources */,
 				008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */,
+				0099944B2CC74FD4008697EC /* RoomCache.swift in Sources */,
 				008346D42CBC118C001ADAD2 /* AddFriendsView.swift in Sources */,
 				00EB78702C980C5900BEEEAA /* RoomsView.swift in Sources */,
 				009104442CA53D3800F1AA54 /* ProfileDetailView.swift in Sources */,

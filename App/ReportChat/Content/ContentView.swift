@@ -22,7 +22,8 @@ struct ContentView: View {
                 case .home:
                     HomeView()
                 case .rooms:
-                    RoomsView(viewModel: roomsViewModel)
+                    RoomsView()
+                        .environmentObject(roomsViewModel)
                 case .timeline:
                     Color.clear
                 case .mypage:

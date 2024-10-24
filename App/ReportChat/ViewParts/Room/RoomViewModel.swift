@@ -17,11 +17,12 @@ final class RoomViewModel: ObservableObject {
     @Published var messages: [MessageResponse]? = nil
     @Published var lastMessageId: String? = nil
     @Published var messageText = ""
-    private let room: RoomResponse
+    let room: RoomResponse
     let currentUser = FirebaseManager.shared.currentUserId
     private var listener: ListenerRegistration?  // メッセージのリスナー
     
     init(room: RoomResponse) {
+        print("RoomViewModelが初期化されました")
         self.room = room
         fetchRoomInfo()
         listenForRoomMessages() // メッセージをリアルタイムで取得

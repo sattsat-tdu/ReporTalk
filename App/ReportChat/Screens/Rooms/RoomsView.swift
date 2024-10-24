@@ -1,42 +1,48 @@
 //
 //  RoomsView.swift
 //  ReportChat
-//  
+//
 //  Created by SATTSAT on 2024/09/16
-//  
+//
 //
 
 import SwiftUI
 
 struct RoomsView: View {
-    @ObservedObject var viewModel: RoomsViewModel
+    @EnvironmentObject var viewModel: RoomsViewModel
     
     var body: some View {
-        if let rooms = viewModel.rooms {
-            List(rooms, id: \.id) { room in
-                NavigationLink(
-                    destination: MessagesView()
-                        .resignKeyboardOnDragGesture()
-                        .environmentObject(viewModel.cellViewModel(for: room)),
-                    label: {
-                        RoomCell(viewModel: viewModel.cellViewModel(for: room))
-                    }
-                )
-                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                .listRowBackground(Color.clear)
+        Group {
+            if let rooms = viewModel.rooms {
+                // Listに入れる前にキャッシュされたRoomViewModelを取得しておく
+                let cachedRoomViewModels = rooms.compactMap { viewModel.cacheRoomViewModel(for: $0) }
+
+                List(cachedRoomViewModels, id: \.room.id) { roomViewModel in
+                    NavigationLink(
+                        destination: MessagesView()
+                            .environmentObject(roomViewModel)
+                            .resignKeyboardOnDragGesture(),
+                        label: {
+                            RoomCell(viewModel: roomViewModel)
+                        }
+                    )
+                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .listRowBackground(Color.clear)
+                }
+                .scrollIndicators(.hidden)
+                .listStyle(.plain)
+            } else {
+                LoadingView(message: "ルームを取得中")
             }
-            .background(.tab)
-            .scrollIndicators(.hidden)  // スクロールバーの非表示
-            .listStyle(.plain)  // List特有の余白を削除
-            .navigationTitle("ルーム")
-            .navigationBarTitleDisplayMode(.inline)
-        } else {
-            LoadingView(message: "ルームを取得中")
         }
+        .background(.tab)
+        .navigationTitle("ルーム")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 
 #Preview {
-    RoomsView(viewModel: RoomsViewModel())
+    RoomsView()
+        .environmentObject(RoomsViewModel())
 }

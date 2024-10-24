@@ -15,6 +15,7 @@ struct RoomResponse: Decodable, Hashable {
     let members: [String]
     let roomIcon: String?
     let roomName: String?
+    let lastUpdated: Date
     
     //Firebaseのフィールド名と一致させる
     enum CodingKeys: String, CodingKey {
@@ -22,12 +23,14 @@ struct RoomResponse: Decodable, Hashable {
         case members
         case roomIcon = "roomicon"
         case roomName = "roomname"
+        case lastUpdated
     }
     
     // Firebaseに書き込むための辞書変換
     func toDictionary() -> [String: Any] {
         var dict: [String: Any] = [
-            "members": members
+            "members": members,
+            "lastUpdated": lastUpdated
         ]
         
         if let roomIcon = self.roomIcon {

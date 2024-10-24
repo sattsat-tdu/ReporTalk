@@ -7,50 +7,60 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 @MainActor
 final class RoomsViewModel: ObservableObject {
-    @Published var rooms: [RoomResponse]? = nil
-    private var roomCellViewModels: [String: RoomViewModel] = [:] // RoomごとのViewModelをキャッシュ
+    @Published var roomsModel: [RoomViewModel]? = nil
     private let appManager = AppManager.shared
+    private let firestore = Firestore.firestore()
+    private var listener: ListenerRegistration?
+    //試作
+    @Published var rooms: [RoomResponse]? = nil
     
     init() {
-        self.fetchRooms()
+        self.listenToRoomUpdates()
     }
     
-    func fetchRooms() {
-        var rooms: [RoomResponse] = []
-        guard let currentUser = appManager.currentUser else { return }
-        let roomIDs = currentUser.rooms
+    deinit {
+        listener?.remove()
+        print("ルームリスナーの監視が解除されました")
+    }
+    
+    //ルームのリアルタイム監視
+    private func listenToRoomUpdates(limit: Int = 20) {
+        guard let loginUserId = AppManager.shared.currentUser?.id else { return }
+        let query = firestore.collection("rooms")
+            .whereField("members", arrayContains: loginUserId)
+            .order(by: "lastUpdated", descending: true)
+            .limit(to: limit)
         
-        if roomIDs.isEmpty {
-            self.rooms = []
-            print("ユーザーのルームが1つも存在しません。")
-            return
-        }
-        
-        Task {
-            for roomID in roomIDs {
-                let roomResult = await RoomManager.shared.fetchRoom(roomID: roomID)
-                if let room = roomResult {
-                    rooms.append(room)
-                }
+        listener = query.addSnapshotListener { [weak self] snapshot, error in
+            if let error = error {
+                print("ルームの更新に失敗しました: \(error)")
+                return
             }
-            self.rooms = rooms
+
+            guard let documents = snapshot?.documents else { return }
+
+            let newRooms = documents.compactMap { document in
+                try? document.data(as: RoomResponse.self)
+            }
+            
+            self?.rooms = newRooms
         }
     }
     
-    //キャッシュの仕組みを使用する。これにより再ロードを防ぐ
-    func cellViewModel(for room: RoomResponse) -> RoomViewModel {
+    //RoomResponseを引数にしたRoomViewModelのキャッシュ
+    func cacheRoomViewModel(for room: RoomResponse) -> RoomViewModel? {
         guard let roomId = room.id else {
-            print("Room IDがnilです。")
-            return RoomViewModel(room: room)
+            fatalError("Room IDの取得に失敗")
         }
-        if let viewModel = roomCellViewModels[roomId] {
-            return viewModel
+        if let cachedViewModel = RoomsCache.shared.getRoomViewModel(forKey: roomId) {
+            return cachedViewModel
         } else {
             let newViewModel = RoomViewModel(room: room)
-            roomCellViewModels[roomId] = newViewModel
+            RoomsCache.shared.setRoomViewModel(newViewModel, forKey: roomId)
             return newViewModel
         }
     }
