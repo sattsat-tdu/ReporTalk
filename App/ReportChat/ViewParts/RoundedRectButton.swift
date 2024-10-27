@@ -1,15 +1,15 @@
 //
-//  CapsuleButton.swift
+//  RoundedRectButton.swift
 //  ReportChat
 //  
-//  Created by SATTSAT on 2024/09/09
+//  Created by SATTSAT on 2024/10/16
 //  
 //
 
 import SwiftUI
 import SwiftUIFontIcon
 
-struct CapsuleButton: View {
+struct RoundedRectButton: View {
     
     enum ButtonType {
         case primary
@@ -36,6 +36,7 @@ struct CapsuleButton: View {
     let text: String
     let destination: AnyView? // オプションの NavigationLink 用ビュー
     let onClicked: (() -> Void)?
+    private let cornerRadius: CGFloat = 8
     
     init(icon: MaterialIconCode? = nil, style: ButtonType, text: String, destination: AnyView? = nil, onClicked: (() -> Void)? = nil) {
         self.icon = icon
@@ -63,21 +64,23 @@ struct CapsuleButton: View {
     }
     
     private var capsuleView: some View {
-        HStack {
+        VStack {
             if let icon = icon {
-                FontIcon.text(.materialIcon(code: icon),fontsize: 24)
+                FontIcon.text(.materialIcon(code: icon),fontsize: 32)
             }
             
             Text(text)
+                .font(.headline)
+                .lineLimit(1)
+                .minimumScaleFactor(0.1)
         }
-        .font(.headline)
         .foregroundStyle(style == .contrast ? .buttonBack : .buttonText)
         .padding()
         .frame(maxWidth: .infinity)
         .background(style.buttonBackColor)
-        .clipShape(Capsule())
+        .clipShape(.rect(cornerRadius: cornerRadius))
         .overlay(
-            Capsule()
+            RoundedRectangle(cornerRadius: cornerRadius)
                 .stroke(style == .contrast ? .rounded : .clear, lineWidth: 2)
         )
     }
@@ -85,19 +88,19 @@ struct CapsuleButton: View {
 
 #Preview {
     NavigationStack {
-        VStack {
+        HStack {
             // NavigationLinkとして動作するCapsuleButton
-            CapsuleButton(style: .primary, 
+            RoundedRectButton(style: .primary,
                           text: "ナビゲーションボタン",
                           destination: AnyView(Text("Next View")))
             
-            CapsuleButton(icon: .message,
+            RoundedRectButton(icon: .message,
                           style: .primary,
                           text: "ナビゲーションボタン",
                           destination: AnyView(Text("Next View")))
             
             // 通常のボタンとして動作するCapsuleButton（クリックでアクション）
-            CapsuleButton(style: .denger, 
+            RoundedRectButton(style: .denger,
                           text: "ボタン処理",
                           onClicked: {
                 print("Button clicked")

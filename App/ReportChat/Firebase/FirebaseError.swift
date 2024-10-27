@@ -103,6 +103,44 @@ enum HandleNameError: String, Error {
     case serverError = "サーバーエラーが発生しています。"
 }
 
+enum AddIdError: String, Error {
+    case userNotFound = "ユーザー情報が読み込めません。"
+    case otherUserNotFound = "追加先のユーザー情報が読み込めません。"
+    case alreadyExists = "すでに追加しています。"
+    case invalidData = "データが不正です。"
+    case serverError = "サーバーエラーが発生しました。"
+    case unknownError = "追加時に不明なエラーが発生しました。"
+}
+
+enum FriendManagerError: String, Error {
+    case userNotFound = "ユーザー情報が読み込めません。"
+    case otherUserNotFound = "追加先のユーザー情報が読み込めません。"
+    case alreadyExists = "すでに追加しています。"
+    case updateFailed = "友達リストを更新できませんでした。"
+    case serverError = "サーバーエラーが発生しました。"
+    case unknownError = "追加時に不明なエラーが発生しました。"
+}
+
+enum RoomManagerError: String, Error {
+    case userNotFound = "ユーザー情報が読み込めません。"
+    case roomNotFound = "ルーム情報が読み込めません。"
+    case roomsFetchError = "ルーム一覧の取得に失敗しました。"
+    case otherUserNotFound = "追加先のユーザー情報が読み込めません。"
+    case alreadyExists = "すでに追加しています。"
+    case updateFailed = "ルームリストを更新できませんでした。"
+    case serverError = "サーバーエラーが発生しました。"
+    case unknownError = "追加時に不明なエラーが発生しました。"
+}
+
+enum RemoveIdError: String, Error {
+    case userNotFound = "ユーザー情報が読み込めません。"
+    case otherUserNotFound = "削除先のユーザー情報が読み込めません。"
+    case notFound = "削除対象が存在しません。"
+    case invalidData = "データが不正です。"
+    case serverError = "サーバーエラーが発生しました。"
+    case unknownError = "削除時に不明なエラーが発生しました。"
+}
+
 class FirebaseError {
     static let shared = FirebaseError()
     
@@ -121,6 +159,12 @@ class FirebaseError {
             
         case let handleNameError as HandleNameError:
             return handleNameError.rawValue
+            
+        case let friendMangerError as FriendManagerError:
+            return friendMangerError.rawValue
+            
+        case let roomManagerError as RoomManagerError:
+            return roomManagerError.rawValue
             
         default:
             return "不明なエラーが発生しました: \(error.localizedDescription)"

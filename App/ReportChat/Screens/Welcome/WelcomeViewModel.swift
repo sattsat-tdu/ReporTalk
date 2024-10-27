@@ -198,10 +198,11 @@ final class WelcomeViewModel: ObservableObject {
             ).toDictionary()
             
             do {
-                try await FirebaseManager.shared.fireStore.collection("users")
+                try await FirebaseManager.shared.firestore.collection("users")
                     .document(authUser.uid).setData(userData)
                 
                 DispatchQueue.main.async {
+                    AppManager.shared.listenToUserUpdates()
                     UIApplication.showToast(type: .success, message: "登録が完了しました！")
                     UIApplication.hideLoading()
                     self.router.switchRootView(to: .tab) // UI更新はメインスレッドで実行

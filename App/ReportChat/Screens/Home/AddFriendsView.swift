@@ -16,6 +16,7 @@ struct AddFriendsView: View {
     @Environment(\.isPresented) private var isPresented
     @State private var isModal = false
     @FocusState var isFocused: Bool
+    @State private var selectedUser: UserResponse? = nil
     
     var body: some View {
         VStack {
@@ -56,9 +57,13 @@ struct AddFriendsView: View {
                     }
                 } else {
                     List(viewModel.searchResults, id: \.id) { user in
-                        UserCell(user: user)
-                            .listRowInsets(EdgeInsets())
-                            .listRowBackground(Color.clear)
+                        Button(action: {
+                            self.selectedUser = user
+                        }, label: {
+                            UserCell(user: user)
+                        })
+                        .listRowInsets(EdgeInsets())
+                        .listRowBackground(Color.clear)
                     }
                     .listStyle(.plain)
                 }
@@ -73,6 +78,9 @@ struct AddFriendsView: View {
         .navigationTitle("ユーザーID検索")
         //検索時はモーダルを閉じないように
         .interactiveDismissDisabled(!viewModel.searchText.isEmpty)
+        .sheet(item: $selectedUser) { user in
+            UserDetailView(user: user) // 選択されたユーザーを引数として渡す
+        }
     }
 }
 

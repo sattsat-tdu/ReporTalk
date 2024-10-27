@@ -44,7 +44,7 @@ final class ProfileViewModel: ObservableObject {
                 await FirebaseManager.shared.deleteUserImage(userId: userId)
                 
                 //最後にUser認証情報を削除
-                await FirebaseManager.shared.deleteAuthUser(deleteUser: currentUser)
+                await FirebaseManager.shared.deleteAuthUser(deleteUser: currentUser, password: "qwerty12345")
                 
             } else {
                 print("ネットワークに接続されていません。")

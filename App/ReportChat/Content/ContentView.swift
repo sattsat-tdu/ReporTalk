@@ -11,32 +11,40 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var selectedTab: TabList = .home
-    @ObservedObject var viewModel: ContentViewModel
+    @StateObject private var notificationManager = NotificationManager.shared
+    @StateObject private var roomsViewModel = RoomsViewModel()
+    @EnvironmentObject var appManager: AppManager
     
     var body: some View {
-        NavigationStack {
-            if let currentUser = viewModel.currentUser {
-                VStack(spacing: 0) {
-                    switch selectedTab {
-                    case .home:
-                        HomeView(currentUser: currentUser)
-                    case .rooms:
-                        if let viewModel = viewModel.roomsViewModel {
-                            RoomsView(viewModel: viewModel)
-                        }
-                    case .timeline:
-                        Color.clear
-                    case .mypage:
-                        MyPageView(user: currentUser)
-                    }
-                    CustomTabView(selectedTab: $selectedTab)
+        NavigationStack(path: $appManager.navigationPath) {
+            VStack(spacing: 0) {
+                switch selectedTab {
+                case .home:
+                    HomeView()
+                case .rooms:
+                    RoomsView()
+                        .environmentObject(roomsViewModel)
+                case .timeline:
+                    Color.clear
+                case .mypage:
+                    MyPageView()
                 }
-            } else {
-                SplashView()
+                CustomTabView(selectedTab: $selectedTab)
+            }
+            .navigationDestination(for: NavigationDestination.self) { destination in
+                switch destination {
+                case .roomView(let room):
+                    RoomView()
+                        .resignKeyboardOnDragGesture()
+                        .environmentObject(RoomViewModel(room: room))
+                }
             }
         }
+        .environmentObject(notificationManager)
     }
 }
+
 #Preview {
-    ContentView(viewModel: ContentViewModel())
+    ContentView()
+        .environmentObject(AppManager.shared)
 }

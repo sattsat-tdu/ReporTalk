@@ -9,9 +9,11 @@
 import SwiftUI
 import SwiftUIFontIcon
 
-struct MessagesView: View {
+struct RoomView: View {
     
     @EnvironmentObject var viewModel: RoomViewModel
+//    @StateObject private var viewModel: RoomViewModel
+
     @State private var dynamicHeight: CGFloat = 40
     private let maxHeight: CGFloat = 240
     
@@ -22,7 +24,7 @@ struct MessagesView: View {
                     LazyVStack(spacing: 8) {
                         if let messages = viewModel.messages {
                             ForEach(messages, id: \.id) { message in
-                                let isCurrentUser = viewModel.currentUser == message.senderId
+                                let isCurrentUser = viewModel.loginUserId == message.senderId
                                 MessageCell(
                                     message: message, 
                                     isCurrentUser: isCurrentUser
@@ -73,19 +75,22 @@ struct MessagesView: View {
             .frame(height: min(dynamicHeight, maxHeight) + 16)
             .background(.tab)
         }
+        .onAppear(perform: viewModel.onMessageViewAppear)
+        .onDisappear(perform: viewModel.onMessageViewDisappear)
         .navigationTitle(viewModel.roomName)
         .background(.roomBack)
     }
 }
 
 #Preview {
-    MessagesView()
+    RoomView()
         .environmentObject(
             RoomViewModel(room:
                             RoomResponse(
                                 members: [],
                                 roomIcon: "",
-                                roomName: "")
+                                roomName: "",
+                                lastUpdated: Date())
                          )
         )
 }

@@ -13,10 +13,11 @@ import FirebaseFirestore
 class FirebaseManager: ObservableObject {
     //どこでも共有させる。
     static let shared = FirebaseManager()
+    private let appManager = AppManager.shared
     
     let auth: Auth
     let storage: Storage
-    let fireStore: Firestore
+    let firestore: Firestore
     var currentUserId: String? {
         return auth.currentUser?.uid
     }
@@ -24,7 +25,7 @@ class FirebaseManager: ObservableObject {
     init() {
         self.auth = Auth.auth()
         self.storage = Storage.storage()
-        self.fireStore = Firestore.firestore()
+        self.firestore = Firestore.firestore()
     }
     
     //ログイン処理
@@ -62,7 +63,7 @@ class FirebaseManager: ObservableObject {
     func handleLogout() async {
         do {
             try self.auth.signOut()
-            UserManager.shared.clearUserCache()
+            appManager.stopListening()
             print("ログアウトに成功しました！")
         } catch let signOutError as NSError {
             print("ログアウトに失敗しました: %@", signOutError)
@@ -83,7 +84,7 @@ class FirebaseManager: ObservableObject {
     func checkHandleNameAvailibility(handleName: String) async -> Result<Void, HandleNameError> {
         do {
             // FirestoreのusersコレクションでhandleNameが既に使われているか確認
-            let snapshot = try await fireStore.collection("users")
+            let snapshot = try await firestore.collection("users")
                 .whereField("handle", isEqualTo: handleName)
                 .getDocuments()
             
@@ -101,9 +102,18 @@ class FirebaseManager: ObservableObject {
         }
     }
 
-    func deleteAuthUser(deleteUser: FirebaseAuth.User) async {
+    func deleteAuthUser(deleteUser: FirebaseAuth.User, password: String) async {
         do {
+            guard let email = auth.currentUser?.email else { return }
+            // 再認証に必要なクレデンシャルを作成
+            let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+            
+            // 再認証
+            try await deleteUser.reauthenticate(with: credential)
+            
+            // 再認証が成功した後、ユーザーを削除
             try await deleteUser.delete()
+            print("認証情報の削除に成功しました")
         } catch {
             print("認証情報の削除に失敗しました: \(error.localizedDescription)")
         }
@@ -111,8 +121,8 @@ class FirebaseManager: ObservableObject {
     
     func deleteUserData(userId: String) async {
         do {
-            try await fireStore.collection("users").document(userId).delete()
-            UserManager.shared.clearUserCache()
+            try await firestore.collection("users").document(userId).delete()
+            appManager.stopListening()
         } catch {
             print("FireStoreでのアカウント削除に失敗しました: \(error.localizedDescription)")
         }
@@ -122,12 +132,11 @@ class FirebaseManager: ObservableObject {
     func fetchUser(userId: String) async -> Result<UserResponse, UserFetchError> {
         
         do {
-            let snapshot = try await FirebaseManager.shared.fireStore
+            let snapshot = try await firestore
                 .collection("users")
                 .document(userId)
                 .getDocument()
             
-            print("userId: \(userId)\nでログインしています。")
             // snapshotをデコードしてUserResponseに変換
             return try .success(snapshot.data(as: UserResponse.self))
             
@@ -141,7 +150,7 @@ class FirebaseManager: ObservableObject {
     // ユーザー検索メソッド
     func searchUsers(byHandle handle: String) async -> Result<[UserResponse], UserFetchError> {
         do {
-            let snapshot = try await fireStore.collection("users")
+            let snapshot = try await firestore.collection("users")
                 .whereField("handle", isGreaterThanOrEqualTo: handle)
                 .whereField("handle", isLessThanOrEqualTo: handle + "\u{f8ff}")  // 前方一致
                 .getDocuments()
@@ -161,28 +170,12 @@ class FirebaseManager: ObservableObject {
         }
     }
     
-    //idからルーム情報を取得
-    func fetchRoom(roomID: String) async -> RoomResponse? {
-        do {
-            let snapshot = try await
-            FirebaseManager.shared.fireStore
-                .collection("rooms")
-                .document(roomID)
-                .getDocument()
-            
-            return try snapshot.data(as: RoomResponse.self)
-        } catch _ as NSError {
-            print("ルームが見つかりませんでした。")
-            return nil
-        }
-    }
-    
     //idからルーム内のメッセージを取得
     func fetchRoomMessages(roomID: String) async -> [MessageResponse]? {
         var messages = [MessageResponse]()
         do {
             let messagesCollection =
-            FirebaseManager.shared.fireStore
+            firestore
                 .collection("rooms")
                 .document(roomID)
                 .collection("messages")
@@ -274,6 +267,29 @@ class FirebaseManager: ObservableObject {
             // その他のエラーをキャッチ
             print("接続エラーが発生しました: \(error.localizedDescription)")
             return false
+        }
+    }
+    
+    func sendMessage(roomId: String, message: String) async {
+        
+        guard let senderId = appManager.currentUser?.id else { return }
+        let currentTime = Date()
+        let document = firestore
+            .collection("rooms")
+            .document(roomId)
+            .collection("messages")
+        
+        let messageData = MessageResponse(
+            text: message,
+            senderId: senderId,
+            timestamp: currentTime
+        ).toDictionary()
+        do {
+            // メッセージの送信
+            try await document.addDocument(data: messageData)
+            print("メッセージの送信に成功！")
+        } catch {
+            print("メッセージの送信に失敗\(error.localizedDescription)")
         }
     }
 }
