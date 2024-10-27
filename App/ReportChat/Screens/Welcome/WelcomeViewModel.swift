@@ -198,7 +198,7 @@ final class WelcomeViewModel: ObservableObject {
             ).toDictionary()
             
             do {
-                try await FirebaseManager.shared.fireStore.collection("users")
+                try await FirebaseManager.shared.firestore.collection("users")
                     .document(authUser.uid).setData(userData)
                 
                 DispatchQueue.main.async {

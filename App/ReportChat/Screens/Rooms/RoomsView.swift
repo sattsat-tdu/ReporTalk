@@ -13,13 +13,10 @@ struct RoomsView: View {
     
     var body: some View {
         Group {
-            if let rooms = viewModel.rooms {
-                // Listに入れる前にキャッシュされたRoomViewModelを取得しておく
-                let cachedRoomViewModels = rooms.compactMap { viewModel.cacheRoomViewModel(for: $0) }
-
-                List(cachedRoomViewModels, id: \.room.id) { roomViewModel in
+            if !viewModel.roomsModel.isEmpty {
+                List(viewModel.roomsModel, id: \.room.id) { roomViewModel in
                     NavigationLink(
-                        destination: MessagesView()
+                        destination: RoomView()
                             .environmentObject(roomViewModel)
                             .resignKeyboardOnDragGesture(),
                         label: {
@@ -40,7 +37,6 @@ struct RoomsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
-
 
 #Preview {
     RoomsView()

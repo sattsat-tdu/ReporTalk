@@ -9,9 +9,11 @@
 import SwiftUI
 import SwiftUIFontIcon
 
-struct MessagesView: View {
+struct RoomView: View {
     
     @EnvironmentObject var viewModel: RoomViewModel
+//    @StateObject private var viewModel: RoomViewModel
+
     @State private var dynamicHeight: CGFloat = 40
     private let maxHeight: CGFloat = 240
     
@@ -81,7 +83,7 @@ struct MessagesView: View {
 }
 
 #Preview {
-    MessagesView()
+    RoomView()
         .environmentObject(
             RoomViewModel(room:
                             RoomResponse(

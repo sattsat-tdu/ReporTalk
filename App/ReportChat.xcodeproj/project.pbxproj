@@ -66,7 +66,7 @@
 		00EB78842C994DE700BEEEAA /* RoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78832C994DE700BEEEAA /* RoomCell.swift */; };
 		00EB78892C9AAECF00BEEEAA /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78882C9AAECF00BEEEAA /* RoomViewModel.swift */; };
 		00EB788B2C9ABBD600BEEEAA /* IconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */; };
-		00EB788E2C9B254E00BEEEAA /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB788D2C9B254E00BEEEAA /* MessagesView.swift */; };
+		00EB788E2C9B254E00BEEEAA /* RoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB788D2C9B254E00BEEEAA /* RoomView.swift */; };
 		00EB78902C9B29DE00BEEEAA /* MessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB788F2C9B29DE00BEEEAA /* MessageResponse.swift */; };
 		00EB78952C9B9E9600BEEEAA /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78942C9B9E9600BEEEAA /* UIImage+Extensions.swift */; };
 		00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78962C9BE58200BEEEAA /* MessageCell.swift */; };
@@ -148,7 +148,7 @@
 		00EB78832C994DE700BEEEAA /* RoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomCell.swift; sourceTree = "<group>"; };
 		00EB78882C9AAECF00BEEEAA /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImageView.swift; sourceTree = "<group>"; };
-		00EB788D2C9B254E00BEEEAA /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
+		00EB788D2C9B254E00BEEEAA /* RoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomView.swift; sourceTree = "<group>"; };
 		00EB788F2C9B29DE00BEEEAA /* MessageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageResponse.swift; sourceTree = "<group>"; };
 		00EB78942C9B9E9600BEEEAA /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		00EB78962C9BE58200BEEEAA /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -333,7 +333,7 @@
 		00EB786C2C980A1B00BEEEAA /* Rooms */ = {
 			isa = PBXGroup;
 			children = (
-				00EB788C2C9B253600BEEEAA /* Messages */,
+				00EB788C2C9B253600BEEEAA /* Room */,
 				00EB786F2C980C5900BEEEAA /* RoomsView.swift */,
 				00EB78812C987BC100BEEEAA /* RoomsViewModel.swift */,
 			);
@@ -372,21 +372,13 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
-		00EB78872C9AAEB200BEEEAA /* Room */ = {
+		00EB788C2C9B253600BEEEAA /* Room */ = {
 			isa = PBXGroup;
 			children = (
-				00EB78832C994DE700BEEEAA /* RoomCell.swift */,
+				00EB788D2C9B254E00BEEEAA /* RoomView.swift */,
 				00EB78882C9AAECF00BEEEAA /* RoomViewModel.swift */,
 			);
 			path = Room;
-			sourceTree = "<group>";
-		};
-		00EB788C2C9B253600BEEEAA /* Messages */ = {
-			isa = PBXGroup;
-			children = (
-				00EB788D2C9B254E00BEEEAA /* MessagesView.swift */,
-			);
-			path = Messages;
 			sourceTree = "<group>";
 		};
 		00EB78912C9B325C00BEEEAA /* Content */ = {
@@ -415,7 +407,7 @@
 			children = (
 				009104682CA6746500F1AA54 /* OverlayViews */,
 				009104292CA3127200F1AA54 /* SettingCells */,
-				00EB78872C9AAEB200BEEEAA /* Room */,
+				00EB78832C994DE700BEEEAA /* RoomCell.swift */,
 				00F7BE142C80B8D800E0CB5C /* InputFormView.swift */,
 				008346D72CBC1A7E001ADAD2 /* SearchTextField.swift */,
 				00F7BE382C8222DF00E0CB5C /* CustomTabView.swift */,
@@ -565,7 +557,7 @@
 				009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */,
 				009B0F2F2CBE2C5200D3D08A /* FriendListView.swift in Sources */,
 				0091046C2CA67FD300F1AA54 /* UIApplication+Extension.swift in Sources */,
-				00EB788E2C9B254E00BEEEAA /* MessagesView.swift in Sources */,
+				00EB788E2C9B254E00BEEEAA /* RoomView.swift in Sources */,
 				00FA5C222CA2CB2000301A1B /* HiddenModifier.swift in Sources */,
 				009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */,
 				009B0F342CBEACEB00D3D08A /* NotificationManager.swift in Sources */,

@@ -17,7 +17,8 @@ final class RoomViewModel: ObservableObject {
     @Published var messages: [MessageResponse]? = nil
     @Published var lastMessageId: String? = nil
     @Published var messageText = ""
-    let room: RoomResponse
+    var room: RoomResponse
+    private let firestore = Firestore.firestore()
     private let appManager = AppManager.shared
     var loginUserId: String {
         return  (appManager.currentUser?.id)!
@@ -27,6 +28,7 @@ final class RoomViewModel: ObservableObject {
     init(room: RoomResponse) {
         self.room = room
         fetchRoomInfo()
+//        listenForRoomMessages()
     }
     
     deinit {
@@ -36,14 +38,19 @@ final class RoomViewModel: ObservableObject {
     
     //メッセージViewを開いた時にリスナーをスタート
     func onMessageViewAppear() {
-        print("メッセージのリスナーが起動")
         listenForRoomMessages()
     }
     
     //メッセージViewを閉じた時にリスナーを解除
     func onMessageViewDisappear() {
-        print("メッセージリスナー解除")
         listener?.remove()
+    }
+    
+    func updateRoom(with room: RoomResponse) {
+        // ルームのプロパティを更新
+        self.room = room
+        self.roomName = room.roomName ?? self.roomName
+        self.roomIconUrlString = room.roomIcon ?? self.roomIconUrlString
     }
     
     // 相手のアイコンやルーム名を取得
@@ -79,8 +86,6 @@ final class RoomViewModel: ObservableObject {
     func listenForRoomMessages() {
         guard let roomId = room.id else { return }
         
-        let firestore = Firestore.firestore()
-        
         listener = firestore.collection("rooms")
             .document(roomId)
             .collection("messages")
@@ -110,28 +115,20 @@ final class RoomViewModel: ObservableObject {
             print("テキストが空です。")
             return
         }
-            
-        guard let senderId = appManager.currentUser?.id else { return }
+        
         guard let roomId = room.id else { return }
         
-        let document = FirebaseManager.shared.fireStore
-            .collection("rooms")
-            .document(roomId)
-            .collection("messages")
-        
-        let messageData = MessageResponse(
-            text: self.messageText,
-            senderId: senderId,
-            timestamp: Date()
-        ).toDictionary()
-        
-        // addDocumentを使用して新しいメッセージを追加
-        document.addDocument(data: messageData) { error in
-            if let err = error {
-                print("メッセージの作成に失敗: \(err)")
-                return
+        Task {
+            await FirebaseManager.shared.sendMessage(roomId: roomId, message: self.messageText)
+            // メッセージ送信後にルームのlastUpdatedを更新
+            let updateResult = await RoomManager.shared.updateRoomLastUpdated(roomId: roomId)
+            switch updateResult {
+            case .success:
+                print("ルームのlastUpdatedが更新されました")
+            case .failure(let error):
+                print("ルームのlastUpdatedの更新に失敗しました: \(error.localizedDescription)")
             }
-            print("メッセージの送信に成功！")
+            // メッセージ入力欄をクリア
             self.messageText = ""
         }
     }

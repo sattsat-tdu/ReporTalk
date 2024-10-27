@@ -130,4 +130,19 @@ final class RoomManager {
             return .failure(.updateFailed)
         }
     }
+    
+    // ルームのlastUpdatedフィールドを現在の時刻に更新する関数
+    func updateRoomLastUpdated(roomId: String) async -> Result<Void, RoomManagerError> {
+        do {
+            let currentTime = Date()
+            try await firestore
+                .collection("rooms")
+                .document(roomId)
+                .updateData(["lastUpdated": currentTime])
+            return .success(())
+        } catch {
+            print("ルームのlastUpdatedフィールドの更新に失敗しました: \(error.localizedDescription)")
+            return .failure(.updateFailed)
+        }
+    }
 }

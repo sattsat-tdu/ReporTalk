@@ -18,7 +18,6 @@ final class RoomsCache {
 
     // キャッシュからRoomViewModelを取得
     func getRoomViewModel(forKey key: String) -> RoomViewModel? {
-        print("ルームをキャッシュから取得！")
         return cache.object(forKey: key as NSString)
     }
 

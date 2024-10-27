@@ -17,7 +17,7 @@ class FirebaseManager: ObservableObject {
     
     let auth: Auth
     let storage: Storage
-    let fireStore: Firestore
+    let firestore: Firestore
     var currentUserId: String? {
         return auth.currentUser?.uid
     }
@@ -25,7 +25,7 @@ class FirebaseManager: ObservableObject {
     init() {
         self.auth = Auth.auth()
         self.storage = Storage.storage()
-        self.fireStore = Firestore.firestore()
+        self.firestore = Firestore.firestore()
     }
     
     //ログイン処理
@@ -84,7 +84,7 @@ class FirebaseManager: ObservableObject {
     func checkHandleNameAvailibility(handleName: String) async -> Result<Void, HandleNameError> {
         do {
             // FirestoreのusersコレクションでhandleNameが既に使われているか確認
-            let snapshot = try await fireStore.collection("users")
+            let snapshot = try await firestore.collection("users")
                 .whereField("handle", isEqualTo: handleName)
                 .getDocuments()
             
@@ -121,7 +121,7 @@ class FirebaseManager: ObservableObject {
     
     func deleteUserData(userId: String) async {
         do {
-            try await fireStore.collection("users").document(userId).delete()
+            try await firestore.collection("users").document(userId).delete()
             appManager.stopListening()
         } catch {
             print("FireStoreでのアカウント削除に失敗しました: \(error.localizedDescription)")
@@ -132,7 +132,7 @@ class FirebaseManager: ObservableObject {
     func fetchUser(userId: String) async -> Result<UserResponse, UserFetchError> {
         
         do {
-            let snapshot = try await FirebaseManager.shared.fireStore
+            let snapshot = try await firestore
                 .collection("users")
                 .document(userId)
                 .getDocument()
@@ -150,7 +150,7 @@ class FirebaseManager: ObservableObject {
     // ユーザー検索メソッド
     func searchUsers(byHandle handle: String) async -> Result<[UserResponse], UserFetchError> {
         do {
-            let snapshot = try await fireStore.collection("users")
+            let snapshot = try await firestore.collection("users")
                 .whereField("handle", isGreaterThanOrEqualTo: handle)
                 .whereField("handle", isLessThanOrEqualTo: handle + "\u{f8ff}")  // 前方一致
                 .getDocuments()
@@ -175,7 +175,7 @@ class FirebaseManager: ObservableObject {
         var messages = [MessageResponse]()
         do {
             let messagesCollection =
-            FirebaseManager.shared.fireStore
+            firestore
                 .collection("rooms")
                 .document(roomID)
                 .collection("messages")
@@ -267,6 +267,29 @@ class FirebaseManager: ObservableObject {
             // その他のエラーをキャッチ
             print("接続エラーが発生しました: \(error.localizedDescription)")
             return false
+        }
+    }
+    
+    func sendMessage(roomId: String, message: String) async {
+        
+        guard let senderId = appManager.currentUser?.id else { return }
+        let currentTime = Date()
+        let document = firestore
+            .collection("rooms")
+            .document(roomId)
+            .collection("messages")
+        
+        let messageData = MessageResponse(
+            text: message,
+            senderId: senderId,
+            timestamp: currentTime
+        ).toDictionary()
+        do {
+            // メッセージの送信
+            try await document.addDocument(data: messageData)
+            print("メッセージの送信に成功！")
+        } catch {
+            print("メッセージの送信に失敗\(error.localizedDescription)")
         }
     }
 }

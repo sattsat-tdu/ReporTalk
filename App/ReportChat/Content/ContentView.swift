@@ -34,7 +34,7 @@ struct ContentView: View {
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {
                 case .roomView(let room):
-                    MessagesView()
+                    RoomView()
                         .resignKeyboardOnDragGesture()
                         .environmentObject(RoomViewModel(room: room))
                 }
