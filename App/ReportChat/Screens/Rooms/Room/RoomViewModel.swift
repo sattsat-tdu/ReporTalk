@@ -28,7 +28,6 @@ final class RoomViewModel: ObservableObject {
     init(room: RoomResponse) {
         self.room = room
         fetchRoomInfo()
-//        listenForRoomMessages()
     }
     
     deinit {

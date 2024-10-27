@@ -16,8 +16,6 @@ final class RoomsViewModel: ObservableObject {
     private let firestore = Firestore.firestore()
     private var listener: ListenerRegistration?
     private let cache = RoomsCache.shared
-    //試作
-    @Published var rooms: [RoomResponse]? = nil
     
     init() {
         self.listenToRoomUpdates()
