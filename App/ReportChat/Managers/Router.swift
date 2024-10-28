@@ -47,7 +47,7 @@ final class Router: ObservableObject {
                         }
                         
                         if let snapshot = snapshot, snapshot.exists {
-                            print("ログインユーザーの情報が存在します(AuthListener)")
+                            print("ログインユーザーの情報が存在します(AuthListener): \(user.uid)")
                             //ログインに成功したらUser情報を監視
                             AppManager.shared.listenToUserUpdates()
                             self.switchRootView(to: .tab)

@@ -90,7 +90,8 @@ struct RoomView: View {
                                 members: [],
                                 roomIcon: "",
                                 roomName: "",
-                                lastUpdated: Date())
+                                lastUpdated: Date(),
+                                readUsers: [:])
                          )
         )
 }

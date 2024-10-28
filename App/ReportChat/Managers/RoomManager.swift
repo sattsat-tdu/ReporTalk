@@ -64,13 +64,18 @@ final class RoomManager {
             guard let fetchedRoom = await fetchRoom(roomID: roomId) else { return .failure(.roomNotFound) }
             return .success(fetchedRoom)
         } else {
+            let currentTime = Date()
             // ルームidがログインユーザーに存在しない場合、新しいルームを作成する
             let newRoom = RoomResponse(
                 id: roomId, // ルームIDを設定
                 members: [loginUserId, partnerId],
                 roomIcon: nil,
                 roomName: nil,
-                lastUpdated: Date()
+                lastUpdated: currentTime,
+                readUsers: [
+                    loginUserId : currentTime,
+                    partnerId : currentTime
+                ]
             )
             
             do {
@@ -131,17 +136,65 @@ final class RoomManager {
         }
     }
     
-    // ルームのlastUpdatedフィールドを現在の時刻に更新する関数
-    func updateRoomLastUpdated(roomId: String) async -> Result<Void, RoomManagerError> {
+    // ルームのlastUpdatedフィールドとユーザーのreadUsersフィールドを同時に更新する関数
+    func updateRoomTimestamp(roomId: String) async -> Result<Void, RoomManagerError> {
+        let currentTime = Date()
         do {
-            let currentTime = Date()
             try await firestore
                 .collection("rooms")
                 .document(roomId)
-                .updateData(["lastUpdated": currentTime])
+                .updateData([
+                    "lastUpdated": currentTime
+                ])
             return .success(())
         } catch {
-            print("ルームのlastUpdatedフィールドの更新に失敗しました: \(error.localizedDescription)")
+            return .failure(.updateFailed)
+        }
+    }
+    
+    //ユーザーが開いた時間のみを更新
+    func updateUserReadTime(roomId: String, date: Date) async -> Result<Void, RoomManagerError> {
+        guard let userId = AppManager.shared.currentUser?.id else { return .failure(.userNotFound) }
+        do {
+            try await firestore
+                .collection("rooms")
+                .document(roomId)
+                .updateData(["readUsers.\(userId)": date])
+            return .success(())
+        } catch {
+            print("readUsersのDate更新に失敗しました\(error.localizedDescription)")
+            return .failure(.updateFailed)
+        }
+    }
+    
+    //ルームLastUpdatedの更新、readTimeの更新、メッセージの更新をまとめて
+    func sendMessageWithBatch(roomId: String, message: String) async -> Result<Void, RoomManagerError> {
+        let batch = firestore.batch()
+        let currentTime = Date()
+        let roomRef = firestore.collection("rooms").document(roomId)
+        let messageRef = roomRef.collection("messages").document()
+        
+        guard let userId = AppManager.shared.currentUser?.id else { return .failure(.userNotFound) }
+        
+        let messageData = MessageResponse(
+            text: message,
+            senderId: userId,
+            timestamp: currentTime
+        ).toDictionary()
+        
+        batch.setData(messageData, forDocument: messageRef)
+        
+        // ルームのlastUpdatedの更新
+        batch.updateData(["lastUpdated": currentTime], forDocument: roomRef)
+        
+        // readUsersの更新
+        let readUsersField = "readUsers.\(userId)"
+        batch.updateData([readUsersField: currentTime], forDocument: roomRef)
+        
+        do {
+            try await batch.commit()
+            return .success(())
+        } catch {
             return .failure(.updateFailed)
         }
     }
