@@ -34,37 +34,42 @@ final class RoomsViewModel: ObservableObject {
             .order(by: "lastUpdated", descending: true)
             .limit(to: limit)
         
+        listener?.remove()
         listener = query.addSnapshotListener { [weak self] snapshot, error in
-            if let error = error {
-                print("ルームの更新に失敗しました: \(error)")
+            guard let self = self else { return }
+            
+            guard let documents = snapshot?.documents else {
+                print("fetch Error: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-
-            guard let documents = snapshot?.documents else { return }
-
-            Task {
-                var updatedRooms: [RoomViewModel] = []
-
-                for document in documents {
-                    guard let room = try? document.data(as: RoomResponse.self) else { continue }
-
-                    // 既存のRoomViewModelを探す
-                    if let existingViewModel = self?.roomsModel.first(where: { $0.room.id == room.id }) {
+            
+            // Firestoreの順序に従ってupdatedRoomsを再構築
+            var updatedRooms: [RoomViewModel] = []
+            
+            documents.forEach { document in
+                do {
+                    let room = try document.data(as: RoomResponse.self)
+                    // 既存のRoomViewModelを検索
+                    if let existingViewModel = self.roomsModel.first(where: { $0.room.id == room.id }) {
                         // 既存のRoomViewModelがある場合は更新のみ
                         existingViewModel.updateRoom(with: room)
                         updatedRooms.append(existingViewModel)
+                        print("更新されました: \(room.id!)")
                     } else {
-                        // 既存がなければ新規作成
+                        // 新規作成の場合
                         let newViewModel = RoomViewModel(room: room)
                         updatedRooms.append(newViewModel)
+                        print("新規作成されました: \(room.id!)")
                     }
-                }
-
-                DispatchQueue.main.async {
-                    self?.roomsModel = updatedRooms
+                } catch {
+                    print("Room Decode Error: \(error.localizedDescription)")
                 }
             }
             
+            // メインスレッドでroomsModelを更新
+            DispatchQueue.main.async {
+                self.roomsModel = updatedRooms
+            }
         }
     }
     

@@ -50,6 +50,11 @@ struct RoomCell: View {
             
             Spacer()
             
+            FontIcon.text(.materialIcon(code: .report),
+                          fontsize: iconSize)
+            .foregroundStyle(.red)
+            .hidden(!viewModel.isUnread)
+            
             Text(viewModel.room.lastUpdated.toLastUpdatedString())
                 .foregroundStyle(.secondary)
                 .font(.caption)
@@ -68,6 +73,7 @@ struct RoomCell: View {
             members: ["Friend 1", "Friend 2"],
             roomIcon: "https://1.bp.blogspot.com/-_CVATibRMZQ/XQjt4fzUmjI/AAAAAAABTNY/nprVPKTfsHcihF4py1KrLfIqioNc_c41gCLcBGAs/s400/animal_chara_smartphone_penguin.png",
             roomName: "room サンプル",
-            lastUpdated: Date()
+            lastUpdated: Date(),
+            readUsers: [:]
         )))
 }

@@ -17,32 +17,41 @@ final class RoomViewModel: ObservableObject {
     @Published var messages: [MessageResponse]? = nil
     @Published var lastMessageId: String? = nil
     @Published var messageText = ""
+    @Published var isUnread = false
     var room: RoomResponse
     private let firestore = Firestore.firestore()
     private let appManager = AppManager.shared
     var loginUserId: String {
         return  (appManager.currentUser?.id)!
     }
-    private var listener: ListenerRegistration?  // メッセージのリスナー
+    private var messageListener: ListenerRegistration?  // メッセージのリスナー
     
     init(room: RoomResponse) {
         self.room = room
         fetchRoomInfo()
+        self.checkReadState()
     }
     
     deinit {
         // ViewModelが破棄される際にリスナーを削除
-        listener?.remove()
+        messageListener?.remove()
     }
     
     //メッセージViewを開いた時にリスナーをスタート
     func onMessageViewAppear() {
         listenForRoomMessages()
+        if self.isUnread {
+            updateReadTime()    //未読だったらルームViewを見た時間を更新
+        }
     }
     
     //メッセージViewを閉じた時にリスナーを解除
     func onMessageViewDisappear() {
-        listener?.remove()
+        messageListener?.remove()
+//        if self.isUnread {
+//            print("閉じた際に更新しました")
+//            updateReadTime()    //開いた後にメッセージに変化があれば更新
+//        }
     }
     
     func updateRoom(with room: RoomResponse) {
@@ -50,6 +59,14 @@ final class RoomViewModel: ObservableObject {
         self.room = room
         self.roomName = room.roomName ?? self.roomName
         self.roomIconUrlString = room.roomIcon ?? self.roomIconUrlString
+        self.checkReadState()
+    }
+    
+    //未読状態なのかを確認
+    private func checkReadState() {
+        guard let userId = AppManager.shared.currentUser?.id,
+              let lastReadTime = room.readUsers[userId] else { return }
+        isUnread = room.lastUpdated > lastReadTime
     }
     
     // 相手のアイコンやルーム名を取得
@@ -83,13 +100,17 @@ final class RoomViewModel: ObservableObject {
     
     // リアルタイムでルーム内のメッセージを取得する
     func listenForRoomMessages() {
+        // 既存のリスナーを削除
+        messageListener?.remove()
         guard let roomId = room.id else { return }
+        var isInitialLoad = true
         
-        listener = firestore.collection("rooms")
+        messageListener = firestore.collection("rooms")
             .document(roomId)
             .collection("messages")
             .order(by: "timestamp", descending: false)  // メッセージをタイムスタンプ順に取得
-            .addSnapshotListener { snapshot, error in
+            .addSnapshotListener { [weak self] snapshot, error in
+                guard let self = self else { return }
                 if let error = error {
                     print("Error listening for messages: \(error.localizedDescription)")
                     return
@@ -105,30 +126,67 @@ final class RoomViewModel: ObservableObject {
                     try? document.data(as: MessageResponse.self)
                 }
                 
-                self.lastMessageId = self.messages?.last?.id
+                if let newMessage = self.messages?.last {
+                    self.lastMessageId = newMessage.id
+                    // ユーザーがRoomViewにいる場合、readUsersを更新
+                    if !isInitialLoad {
+                        handleAddedMessage(newMessage)
+                    } else {
+                        isInitialLoad = false
+                    }
+                }
             }
     }
     
+    // メッセージが追加されたときの処理
+    private func handleAddedMessage(_ message: MessageResponse) {
+        guard let userId = appManager.currentUser?.id else { return }
+        
+        if message.senderId != userId {
+            self.updateReadTime()
+        }
+    }
+    
+    //ルームのTimestampを更新してからメッセージを送る処理
     func handleSend() {
-        if messageText == "" {
+        let message = self.messageText
+        if message == "" {
             print("テキストが空です。")
             return
         }
+        guard let roomId = room.id else { return }
+        // メッセージ入力欄をクリア
+        self.messageText = ""
         
+        Task {
+            let updateResult = await RoomManager.shared.sendMessageWithBatch(roomId: roomId, message: message)
+            switch updateResult {
+            case .success:
+                print("ルームの全ての更新に成功しました")
+            case .failure(let error):
+                print(error.rawValue)
+            }
+//            let updateResult = await RoomManager.shared.updateRoomTimestamp(roomId: roomId)
+//            switch updateResult {
+//            case .success:
+//                print("ルームのlastUpdatedが更新されました")
+//                await FirebaseManager.shared.sendMessage(roomId: roomId, message: message)
+//            case .failure(let error):
+//                print("ルームのlastUpdatedの更新に失敗しました: \(error.localizedDescription)")
+//            }
+        }
+    }
+    
+    //readUsersの時間を更新
+    func updateReadTime() {
+        print("更新処理が呼ばれました")
         guard let roomId = room.id else { return }
         
         Task {
-            await FirebaseManager.shared.sendMessage(roomId: roomId, message: self.messageText)
-            // メッセージ送信後にルームのlastUpdatedを更新
-            let updateResult = await RoomManager.shared.updateRoomLastUpdated(roomId: roomId)
-            switch updateResult {
-            case .success:
-                print("ルームのlastUpdatedが更新されました")
-            case .failure(let error):
-                print("ルームのlastUpdatedの更新に失敗しました: \(error.localizedDescription)")
+            let updateResult = await RoomManager.shared.updateUserReadTime(roomId: roomId, date: Date())
+            if case .failure(let error) = updateResult {
+                print(error.rawValue)
             }
-            // メッセージ入力欄をクリア
-            self.messageText = ""
         }
     }
 }
