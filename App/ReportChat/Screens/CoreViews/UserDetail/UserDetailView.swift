@@ -110,7 +110,7 @@ struct UserDetailView: View {
             VStack(alignment: .leading) {
                 Text("プロフィール\n")
                     .font(.headline)
-                Text("詳細なプロフィール内容をここに表示")
+                Text(user.statusMessage)
                     .font(.body)
             }
             .foregroundStyle(.primary)
@@ -191,6 +191,7 @@ struct UserDetailView: View {
         handle: "user1234",
         userName: "Preview User",
         email: "preview@example.com",
+        statusMessage: "こんにちは、私の投稿のほぼ10割が悲報です。",
         friends: ["Friend 1", "Friend 2"],
         photoURL: "https://picsum.photos/300/200",
         rooms: ["room1", "room2"]

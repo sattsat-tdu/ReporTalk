@@ -192,6 +192,7 @@ final class WelcomeViewModel: ObservableObject {
                 handle: self.handle,
                 userName: self.userName,
                 email: authUser.email ?? "ErrorEmail",
+                statusMessage: "",
                 friends: [],
                 photoURL: imageUrl, // 画像のURLがある場合のみ追加
                 rooms: []

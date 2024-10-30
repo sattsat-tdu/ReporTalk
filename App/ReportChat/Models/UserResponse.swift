@@ -14,6 +14,7 @@ struct UserResponse: Identifiable, Decodable {
     let handle: String
     let userName: String
     let email: String
+    let statusMessage: String
     let friends: [String]
     let photoURL: String?
     let rooms: [String]
@@ -24,6 +25,7 @@ struct UserResponse: Identifiable, Decodable {
         case handle
         case userName = "displayName"
         case email
+        case statusMessage
         case friends
         case photoURL
         case rooms
@@ -35,6 +37,7 @@ struct UserResponse: Identifiable, Decodable {
             "handle": handle,
             "displayName": userName,
             "email": email,
+            "statusMessage": statusMessage,
             "friends": friends,
             "rooms": rooms,
         ]

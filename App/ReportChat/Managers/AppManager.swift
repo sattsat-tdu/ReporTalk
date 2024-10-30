@@ -48,6 +48,14 @@ class AppManager: ObservableObject {
         listenerRegistration?.remove()
         DispatchQueue.main.async {
             self.currentUser = nil // ユーザー情報をクリア
+            self.navigationPath = NavigationPath()
+        }
+        
+        do {
+            try Auth.auth().signOut() // Firebase Authからサインアウト
+            print("ユーザーがサインアウトしました")
+        } catch let signOutError as NSError {
+            print("サインアウトエラー: \(signOutError.localizedDescription)")
         }
     }
 }
