@@ -40,7 +40,8 @@ struct MessageCell: View {
                     MessageResponse(
                         text: "サンプルテキスト",
                         senderId: "id1",
-                        timestamp: Date()),
+                        timestamp: Date(),
+                        reportag: Reportag.goodNews.rawValue),
                 isCurrentUser: true
     )
 }

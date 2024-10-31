@@ -159,7 +159,10 @@ final class RoomViewModel: ObservableObject {
         self.messageText = ""
         
         Task {
-            let updateResult = await RoomManager.shared.sendMessageWithBatch(roomId: roomId, message: message)
+            let updateResult = await RoomManager.shared.sendMessageWithBatch(
+                roomId: roomId,
+                reportag: Reportag.goodNews,
+                message: message)
             switch updateResult {
             case .success:
                 print("ルームの全ての更新に成功しました")
