@@ -13,11 +13,12 @@ import FirebaseFirestore
 final class RoomViewModel: ObservableObject {
     @Published var roomIconUrlString: String? = nil
     @Published var iconUrlString: String? = nil
+    @Published var isUnread = false
     @Published var roomName: String = " --- "
     @Published var messages: [MessageResponse]? = nil
     @Published var lastMessageId: String? = nil
     @Published var messageText = ""
-    @Published var isUnread = false
+    @Published var selectedReporTag: Reportag?
     var room: RoomResponse
     private let firestore = Firestore.firestore()
     private let appManager = AppManager.shared
@@ -161,7 +162,7 @@ final class RoomViewModel: ObservableObject {
         Task {
             let updateResult = await RoomManager.shared.sendMessageWithBatch(
                 roomId: roomId,
-                reportag: Reportag.goodNews,
+                reportag: self.selectedReporTag,
                 message: message)
             switch updateResult {
             case .success:

@@ -168,7 +168,7 @@ final class RoomManager {
     }
     
     //ルームLastUpdatedの更新、readTimeの更新、メッセージの更新をまとめて
-    func sendMessageWithBatch(roomId: String, reportag: Reportag, message: String) async -> Result<Void, RoomManagerError> {
+    func sendMessageWithBatch(roomId: String, reportag: Reportag?, message: String) async -> Result<Void, RoomManagerError> {
         let batch = firestore.batch()
         let currentTime = Date()
         let roomRef = firestore.collection("rooms").document(roomId)
@@ -180,7 +180,7 @@ final class RoomManager {
             text: message,
             senderId: userId,
             timestamp: currentTime,
-            reportag: reportag.rawValue
+            reportag: reportag?.rawValue
         ).toDictionary()
         
         batch.setData(messageData, forDocument: messageRef)
