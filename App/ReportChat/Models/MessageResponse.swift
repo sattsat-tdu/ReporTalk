@@ -15,9 +15,12 @@ struct MessageResponse: Decodable {
     let text: String
     let senderId: String
     let timestamp: Date
-    let reportag: String
+    let reportag: String?
     
     func toReportag() -> Reportag? {
+        guard let reportag = reportag else {
+            return nil
+        }
         return Reportag(rawValue: reportag)
     }
     
@@ -32,16 +35,21 @@ struct MessageResponse: Decodable {
     
     // Firebaseに書き込むための辞書変換
     func toDictionary() -> [String: Any] {
-        return [
+        var dict: [String: Any] = [
             "content": text,
             "senderId": senderId,
-            "timestamp": timestamp,  // DateをTimestampに変換
-            "repotag": reportag
+            "timestamp": timestamp
         ]
+        // reportagがnilでない場合のみ追加
+        if let reportag = reportag {
+            dict["reportag"] = reportag
+        }
+        
+        return dict
     }
 }
 
-enum Reportag: String, Codable {
+enum Reportag: String, Codable, CaseIterable {
     case goodNews = "good_news"
     case badNews = "bad_news"
     case dailyReport = "daily_report"
