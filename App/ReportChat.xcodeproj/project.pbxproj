@@ -11,6 +11,7 @@
 		006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1952C7F804C00A63EAA /* ContentView.swift */; };
 		006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB1972C7F804E00A63EAA /* Assets.xcassets */; };
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
+		0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007723492CDEF16E004B94CF /* SelectTagView.swift */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
@@ -93,6 +94,7 @@
 		006EB1952C7F804C00A63EAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		006EB1972C7F804E00A63EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		007723492CDEF16E004B94CF /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				008346CF2CBA1155001ADAD2 /* CachedImage.swift */,
 				008346D52CBC15C6001ADAD2 /* UserCell.swift */,
 				0099943A2CBFA571008697EC /* RoundedRectButton.swift */,
+				007723492CDEF16E004B94CF /* SelectTagView.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */,
 				009B0F2F2CBE2C5200D3D08A /* FriendListView.swift in Sources */,
 				0091046C2CA67FD300F1AA54 /* UIApplication+Extension.swift in Sources */,
+				0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */,
 				00EB788E2C9B254E00BEEEAA /* RoomView.swift in Sources */,
 				00FA5C222CA2CB2000301A1B /* HiddenModifier.swift in Sources */,
 				009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */,

@@ -269,27 +269,4 @@ class FirebaseManager: ObservableObject {
             return false
         }
     }
-    
-    func sendMessage(roomId: String, message: String) async {
-        
-        guard let senderId = appManager.currentUser?.id else { return }
-        let currentTime = Date()
-        let document = firestore
-            .collection("rooms")
-            .document(roomId)
-            .collection("messages")
-        
-        let messageData = MessageResponse(
-            text: message,
-            senderId: senderId,
-            timestamp: currentTime
-        ).toDictionary()
-        do {
-            // メッセージの送信
-            try await document.addDocument(data: messageData)
-            print("メッセージの送信に成功！")
-        } catch {
-            print("メッセージの送信に失敗\(error.localizedDescription)")
-        }
-    }
 }
