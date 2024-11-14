@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 import FirebaseCore
 
 @main
@@ -18,6 +19,20 @@ struct ReportChatApp: App {
     init() {
         FirebaseApp.configure()
     }
+    
+    //SwiftData使用の宣言
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([
+            ReporTagMessage.self,
+        ])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }()
     
     var body: some Scene {
         WindowGroup {
@@ -42,5 +57,6 @@ struct ReportChatApp: App {
             }
             .animation(.easeInOut, value: router.selectedRoute)
         }
+        .modelContainer(sharedModelContainer)   //SwiftDataの使用
     }
 }

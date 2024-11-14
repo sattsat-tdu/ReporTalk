@@ -12,6 +12,7 @@
 		006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB1972C7F804E00A63EAA /* Assets.xcassets */; };
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
 		0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007723492CDEF16E004B94CF /* SelectTagView.swift */; };
+		0077242F2CE5AC79004B94CF /* ReporTagMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
@@ -95,6 +96,7 @@
 		006EB1972C7F804E00A63EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		007723492CDEF16E004B94CF /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
+		0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagMessage.swift; sourceTree = "<group>"; };
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				006EB1932C7F804C00A63EAA /* ReportChatApp.swift */,
+				0077242D2CE5AC15004B94CF /* SwiftData */,
 				00EB78912C9B325C00BEEEAA /* Content */,
 				00EB78712C980E7B00BEEEAA /* Models */,
 				00EB78602C8B567000BEEEAA /* Extensions */,
@@ -225,6 +228,14 @@
 				006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0077242D2CE5AC15004B94CF /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */,
+			);
+			path = SwiftData;
 			sourceTree = "<group>";
 		};
 		009104292CA3127200F1AA54 /* SettingCells */ = {
@@ -555,6 +566,7 @@
 				00EB78902C9B29DE00BEEEAA /* MessageResponse.swift in Sources */,
 				00EB788B2C9ABBD600BEEEAA /* IconImageView.swift in Sources */,
 				00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */,
+				0077242F2CE5AC79004B94CF /* ReporTagMessage.swift in Sources */,
 				00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */,
 				00F7BE392C8222DF00E0CB5C /* CustomTabView.swift in Sources */,
 				009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */,
