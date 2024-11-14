@@ -13,6 +13,8 @@
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
 		0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007723492CDEF16E004B94CF /* SelectTagView.swift */; };
 		0077242F2CE5AC79004B94CF /* ReporTagMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */; };
+		007724312CE5E3F9004B94CF /* ReporTagChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724302CE5E3F9004B94CF /* ReporTagChartView.swift */; };
+		007724332CE5E89B004B94CF /* SwiftDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724322CE5E892004B94CF /* SwiftDataManager.swift */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
@@ -97,6 +99,8 @@
 		006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		007723492CDEF16E004B94CF /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagMessage.swift; sourceTree = "<group>"; };
+		007724302CE5E3F9004B94CF /* ReporTagChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagChartView.swift; sourceTree = "<group>"; };
+		007724322CE5E892004B94CF /* SwiftDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataManager.swift; sourceTree = "<group>"; };
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -233,6 +237,7 @@
 		0077242D2CE5AC15004B94CF /* SwiftData */ = {
 			isa = PBXGroup;
 			children = (
+				007724322CE5E892004B94CF /* SwiftDataManager.swift */,
 				0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */,
 			);
 			path = SwiftData;
@@ -337,6 +342,7 @@
 			children = (
 				00EB786D2C980AD100BEEEAA /* HomeView.swift */,
 				008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */,
+				007724302CE5E3F9004B94CF /* ReporTagChartView.swift */,
 				008346D32CBC118C001ADAD2 /* AddFriendsView.swift */,
 				009B0F2E2CBE2C5100D3D08A /* FriendListView.swift */,
 			);
@@ -555,6 +561,7 @@
 				00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */,
 				009994442CC64BCA008697EC /* FriendManager.swift in Sources */,
 				009104352CA3C77900F1AA54 /* SettingsView.swift in Sources */,
+				007724332CE5E89B004B94CF /* SwiftDataManager.swift in Sources */,
 				0099943B2CBFA571008697EC /* RoundedRectButton.swift in Sources */,
 				0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */,
 				00F7BE4D2C835B9200E0CB5C /* FirebaseManager.swift in Sources */,
@@ -584,6 +591,7 @@
 				00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */,
 				00FA5C1F2CA2BD0300301A1B /* CustomNavCell.swift in Sources */,
 				009B0F382CBEB1F100D3D08A /* NotificationView.swift in Sources */,
+				007724312CE5E3F9004B94CF /* ReporTagChartView.swift in Sources */,
 				00F7BE152C80B8D800E0CB5C /* InputFormView.swift in Sources */,
 				0096C64A2CAD05E100C6FD42 /* WelcomeSettingsView.swift in Sources */,
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
