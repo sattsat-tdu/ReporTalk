@@ -31,12 +31,13 @@ struct MessageCell: View {
                             .font(.title3)
                             .fontWeight(.semibold)
                     }
-                    .padding(4)
+                    .padding(8)
                 }
                 
                 Text(message.text)
                     .font(.body)
-                    .padding() // テキスト周囲に余白を追加
+                    .padding(12)
+                    .frame(minWidth: reportag != nil ? 100 : .none)
                     .background(
                         Group {
                             if let reportag {
@@ -70,7 +71,7 @@ struct MessageCell: View {
 #Preview {
     MessageCell(message:
                     MessageResponse(
-                        text: "サンプルテキスト",
+                        text: "あ",
                         senderId: "id1",
                         timestamp: Date(),
                         reportag: Reportag.badNews.rawValue),
