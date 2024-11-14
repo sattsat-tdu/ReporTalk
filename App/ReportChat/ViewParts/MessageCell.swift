@@ -19,41 +19,39 @@ struct MessageCell: View {
     private let cornerRadius:CGFloat = 8
     
     var body: some View {
-        VStack(alignment: isCurrentUser ? .trailing : .leading) {
-            
-            VStack( alignment: isCurrentUser ? .trailing : .leading ) {
-                if let reportag = reportag {
+        VStack(alignment: isCurrentUser ? .trailing : .leading, spacing: 0) {
+            VStack(spacing: 0) {
+                
+                if let reportag {
+                    
                     HStack {
                         FontIcon.text(.materialIcon(code: .insert_emoticon))
                         
                         Text(reportag.tagName)
                             .font(.title3)
                             .fontWeight(.semibold)
-                            .padding(.leading, 4)
                     }
-                    .padding(8)
-                    .background(reportag.color.gradient)
-                    .clipShape(.rect(cornerRadius: 8))
-                    .padding(.bottom, 4)
+                    .padding(4)
                 }
                 
                 Text(message.text)
                     .font(.body)
-            }
-            .padding(10)
-            .background(
-                Group {
-                    if let reportag = reportag {
-                        Color.back
-                            .overlay {
-                                reportag.color.opacity(0.4)
+                    .padding() // テキスト周囲に余白を追加
+                    .background(
+                        Group {
+                            if let reportag {
+                                Color.back
+                                    .overlay {
+                                        reportag.color.opacity(0.4)
+                                    }
+                            } else {
+                                isCurrentUser ?
+                                Color.sendMessage : Color.receivedMessage
                             }
-                    } else {
-                        isCurrentUser ?
-                        Color.sendMessage : Color.receivedMessage
-                    }
-                }
-            )
+                        }
+                    )
+            }
+            .background(reportag?.color)
             .clipShape(.rect(
                 topLeadingRadius: isCurrentUser ? cornerRadius : 0,
                 bottomLeadingRadius: cornerRadius,
