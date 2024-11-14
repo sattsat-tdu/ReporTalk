@@ -18,6 +18,7 @@ struct RoomView: View {
     @FocusState var focus:Bool
     private let maxHeight: CGFloat = 240
     private let iconSize: CGFloat = 40
+    private let maxMessageWidth = UIScreen.main.bounds.width * 0.6
     
     var body: some View {
         VStack(spacing: 0) {
@@ -62,13 +63,17 @@ struct RoomView: View {
                                         message: message,
                                         isCurrentUser: isCurrentUser
                                     )
+                                    .frame(maxWidth: maxMessageWidth,
+                                           alignment: isCurrentUser ? .trailing : .leading
+                                    )
                                 }
                                 .frame(maxWidth: .infinity, alignment: isCurrentUser ? .trailing : .leading)
                                 .id(message.id)
                             }
-                            .padding(.horizontal, 8)
+//                            .padding(.horizontal, 8)
                         }
                     }
+                    .padding()
                     .onAppear {
                         proxy.scrollTo("lastMessage", anchor: .bottom)
                     }

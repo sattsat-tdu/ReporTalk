@@ -151,20 +151,19 @@ final class RoomViewModel: ObservableObject {
     //ルームのTimestampを更新してからメッセージを送る処理
     func handleSend() {
         let message = self.messageText
+        let reporTag = self.selectedReporTag
         if message == "" {
             print("テキストが空です。")
             return
         }
         guard let userId = appManager.currentUser?.id else { return }
         guard let roomId = room.id else { return }
-        // メッセージ入力欄をクリア
-        self.messageText = ""
         
         //レポータグが存在するなら、SwiftDataへ保存
-        if let selectedReporTag {
+        if let reporTag {
             let reporTagMessage = ReporTagMessage(
                 userId: userId,
-                reportag: selectedReporTag.rawValue,
+                reportag: reporTag.rawValue,
                 message: messageText,
                 timestamp: Date(),
                 rId: roomId,
@@ -173,11 +172,14 @@ final class RoomViewModel: ObservableObject {
             )
             SwiftDataManager.shared.insert(reporTagMessage)
         }
+        // メッセージ入力欄とタグ選択をクリア
+        self.messageText = ""
+        self.selectedReporTag = nil
         
         Task {
             let updateResult = await RoomManager.shared.sendMessageWithBatch(
                 roomId: roomId,
-                reportag: self.selectedReporTag,
+                reportag: reporTag,
                 message: message)
             switch updateResult {
             case .success:
