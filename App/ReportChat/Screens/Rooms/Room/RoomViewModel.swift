@@ -65,7 +65,7 @@ final class RoomViewModel: ObservableObject {
     
     //未読状態なのかを確認
     private func checkReadState() {
-        guard let userId = AppManager.shared.currentUser?.id,
+        guard let userId = appManager.currentUser?.id,
               let lastReadTime = room.readUsers[userId] else { return }
         isUnread = room.lastUpdated > lastReadTime
     }
@@ -155,9 +155,24 @@ final class RoomViewModel: ObservableObject {
             print("テキストが空です。")
             return
         }
+        guard let userId = appManager.currentUser?.id else { return }
         guard let roomId = room.id else { return }
         // メッセージ入力欄をクリア
         self.messageText = ""
+        
+        //レポータグが存在するなら、SwiftDataへ保存
+        if let selectedReporTag {
+            let reporTagMessage = ReporTagMessage(
+                userId: userId,
+                reportag: selectedReporTag.rawValue,
+                message: messageText,
+                timestamp: Date(),
+                rId: roomId,
+                roomName: roomName,
+                roomIcon: iconUrlString ?? ""
+            )
+            SwiftDataManager.shared.insert(reporTagMessage)
+        }
         
         Task {
             let updateResult = await RoomManager.shared.sendMessageWithBatch(
@@ -170,14 +185,6 @@ final class RoomViewModel: ObservableObject {
             case .failure(let error):
                 print(error.rawValue)
             }
-//            let updateResult = await RoomManager.shared.updateRoomTimestamp(roomId: roomId)
-//            switch updateResult {
-//            case .success:
-//                print("ルームのlastUpdatedが更新されました")
-//                await FirebaseManager.shared.sendMessage(roomId: roomId, message: message)
-//            case .failure(let error):
-//                print("ルームのlastUpdatedの更新に失敗しました: \(error.localizedDescription)")
-//            }
         }
     }
     

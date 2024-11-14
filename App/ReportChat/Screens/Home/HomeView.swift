@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Charts
 import SwiftUIFontIcon
 
 struct HomeView: View {
@@ -15,6 +16,7 @@ struct HomeView: View {
     @State private var selectModalFlg = false
     private let itemColor: Color = .tab
     @EnvironmentObject var appManager: AppManager
+    @StateObject private var viewModel = HomeViewModel()
     
     var body: some View {
         Group {
@@ -95,13 +97,63 @@ struct HomeView: View {
                             })
                         }
                         
-                        VStack(alignment: .leading) {
-                            Text("レポータグ分析View")
-                        }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 200)
-                        .background(itemColor)
-                        .clipShape(.rect(cornerRadius: 8))
+                        NavigationLink(destination: ReporTagChartView(),
+                                       label: {
+                            VStack(spacing: 24) {
+                                HStack(alignment: .top) {
+                                    Text("レポータグ分析")
+                                        .font(.headline)
+                                    Spacer()
+                                    Text("詳細を見る  〉")
+                                        .font(.subheadline)
+                                        .foregroundStyle(.secondary)
+                                }
+                                
+                                if viewModel.hasData, !viewModel.tagCounts.isEmpty {
+                                    HStack {
+                                        Spacer()
+                                        Chart(Reportag.allCases, id: \.self) { tag in
+                                            if let count = viewModel.tagCounts[tag], count > 0 {
+                                                SectorMark(
+                                                    angle: .value("件数", Double(count)),
+                                                    innerRadius: .ratio(0.4),
+                                                    angularInset: 1
+                                                )
+                                                .foregroundStyle(tag.color.gradient)
+                                            }
+                                        }
+                                        .frame(width: 180, height: 180)
+                                    
+                                        Spacer()
+                                        
+                                        VStack(alignment: .leading) {
+                                            ForEach(Reportag.allCases, id: \.self) { tag in
+                                                HStack {
+                                                    Image(systemName: "square.fill")
+                                                        .foregroundStyle(tag.color)
+                                                    Text(tag.tagName)
+                                                        .foregroundStyle(.primary)
+                                                }
+                                            }
+                                        }
+                                        Spacer()
+                                    }
+                                } else {
+                                    VStack(spacing: 16) {
+                                        Text("データが不足しています！")
+                                            .font(.headline)
+                                        Text("レポータグを送りましょう")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    .frame(height: 100)
+                                }
+                            }
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(itemColor)
+                            .clipShape(.rect(cornerRadius: 8))
+                        })
                         
                         NavigationLink(destination: AddFriendsView(),
                                        label: {
