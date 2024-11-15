@@ -14,7 +14,6 @@ struct HomeView: View {
     
     @State private var myProfileFlg = false
     @State private var selectModalFlg = false
-    private let itemColor: Color = .tab
     @EnvironmentObject var appManager: AppManager
     @StateObject private var viewModel = HomeViewModel()
     
@@ -76,8 +75,7 @@ struct HomeView: View {
                                 }
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(itemColor)
-                                .clipShape(.rect(cornerRadius: 8))
+                                .itemStyle()
                             })
                             
                             NavigationLink(destination: Text("ルームリストView"),
@@ -92,8 +90,7 @@ struct HomeView: View {
                                 }
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(itemColor)
-                                .clipShape(.rect(cornerRadius: 8))
+                                .itemStyle()
                             })
                         }
                         
@@ -151,8 +148,7 @@ struct HomeView: View {
                             }
                             .padding()
                             .frame(maxWidth: .infinity)
-                            .background(itemColor)
-                            .clipShape(.rect(cornerRadius: 8))
+                            .itemStyle()
                         })
                         
                         NavigationLink(destination: AddFriendsView(),
@@ -173,8 +169,7 @@ struct HomeView: View {
                                 .frame(maxWidth: .infinity)
                             }
                             .padding()
-                            .background(itemColor)
-                            .clipShape(.rect(cornerRadius: 8))
+                            .itemStyle()
                         })
                         
                         //リンクへ飛ばす。
@@ -191,12 +186,12 @@ struct HomeView: View {
                         }
                         .frame(height: 80)
                         .padding()
-                        .background(itemColor)
-                        .clipShape(.rect(cornerRadius: 8))
+                        .itemStyle()
+
                     }
                     .padding()
                 }
-                .background(.roomBack)
+                .background(.mainBackground)
                 .navigationTitle("ホーム")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
@@ -253,7 +248,7 @@ struct SelectModalView: View {
                 }
                 ,fontsize: 24)
                 .padding(10)
-                .background(.tab)
+                .background(.mainBackground)
                 .clipShape(Circle())
             }
             .padding(.top)
@@ -275,7 +270,7 @@ struct SelectModalView: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .frame(height: 160)
-                    .background(.tab)
+                    .background(.item)
                     .clipShape(.rect(cornerRadius: 8))
                 })
                 .sheet(isPresented: $addFriendFlg) {
@@ -296,7 +291,7 @@ struct SelectModalView: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .frame(height: 160)
-                    .background(.tab)
+                    .background(.item)
                     .clipShape(.rect(cornerRadius: 8))
                 })
                 .sheet(isPresented: $addRoomFlg) {
@@ -307,6 +302,6 @@ struct SelectModalView: View {
             Spacer()
         }
         .padding()
-        .background(.roomBack)
+        .background(.mainBackground)
     }
 }

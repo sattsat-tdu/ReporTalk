@@ -44,7 +44,7 @@ struct NotificationView: View {
                 }
             }
             .listStyle(.plain)
-            .background(.tab)
+            .background(.mainBackground)
             .navigationTitle("通知")
         } else {
             LoadingView(message: "通知を取得中")

@@ -54,7 +54,7 @@ struct FriendListView: View {
             }
         }
         .padding()
-        .background(.tab)
+        .background(.mainBackground)
         .onAppear(perform: onAppear)
         .navigationTitle("友達リスト")
         //検索時はモーダルを閉じないように

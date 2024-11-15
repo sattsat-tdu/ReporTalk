@@ -28,7 +28,7 @@ struct UserDetailView: View {
                     actionButtons(partnerState)
                 }
                 .padding()
-                .background(.tab)
+                .background(.mainBackground)
             } else {
                 LoadingView(message: "ロード中")
             }

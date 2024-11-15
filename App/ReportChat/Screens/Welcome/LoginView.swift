@@ -73,7 +73,7 @@ struct LoginView: View {
                 }
                 .padding()
                 .padding(.bottom,24)
-                .background(.tab)
+                .background(.mainBackground)
                 .clipShape(.rect(cornerRadius: 32))
                 .ignoresSafeArea(.all, edges: .bottom)
             }

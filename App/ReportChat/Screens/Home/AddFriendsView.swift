@@ -32,7 +32,7 @@ struct AddFriendsView: View {
                         dismiss()
                     }, fontsize: 24)
                     .padding(10)
-                    .background(.tab)
+                    .background(.mainBackground)
                     .clipShape(Circle())
                 }
             }
@@ -70,7 +70,7 @@ struct AddFriendsView: View {
             }
         }
         .padding()
-        .background(.tab)
+        .background(.mainBackground)
         .onAppear {
             isModal = isPresented //モーダルかどうかの判定。即時適応不可だったのでAppearで
             isFocused = true

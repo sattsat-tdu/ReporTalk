@@ -149,7 +149,7 @@ struct WelcomeSettingsView: View {
         }
         .animation(.easeInOut, value: welcomeStep)
         .padding()
-        .background(.tab)
+        .background(.mainBackground)
     }
     
     private var userIdSettingView: some View {
