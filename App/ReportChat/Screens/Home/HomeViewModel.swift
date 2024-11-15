@@ -17,14 +17,12 @@ final class HomeViewModel: ObservableObject {
     init() {
         fetchReporTagCounts()
     }
-    
     func fetchReporTagCounts() {
         
-        guard let userId = AppManager.shared.currentUser?.id else {return}
+        guard let userId = AppManager.shared.currentUser?.id else { return }
         
         let messages = SwiftDataManager.shared.fetchData(userId: userId)
         
-        // データがあるかどうかを判定
         self.hasData = !messages.isEmpty
         
         // タグごとにメッセージの件数をカウント
@@ -33,9 +31,9 @@ final class HomeViewModel: ObservableObject {
         // EnumのReportagと一致させてtagCountsに変換
         var tagCountDict: [Reportag: Int] = [:]
         for tag in Reportag.allCases {
-            tagCountDict[tag] = counts[tag.rawValue] ?? 0  // データがないタグは0
+            tagCountDict[tag] = counts[tag] ?? 0  // データがないタグは0
         }
-        
+
         self.tagCounts = tagCountDict
     }
 }
