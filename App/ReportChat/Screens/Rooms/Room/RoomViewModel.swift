@@ -163,7 +163,7 @@ final class RoomViewModel: ObservableObject {
         if let reporTag {
             let reporTagMessage = ReporTagMessage(
                 userId: userId,
-                reportag: reporTag.rawValue,
+                reportag: reporTag,
                 message: messageText,
                 timestamp: Date(),
                 rId: roomId,

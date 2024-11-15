@@ -12,14 +12,14 @@ import SwiftData
 @Model
 final class ReporTagMessage {
     var userId: String
-    var reportag: String
+    var reportag: Reportag
     var message: String
     var timestamp: Date
     var rId: String
     var roomName: String
     var roomIcon: String
     
-    init(userId: String, reportag: String, message: String, timestamp: Date, rId: String, roomName: String, roomIcon: String) {
+    init(userId: String, reportag: Reportag, message: String, timestamp: Date, rId: String, roomName: String, roomIcon: String) {
         self.userId = userId
         self.reportag = reportag
         self.message = message
