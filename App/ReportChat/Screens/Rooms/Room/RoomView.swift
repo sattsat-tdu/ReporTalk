@@ -137,7 +137,7 @@ struct RoomView: View {
             }
             .padding()
             .frame(height: min(dynamicHeight, maxHeight) + 16)
-            .background(.tab)
+            .background(.mainBackground)
         }
         .sheet(isPresented: $selectTagViewFlg) {
             SelectTagView(flg: $selectTagViewFlg,

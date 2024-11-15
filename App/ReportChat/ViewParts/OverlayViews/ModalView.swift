@@ -60,7 +60,7 @@ struct ModalView: View {
             }
             .padding(.vertical, 32)
             .padding(.horizontal)
-            .background(.tab)
+            .background(.mainBackground)
             .clipShape(RoundedRectangle(cornerRadius: 32))
             .frame(maxWidth: .infinity, maxHeight: .infinity,
                    alignment: modalItem.alignment)

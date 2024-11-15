@@ -32,7 +32,7 @@ struct RoomsView: View {
                 LoadingView(message: "ルームを取得中")
             }
         }
-        .background(.tab)
+        .background(.mainBackground)
         .navigationTitle("ルーム")
         .navigationBarTitleDisplayMode(.inline)
     }

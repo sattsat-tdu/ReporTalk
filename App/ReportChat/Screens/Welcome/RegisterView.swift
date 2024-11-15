@@ -77,7 +77,7 @@ struct RegisterView: View {
                     }
                 }
                 .padding()
-                .background(.tab)
+                .background(.mainBackground)
                 .clipShape(.rect(cornerRadius: 32))
                 .ignoresSafeArea(.all, edges: .bottom)
             }
