@@ -14,20 +14,70 @@ struct UserDetailView: View {
     let user: UserResponse
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = UserDetailViewModel()
-    private let iconSize: CGFloat = 80
+    private let iconSize: CGFloat = 150
     private let messageCornerRadius: CGFloat = 16
     
     var body: some View {
         Group {
             if let partnerState = viewModel.partnerState {
                 VStack(spacing: 24) {
-                    headerView
-                    profileView
-                    messageView
-                    Spacer()
-                    actionButtons(partnerState)
+                    VStack(spacing: 16) {
+                        headerView
+                        
+                        Group {
+                            if let photoURL = user.photoURL {
+                                CachedImage(url: photoURL) { phase in
+                                    switch phase {
+                                    case .empty:
+                                        ProgressView()
+                                    case .success(let image):
+                                        Rectangle().aspectRatio(1, contentMode: .fill)
+                                            .overlay {
+                                                image
+                                                    .resizable()
+                                                    .scaledToFill()
+                                            }
+                                            .clipped()
+                                    case .failure(_):
+                                        Image(systemName: "person.circle")
+                                            .resizable()
+                                    @unknown default:
+                                        EmptyView()
+                                    }
+                                }
+                            } else {
+                                Image(systemName: "person.circle")
+                                    .resizable()
+                            }
+                        }
+                        .frame(width: iconSize, height: iconSize)
+                        .clipShape(Circle())
+                        
+                        VStack {
+                            Text("@\(user.handle)")
+                                .font(.headline)
+                                .foregroundStyle(.secondary)
+                            Text(user.userName)
+                                .font(.title.bold())
+                        }
+                    }
+                    .padding()
+                    .background(.mainBackground)
+                    .frame(maxWidth: .infinity)
+                    
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("プロフィール")
+                            .font(.title2.bold())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text(user.statusMessage)
+                            .font(.body)
+                        Spacer()
+                    }
+                    .padding()
+                    .background(.item)
                 }
-                .padding()
+//                .padding()
                 .background(.mainBackground)
             } else {
                 LoadingView(message: "ロード中")
@@ -47,7 +97,8 @@ struct UserDetailView: View {
             FontIcon.button(.materialIcon(code: .close), action: {
                 dismiss()
             }, fontsize: 28)
-            .foregroundStyle(.buttonBack)
+            .padding(12)
+            .background(.item)
             .clipShape(Circle())
             
             Text("プロフィール")
@@ -58,7 +109,7 @@ struct UserDetailView: View {
             .foregroundStyle(.buttonBack)
             .clipShape(Circle())
         }
-        .padding([.top, .horizontal])
+        .padding()
     }
     
     private var profileView: some View {

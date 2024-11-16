@@ -120,15 +120,15 @@ struct WelcomeSettingsView: View {
                 let buttonProperties: (style: CapsuleButton.ButtonType, text: String) = {
                     switch welcomeStep {
                     case .userIdSetting:
-                        return (viewModel.handleState == .success ? .primary : .disable, "次へ")
+                        return (viewModel.handleState == .success ? .normal : .disable, "次へ")
                     case .userNameSetting:
-                        return (viewModel.userName.isEmpty ? .disable : .primary, "次へ")
+                        return (viewModel.userName.isEmpty ? .disable : .normal, "次へ")
                     case .iconSetting:
-                        return (.primary, "次へ（スキップ可能）")
+                        return (.normal, "次へ（スキップ可能）")
                     case .addFriends:
-                        return (.primary, "次へ（スキップ可能）")
+                        return (.normal, "次へ（スキップ可能）")
                     case .finishSetting:
-                        return (.primary, "始める")
+                        return (.normal, "始める")
                     }
                 }()
 

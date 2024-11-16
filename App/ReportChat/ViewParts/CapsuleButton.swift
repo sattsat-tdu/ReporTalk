@@ -12,19 +12,22 @@ import SwiftUIFontIcon
 struct CapsuleButton: View {
     
     enum ButtonType {
-        case primary
+        case normal
         case denger
         case disable
+        case accent
         case contrast
         
         var buttonBackColor: Color {
             switch self {
-            case .primary:
+            case .normal:
                 return .buttonBack
             case .denger:
                 return .red
             case .disable:
                 return .secondary.opacity(0.5)
+            case .accent:
+                return .appAccent
             case .contrast:
                 return .buttonText
             }
@@ -87,18 +90,28 @@ struct CapsuleButton: View {
     NavigationStack {
         VStack {
             // NavigationLinkとして動作するCapsuleButton
-            CapsuleButton(style: .primary, 
+            CapsuleButton(style: .normal, 
                           text: "ナビゲーションボタン",
                           destination: AnyView(Text("Next View")))
             
+            CapsuleButton(icon: .airline_seat_flat_angled,
+                          style: .accent,
+                          text: "アクセント",
+                          destination: AnyView(Text("Next View")))
+            
             CapsuleButton(icon: .message,
-                          style: .primary,
-                          text: "ナビゲーションボタン",
+                          style: .disable,
+                          text: "押せない",
+                          destination: AnyView(Text("Next View")))
+            
+            CapsuleButton(icon: .message,
+                          style: .contrast,
+                          text: "コントラスト",
                           destination: AnyView(Text("Next View")))
             
             // 通常のボタンとして動作するCapsuleButton（クリックでアクション）
             CapsuleButton(style: .denger, 
-                          text: "ボタン処理",
+                          text: "デンジャー",
                           onClicked: {
                 print("Button clicked")
             })

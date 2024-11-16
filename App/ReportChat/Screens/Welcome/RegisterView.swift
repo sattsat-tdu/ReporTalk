@@ -50,7 +50,7 @@ struct RegisterView: View {
 
                         CapsuleButton(
                             style: viewModel.id.isEmpty || viewModel.password.isEmpty
-                            ? .disable : .primary,
+                            ? .disable : .normal,
                             text: "新規登録",
                             onClicked: {
                                 viewModel.register()
@@ -66,7 +66,7 @@ struct RegisterView: View {
                         .foregroundStyle(.secondary)
                         
                         CapsuleButton(
-                            style: .primary,
+                            style: .normal,
                             text: "ログイン",
                             onClicked: {
                                 viewModel.navigate(to: .login)

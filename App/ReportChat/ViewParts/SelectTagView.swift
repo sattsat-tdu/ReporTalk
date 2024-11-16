@@ -62,7 +62,7 @@ struct SelectTagView: View {
                 
                 CapsuleButton(
                     icon: .close,
-                    style: .primary,
+                    style: .normal,
                     text: "閉じる",
                     onClicked: {
                         flg.toggle()

@@ -27,7 +27,7 @@ struct WelcomeView: View {
             Spacer()
             
             CapsuleButton(
-                style: .primary,
+                style: .normal,
                 text: "ログイン",
                 onClicked: {
                     viewModel.navigate(to: .login)
