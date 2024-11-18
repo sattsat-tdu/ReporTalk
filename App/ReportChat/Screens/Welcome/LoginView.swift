@@ -35,12 +35,14 @@ struct LoginView: View {
                     
                     InputFormView(
                         secureType: .normal,
+                        keyboardType: .alphabet,
                         title: "メールアドレス",
                         placeholder: "name@domain.com",
                         text: $viewModel.id)
                     
                     InputFormView(
                         secureType: .secure,
+                        keyboardType: .alphabet,
                         title: "パスワード",
                         placeholder: "パスワードを入力...",
                         text: $viewModel.password)
