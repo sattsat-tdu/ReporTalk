@@ -29,7 +29,7 @@ struct CapsuleButton: View {
             case .accent:
                 return .appAccent
             case .contrast:
-                return .buttonText
+                return .clear
             }
         }
     }
@@ -75,13 +75,15 @@ struct CapsuleButton: View {
         }
         .font(.headline)
         .foregroundStyle(style == .contrast ? .buttonBack : .buttonText)
-        .padding()
+        .padding(12)
         .frame(maxWidth: .infinity)
         .background(style.buttonBackColor)
         .clipShape(Capsule())
         .overlay(
             Capsule()
-                .stroke(style == .contrast ? .rounded : .clear, lineWidth: 2)
+                .stroke(style == .contrast ?
+                    .buttonBack :Color.clear,
+                        lineWidth: 2)
         )
     }
 }
