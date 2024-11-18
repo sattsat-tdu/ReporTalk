@@ -15,6 +15,7 @@
 		0077242F2CE5AC79004B94CF /* ReporTagMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */; };
 		007724312CE5E3F9004B94CF /* ReporTagChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724302CE5E3F9004B94CF /* ReporTagChartView.swift */; };
 		007724332CE5E89B004B94CF /* SwiftDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724322CE5E892004B94CF /* SwiftDataManager.swift */; };
+		0077244A2CEB962E004B94CF /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724492CEB962D004B94CF /* PhotoPickerView.swift */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
@@ -54,7 +55,6 @@
 		00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2F92CAAA923008841E6 /* WelcomeView.swift */; };
 		00D6F2FC2CAAAFE2008841E6 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */; };
 		00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FD2CAAE541008841E6 /* RegisterView.swift */; };
-		00D6F3002CAAEF01008841E6 /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */; };
 		00D6F3022CAAF925008841E6 /* WelcomeSwitchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F3012CAAF925008841E6 /* WelcomeSwitchView.swift */; };
 		00D6F3042CAAFCC6008841E6 /* BackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */; };
 		00EB78622C8B58F900BEEEAA /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB78612C8B58F900BEEEAA /* View+Extensions.swift */; };
@@ -101,6 +101,7 @@
 		0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagMessage.swift; sourceTree = "<group>"; };
 		007724302CE5E3F9004B94CF /* ReporTagChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagChartView.swift; sourceTree = "<group>"; };
 		007724322CE5E892004B94CF /* SwiftDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataManager.swift; sourceTree = "<group>"; };
+		007724492CEB962D004B94CF /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -140,7 +141,6 @@
 		00D6F2F92CAAA923008841E6 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		00D6F2FB2CAAAFE2008841E6 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 		00D6F2FD2CAAE541008841E6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
-		00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
 		00D6F3012CAAF925008841E6 /* WelcomeSwitchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeSwitchView.swift; sourceTree = "<group>"; };
 		00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonView.swift; sourceTree = "<group>"; };
 		00EB78612C8B58F900BEEEAA /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
@@ -434,12 +434,12 @@
 				00EB788A2C9ABBD500BEEEAA /* IconImageView.swift */,
 				00EB78962C9BE58200BEEEAA /* MessageCell.swift */,
 				00EB78B82C9D562900BEEEAA /* AutoResizingTextEditor.swift */,
-				00D6F2FF2CAAEF01008841E6 /* PhotoPickerView.swift */,
 				00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */,
 				008346CF2CBA1155001ADAD2 /* CachedImage.swift */,
 				008346D52CBC15C6001ADAD2 /* UserCell.swift */,
 				0099943A2CBFA571008697EC /* RoundedRectButton.swift */,
 				007723492CDEF16E004B94CF /* SelectTagView.swift */,
+				007724492CEB962D004B94CF /* PhotoPickerView.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -597,6 +597,7 @@
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
 				009994462CC7304C008697EC /* RoomManager.swift in Sources */,
 				009104742CA6C47000F1AA54 /* ModalView.swift in Sources */,
+				0077244A2CEB962E004B94CF /* PhotoPickerView.swift in Sources */,
 				00EB78992C9BE5FB00BEEEAA /* Date+Extensions.swift in Sources */,
 				00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */,
 				0091043B2CA3DC4400F1AA54 /* SettingModel.swift in Sources */,
@@ -627,7 +628,6 @@
 				0099943E2CBFBD24008697EC /* UserDetailViewModel.swift in Sources */,
 				008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */,
 				00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */,
-				00D6F3002CAAEF01008841E6 /* PhotoPickerView.swift in Sources */,
 				008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */,
 				0091043D2CA3F91400F1AA54 /* PickerCell.swift in Sources */,
 			);
