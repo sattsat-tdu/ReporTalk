@@ -13,21 +13,34 @@ struct RoomsView: View {
     
     var body: some View {
         Group {
-            if !viewModel.roomsModel.isEmpty {
-                List(viewModel.roomsModel, id: \.room.id) { roomViewModel in
-                    NavigationLink(
-                        destination: RoomView()
-                            .environmentObject(roomViewModel)
-                            .resignKeyboardOnDragGesture(),
-                        label: {
-                            RoomCell(viewModel: roomViewModel)
+            if let roomsModel = viewModel.roomsModel {
+                ScrollView(showsIndicators: false) {
+                    SearchTextField(placeholder: "検索",
+                                    text: $viewModel.searchText)
+                    .keyboardType(.default)
+                    
+                    if !roomsModel.isEmpty {
+                        LazyVStack(spacing: 0) {
+                            ForEach(roomsModel, id: \.room.id) { roomViewModel in
+                                NavigationLink(
+                                    destination: RoomView()
+                                        .environmentObject(roomViewModel)
+                                        .resignKeyboardOnDragGesture(),
+                                    label: {
+                                        RoomCell(viewModel: roomViewModel)
+                                    }
+                                )
+                                Rectangle()
+                                    .frame(height: 2)
+                                    .clipShape(Capsule())
+                                    .foregroundStyle(.gray.opacity(0.2))
+                            }
                         }
-                    )
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                    .listRowBackground(Color.clear)
+                    } else {
+                        Text("レポートを送信しよう！")
+                    }
                 }
-                .scrollIndicators(.hidden)
-                .listStyle(.plain)
+                .padding()
             } else {
                 LoadingView(message: "ルームを取得中")
             }

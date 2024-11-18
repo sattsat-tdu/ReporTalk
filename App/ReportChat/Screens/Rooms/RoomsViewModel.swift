@@ -11,7 +11,8 @@ import FirebaseFirestore
 
 @MainActor
 final class RoomsViewModel: ObservableObject {
-    @Published var roomsModel: [RoomViewModel] = []
+    @Published var roomsModel: [RoomViewModel]?
+    @Published var searchText = ""
     private let appManager = AppManager.shared
     private let firestore = Firestore.firestore()
     private var listener: ListenerRegistration?
@@ -50,7 +51,7 @@ final class RoomsViewModel: ObservableObject {
                 do {
                     let room = try document.data(as: RoomResponse.self)
                     // 既存のRoomViewModelを検索
-                    if let existingViewModel = self.roomsModel.first(where: { $0.room.id == room.id }) {
+                    if let existingViewModel = self.roomsModel?.first(where: { $0.room.id == room.id }) {
                         // 既存のRoomViewModelがある場合は更新のみ
                         existingViewModel.updateRoom(with: room)
                         updatedRooms.append(existingViewModel)
