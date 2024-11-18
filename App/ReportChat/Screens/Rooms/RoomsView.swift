@@ -7,9 +7,11 @@
 //
 
 import SwiftUI
+import SwiftUIFontIcon
 
 struct RoomsView: View {
     @EnvironmentObject var viewModel: RoomsViewModel
+    @State private var addFriendViewFlg = false
     
     var body: some View {
         Group {
@@ -37,7 +39,19 @@ struct RoomsView: View {
                             }
                         }
                     } else {
-                        Text("レポートを送信しよう！")
+                        Button(action: {
+                            addFriendViewFlg.toggle()
+                        }, label: {
+                            VStack {
+                                FontIcon.text(.materialIcon(code: .group_add),
+                                              fontsize: 96)
+                                Text("友達を追加して\nあなたの感情を共有しよう")
+                                    .font(.headline)
+                            }
+                        })
+                        .padding(.top, 48)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
                 .padding()
@@ -48,6 +62,9 @@ struct RoomsView: View {
         .background(.mainBackground)
         .navigationTitle("ルーム")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $addFriendViewFlg) {
+            AddFriendsView()
+        }
     }
 }
 
