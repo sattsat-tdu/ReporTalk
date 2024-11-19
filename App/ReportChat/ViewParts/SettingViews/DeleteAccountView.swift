@@ -31,7 +31,7 @@ struct DeleteAccountView: View {
             InputFormView(
                 secureType: .secure,
                 keyboardType: .alphabet,
-                title: "アカウントを削除するには、パスワードを入力してください。",
+                title: "アカウントを削除するには、\nパスワードを入力してください。",
                 placeholder: "パスワード",
                 text: $password
             )

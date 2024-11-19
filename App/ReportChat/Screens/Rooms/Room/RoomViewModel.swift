@@ -11,7 +11,6 @@ import FirebaseFirestore
 
 @MainActor
 final class RoomViewModel: ObservableObject {
-    @Published var roomIconUrlString: String? = nil
     @Published var iconUrlString: String? = nil
     @Published var isUnread = false
     @Published var roomName: String = " --- "
@@ -49,17 +48,13 @@ final class RoomViewModel: ObservableObject {
     //メッセージViewを閉じた時にリスナーを解除
     func onMessageViewDisappear() {
         messageListener?.remove()
-//        if self.isUnread {
-//            print("閉じた際に更新しました")
-//            updateReadTime()    //開いた後にメッセージに変化があれば更新
-//        }
     }
     
     func updateRoom(with room: RoomResponse) {
         // ルームのプロパティを更新
         self.room = room
         self.roomName = room.roomName ?? self.roomName
-        self.roomIconUrlString = room.roomIcon ?? self.roomIconUrlString
+        self.iconUrlString = room.roomIcon ?? self.iconUrlString
         self.checkReadState()
     }
     

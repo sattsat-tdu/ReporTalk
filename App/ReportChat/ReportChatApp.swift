@@ -17,7 +17,7 @@ struct ReportChatApp: App {
     @StateObject private var appManager = AppManager.shared
     
     init() {
-        FirebaseApp.configure()
+        FirebaseApp.configure() //Firebase 初期化
     }
     
     //SwiftData使用の宣言

@@ -47,6 +47,7 @@ struct RoomCell: View {
             
             Text(viewModel.roomName)
                 .font(.subheadline)
+                .fontWeight(.semibold)
             
             Spacer()
             
