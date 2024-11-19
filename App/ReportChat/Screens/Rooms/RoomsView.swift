@@ -22,7 +22,7 @@ struct RoomsView: View {
                     .keyboardType(.default)
                     
                     if !roomsModel.isEmpty {
-                        LazyVStack(spacing: 0) {
+                        VStack(spacing: 0) {
                             ForEach(roomsModel, id: \.room.id) { roomViewModel in
                                 NavigationLink(
                                     destination: RoomView()
