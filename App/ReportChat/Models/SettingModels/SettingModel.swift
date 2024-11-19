@@ -13,6 +13,7 @@ import SwiftUIFontIcon
 enum SettingsItem {
     case section(SettingSection)
     case navItem(NavItem)
+    case buttonItem(ButtonItem)
     case toggleItem(ToggleItem)
     case safariItem(SafariItem)
     case pickerItem(PickerItem)
@@ -46,6 +47,28 @@ struct NavItem {
         self.icon = icon
         self.title = title
         self.description = description
+    }
+}
+
+struct ButtonItem {
+    let icon: MaterialIconCode?
+    let color: Color
+    let title: String
+    let description: String?
+    let onClicked: () -> Void // 引数なしのクロージャー
+    
+    init(
+        icon: MaterialIconCode? = nil,
+        color: Color,
+        title: String,
+        description: String? = nil,
+        onClicked: @escaping () -> Void
+    ) {
+        self.icon = icon
+        self.color = color
+        self.title = title
+        self.description = description
+        self.onClicked = onClicked
     }
 }
 

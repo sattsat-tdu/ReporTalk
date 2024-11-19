@@ -20,6 +20,8 @@ struct SettingsView: View {
                     SectionCell(section: subSection)
                 case .navItem(let navItem):
                     CustomNavCell(navItem: navItem)
+                case .buttonItem(let buttonItem):
+                    ButtonCell(buttonItem: buttonItem)
                 case .toggleItem(let toggleItem):
                     ToggleCell(toggleItem: toggleItem)
                 case .safariItem(let safariItem):

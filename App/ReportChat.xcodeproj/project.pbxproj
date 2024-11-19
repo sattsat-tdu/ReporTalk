@@ -16,6 +16,8 @@
 		007724312CE5E3F9004B94CF /* ReporTagChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724302CE5E3F9004B94CF /* ReporTagChartView.swift */; };
 		007724332CE5E89B004B94CF /* SwiftDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724322CE5E892004B94CF /* SwiftDataManager.swift */; };
 		0077244A2CEB962E004B94CF /* PhotoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724492CEB962D004B94CF /* PhotoPickerView.swift */; };
+		0077244D2CEC16A5004B94CF /* AppearanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077244C2CEC167C004B94CF /* AppearanceModel.swift */; };
+		0077244F2CEC249D004B94CF /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077244E2CEC249D004B94CF /* ButtonCell.swift */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
@@ -102,6 +104,8 @@
 		007724302CE5E3F9004B94CF /* ReporTagChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagChartView.swift; sourceTree = "<group>"; };
 		007724322CE5E892004B94CF /* SwiftDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataManager.swift; sourceTree = "<group>"; };
 		007724492CEB962D004B94CF /* PhotoPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerView.swift; sourceTree = "<group>"; };
+		0077244C2CEC167C004B94CF /* AppearanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceModel.swift; sourceTree = "<group>"; };
+		0077244E2CEC249D004B94CF /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -243,6 +247,16 @@
 			path = SwiftData;
 			sourceTree = "<group>";
 		};
+		0077244B2CEC1665004B94CF /* SettingModels */ = {
+			isa = PBXGroup;
+			children = (
+				0077244C2CEC167C004B94CF /* AppearanceModel.swift */,
+				009104382CA3D9B300F1AA54 /* SettingsResource.swift */,
+				0091043A2CA3DC4400F1AA54 /* SettingModel.swift */,
+			);
+			path = SettingModels;
+			sourceTree = "<group>";
+		};
 		009104292CA3127200F1AA54 /* SettingCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +265,7 @@
 				0091042A2CA313AB00F1AA54 /* ToggleCell.swift */,
 				009104302CA3ABD200F1AA54 /* SafariCell.swift */,
 				0091043C2CA3F91400F1AA54 /* PickerCell.swift */,
+				0077244E2CEC249D004B94CF /* ButtonCell.swift */,
 			);
 			path = SettingCells;
 			sourceTree = "<group>";
@@ -362,12 +377,11 @@
 		00EB78712C980E7B00BEEEAA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0077244B2CEC1665004B94CF /* SettingModels */,
 				00EB78732C980EA500BEEEAA /* RoomResponse.swift */,
 				009B0F302CBEA8DC00D3D08A /* NotificationModel.swift */,
 				00EB78752C980EE500BEEEAA /* UserResponse.swift */,
 				00EB788F2C9B29DE00BEEEAA /* MessageResponse.swift */,
-				0091043A2CA3DC4400F1AA54 /* SettingModel.swift */,
-				009104382CA3D9B300F1AA54 /* SettingsResource.swift */,
 				009104752CA6C57C00F1AA54 /* OverlayModel.swift */,
 			);
 			path = Models;
@@ -596,6 +610,7 @@
 				0096C64A2CAD05E100C6FD42 /* WelcomeSettingsView.swift in Sources */,
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
 				009994462CC7304C008697EC /* RoomManager.swift in Sources */,
+				0077244F2CEC249D004B94CF /* ButtonCell.swift in Sources */,
 				009104742CA6C47000F1AA54 /* ModalView.swift in Sources */,
 				0077244A2CEB962E004B94CF /* PhotoPickerView.swift in Sources */,
 				00EB78992C9BE5FB00BEEEAA /* Date+Extensions.swift in Sources */,
@@ -628,6 +643,7 @@
 				0099943E2CBFBD24008697EC /* UserDetailViewModel.swift in Sources */,
 				008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */,
 				00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */,
+				0077244D2CEC16A5004B94CF /* AppearanceModel.swift in Sources */,
 				008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */,
 				0091043D2CA3F91400F1AA54 /* PickerCell.swift in Sources */,
 			);
