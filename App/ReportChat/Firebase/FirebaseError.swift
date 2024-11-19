@@ -34,9 +34,17 @@ enum FirebaseAuthError: Error {
         case .unknown:
             return "予期しないエラーが発生しました。"
         }
-        
-        
     }
+}
+
+// アカウント削除時のハンドリング
+enum DeleteAuthError: String, Error {
+    case wrongPassword = "パスワードが間違っています。"
+    case reauthenticationFailed = "再認証に失敗しました。"
+    case deletionFailed = "アカウント削除が許可されていません。"
+    case userNotLoggedIn = "ログイン中のユーザーが見つかりません。"
+    case networkError = "ネットワーク接続に問題があります。"
+    case unknownError = "不明なエラーが発生しました。"
 }
 
 //Firebaseログインに関するエラー
@@ -144,12 +152,13 @@ enum RemoveIdError: String, Error {
 class FirebaseError {
     static let shared = FirebaseError()
     
-    
     // エラーメッセージを取得するメソッド
     func getErrorMessage(_ error: Error) -> String {
         switch error {
         case let authError as FirebaseAuthError:
             return authError.errorMessage
+        case let deleteAuthError as DeleteAuthError:
+            return deleteAuthError.rawValue
             
         case let loginError as FirebaseLoginError:
             return loginError.errorDescription

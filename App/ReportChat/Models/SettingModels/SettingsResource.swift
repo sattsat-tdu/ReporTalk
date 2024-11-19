@@ -60,7 +60,7 @@ let accountSection = SettingSection(
             })
         ),
         .navItem(NavItem(
-            destination: AnyView(Text("アカウント削除")),
+            destination: AnyView(DeleteAccountView()),
             icon: .delete,
             title: "アカウント削除")
         )

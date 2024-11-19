@@ -32,7 +32,10 @@ struct SettingsView: View {
             }
             .padding(.vertical, 4)
             .frame(minHeight: 38)
+            .listRowBackground(Color.item)
         }
+        .scrollContentBackground(.hidden)
+        .background(.mainBackground)
         .listRowSpacing(10)
         .navigationTitle(section.title)
     }
