@@ -95,22 +95,25 @@ struct RoomView: View {
                 Button(action: {
                     selectTagViewFlg.toggle()
                 }, label: {
-                    if let reporTag = viewModel.selectedReporTag {
-                        HStack {
-                            FontIcon.text(.materialIcon(code: .insert_emoticon))
-                            
-                            Text(reporTag.tagName)
-                                .font(.title3)
-                                .fontWeight(.semibold)
-                                .padding(.leading, 4)
+                    Group {
+                        if let reporTag = viewModel.selectedReporTag {
+                            HStack {
+                                FontIcon.text(.materialIcon(code: .insert_emoticon))
+                                
+                                Text(reporTag.tagName)
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
+                                    .padding(.leading, 4)
+                            }
+                            .padding(8)
+                            .background(reporTag.color.gradient)
+                            .clipShape(.rect(cornerRadius: 8))
+                        } else {
+                            FontIcon.text(.materialIcon(code: .add), fontsize: 32)
+                                
                         }
-                        .padding(8)
-                        .background(reporTag.color.gradient)
-                        .clipShape(.rect(cornerRadius: 8))
-                    } else {
-                        FontIcon.text(.materialIcon(code: .add), fontsize: 32)
-                            .frame(maxHeight: .infinity, alignment: .bottom)
                     }
+                    .frame(maxHeight: .infinity, alignment: .bottom)
                 })
                 .transition(.scale)
                 
