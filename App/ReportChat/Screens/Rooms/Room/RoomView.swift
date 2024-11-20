@@ -19,12 +19,13 @@ struct RoomView: View {
     private let maxHeight: CGFloat = 240
     private let iconSize: CGFloat = 40
     private let maxMessageWidth = UIScreen.main.bounds.width * 0.6
+    @State private var isInitialLoad = true
     
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { proxy in
                 ScrollView {
-                    LazyVStack(spacing: 8) {
+                    VStack(spacing: 8) {
                         if let messages = viewModel.messages {
                             ForEach(messages, id: \.id) { message in
                                 let isCurrentUser = viewModel.loginUserId == message.senderId
@@ -70,14 +71,14 @@ struct RoomView: View {
                                 .frame(maxWidth: .infinity, alignment: isCurrentUser ? .trailing : .leading)
                                 .id(message.id)
                             }
-//                            .padding(.horizontal, 8)
                         }
                     }
                     .padding()
-                    .onAppear {
-                        proxy.scrollTo("lastMessage", anchor: .bottom)
-                    }
                     .onChange(of: viewModel.lastMessageId) {
+                        guard !isInitialLoad else {
+                            isInitialLoad = false
+                            return
+                        }
                         if let id = viewModel.lastMessageId {
                             withAnimation(.easeInOut(duration: 0.2)) {
                                 proxy.scrollTo(id, anchor: .bottom)
@@ -86,6 +87,12 @@ struct RoomView: View {
                     }
                     Spacer().frame(height: 24)
                         .id("lastMessage")
+                }
+                .onAppear {
+                    DispatchQueue.main.async {
+                        print(isInitialLoad)
+                        proxy.scrollTo("lastMessage", anchor: .bottom)
+                    }
                 }
             }
             
