@@ -12,13 +12,23 @@ import SwiftUIFontIcon
 struct MessageCell: View {
     
     let message: MessageResponse
-    var reportag: Reportag? {
-        return message.toReportag()
-    }
+    var reportag: Reportag?
     let isCurrentUser: Bool
     private let cornerRadius:CGFloat = 8
-    @State private var limitedText = ""
-    @State private var isLimit = false
+    
+    private let limitedText: String
+    private let isLimit: Bool
+    
+    init(message: MessageResponse, isCurrentUser: Bool) {
+        self.message = message
+        self.isCurrentUser = isCurrentUser
+        self.reportag = message.toReportag()
+        //長文対応
+        let (calculatedText, calculatedIsLimit) =
+        MessageCell.calculateLimitedText(text: message.text)
+        self.limitedText = calculatedText
+        self.isLimit = calculatedIsLimit
+    }
     
     var body: some View {
         VStack(alignment: isCurrentUser ? .trailing : .leading, spacing: 8) {
@@ -87,26 +97,21 @@ struct MessageCell: View {
                 .foregroundStyle(.secondary)
                 .padding(isCurrentUser ? .trailing : .leading, 4)
         }
-        .onAppear {
-            checkText()
-        }
     }
     
-    //文字数・行表示制限
-    func checkText(maxCharacters: Int = 500, maxLines: Int = 30) {
-        let lines = message.text.split(separator: "\n", omittingEmptySubsequences: false)
-        
-        // 最大行数まで取得
+    private static func calculateLimitedText(
+        text: String,
+        maxCharacters: Int = 300,
+        maxLines: Int = 15
+    ) -> (String, Bool) {
+        let lines = text.split(separator: "\n", omittingEmptySubsequences: false)
         let limitedLines = lines.prefix(maxLines)
         let truncatedByLines = limitedLines.joined(separator: "\n")
         
         if lines.count > maxLines || truncatedByLines.count > maxCharacters {
-            self.limitedText = String(truncatedByLines.prefix(maxCharacters))
-            self.isLimit = true
-        } else {
-            self.limitedText = truncatedByLines
-            self.isLimit = false
+            return (String(truncatedByLines.prefix(maxCharacters)), true)
         }
+        return (truncatedByLines, false)
     }
 }
 
