@@ -19,17 +19,36 @@ struct RoomView: View {
     private let maxHeight: CGFloat = 240
     private let iconSize: CGFloat = 40
     private let maxMessageWidth = UIScreen.main.bounds.width * 0.6
-    @State private var isInitialLoad = true
+    @State var height: CGFloat = 0
     
     var body: some View {
         VStack(spacing: 0) {
-            ScrollViewReader { proxy in
-                ScrollView {
-                    VStack(spacing: 8) {
-                        if let messages = viewModel.messages {
-                            ForEach(messages, id: \.id) { message in
-                                let isCurrentUser = viewModel.loginUserId == message.senderId
-                                HStack(alignment: .top,spacing: 4) {
+            messageList
+            chatbox
+        }
+        .sheet(isPresented: $selectTagViewFlg) {
+            SelectTagView(flg: $selectTagViewFlg,
+                          reportag: $viewModel.selectedReporTag)
+                .presentationDetents([.fraction(0.4), .fraction(0.8)])
+        }
+        .onAppear(perform: viewModel.onMessageViewAppear)
+        .onDisappear(perform: viewModel.onMessageViewDisappear)
+        .navigationTitle(viewModel.roomName)
+        .toolbarBackground(.visible, for: .navigationBar)
+        .background(.roomBack)
+    }
+    
+    private var messageList: some View {
+        GeometryReader { scrollViewProxy in
+            ScrollView {
+                Spacer()
+                    .frame(height: max(scrollViewProxy.size.height - height, 0))
+                LazyVStack(alignment: .leading, spacing: 8) {
+                    if let messages = viewModel.messages {
+                        ForEach(messages, id: \.id) { message in
+                            let isCurrentUser = viewModel.loginUserId == message.senderId
+                            HStack(alignment: .top,spacing: 4) {
+                                if !isCurrentUser {
                                     Group {
                                         if let iconUrl = viewModel.iconUrlString {
                                             CachedImage(url: iconUrl) { phase in
@@ -58,44 +77,45 @@ struct RoomView: View {
                                     }
                                     .clipShape(Circle())
                                     .frame(width: iconSize, height: iconSize)
-                                    .hidden(isCurrentUser)
-                                    
-                                    MessageCell(
-                                        message: message,
-                                        isCurrentUser: isCurrentUser
-                                    )
-                                    .frame(maxWidth: maxMessageWidth,
-                                           alignment: isCurrentUser ? .trailing : .leading
-                                    )
                                 }
-                                .frame(maxWidth: .infinity, alignment: isCurrentUser ? .trailing : .leading)
-                                .id(message.id)
+                                
+                                MessageCell(
+                                    message: message,
+                                    isCurrentUser: isCurrentUser
+                                )
+                                .frame(maxWidth: maxMessageWidth,
+                                       alignment: isCurrentUser ? .trailing : .leading
+                                )
                             }
+                            .task {
+                                if viewModel.lastAddedMessageId == message.id {
+                                    await viewModel.fetchMoreMessages()
+                                }
+                            }
+                            .frame(maxWidth: .infinity, alignment: isCurrentUser ? .trailing : .leading)
+                            .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
                         }
                     }
-                    .padding()
-                    .onChange(of: viewModel.lastMessageId) {
-                        guard !isInitialLoad else {
-                            isInitialLoad = false
-                            return
-                        }
-                        if let id = viewModel.lastMessageId {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                proxy.scrollTo(id, anchor: .bottom)
-                            }
-                        }
-                    }
-                    Spacer().frame(height: 24)
-                        .id("lastMessage")
                 }
-                .onAppear {
-                    DispatchQueue.main.async {
-                        print(isInitialLoad)
-                        proxy.scrollTo("lastMessage", anchor: .bottom)
+                .padding()
+                .overlay {
+                    GeometryReader { contentsProxy in
+                        Color.clear.preference(
+                            key: HeightKey.self,
+                            value: contentsProxy.size.height
+                        )
                     }
                 }
             }
-            
+            .rotation3DEffect(.degrees(180), axis: (x: 1, y: 0, z: 0))
+            .onPreferenceChange(HeightKey.self) { newHeight in
+                height = newHeight
+            }
+        }
+    }
+    
+    private var chatbox: some View {
+        VStack(spacing: 0) {
             Divider()
             
             HStack(spacing: 8) {
@@ -126,7 +146,7 @@ struct RoomView: View {
                 
                 AutoResizingTextEditor(
                     text: $viewModel.messageText,
-                    textHeight: $dynamicHeight, 
+                    textHeight: $dynamicHeight,
                     maxHeight: maxHeight
                 )
                 .focused(self.$focus)
@@ -149,15 +169,15 @@ struct RoomView: View {
             .frame(height: min(dynamicHeight, maxHeight) + 16)
             .background(.mainBackground)
         }
-        .sheet(isPresented: $selectTagViewFlg) {
-            SelectTagView(flg: $selectTagViewFlg,
-                          reportag: $viewModel.selectedReporTag)
-                .presentationDetents([.fraction(0.4), .fraction(0.8)])
-        }
-        .onAppear(perform: viewModel.onMessageViewAppear)
-        .onDisappear(perform: viewModel.onMessageViewDisappear)
-        .navigationTitle(viewModel.roomName)
-        .background(.roomBack)
+    }
+}
+
+struct HeightKey: PreferenceKey {
+    typealias Value = CGFloat
+    static var defaultValue: CGFloat = 0
+    
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value += nextValue()
     }
 }
 
