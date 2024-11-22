@@ -35,12 +35,14 @@ struct LoginView: View {
                     
                     InputFormView(
                         secureType: .normal,
+                        keyboardType: .alphabet,
                         title: "メールアドレス",
                         placeholder: "name@domain.com",
                         text: $viewModel.id)
                     
                     InputFormView(
                         secureType: .secure,
+                        keyboardType: .alphabet,
                         title: "パスワード",
                         placeholder: "パスワードを入力...",
                         text: $viewModel.password)
@@ -48,7 +50,7 @@ struct LoginView: View {
                     Spacer()
                     
                     CapsuleButton(
-                        style: viewModel.id.isEmpty || viewModel.password.isEmpty ? .disable : .primary,
+                        style: viewModel.id.isEmpty || viewModel.password.isEmpty ? .disable : .normal,
                         text: "ログイン",
                         onClicked: {
                             viewModel.login()
@@ -64,7 +66,7 @@ struct LoginView: View {
                     .foregroundStyle(.secondary)
                     
                     CapsuleButton(
-                        style: .primary, 
+                        style: .normal, 
                         text: "新規登録",
                         onClicked: {
                             viewModel.navigate(to: .register)

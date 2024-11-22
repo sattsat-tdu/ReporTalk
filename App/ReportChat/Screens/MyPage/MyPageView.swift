@@ -12,39 +12,59 @@ import SwiftUIFontIcon
 struct MyPageView: View {
     
     @EnvironmentObject var appManager: AppManager
+    @State private var showProfileFlg = false
+    private let iconSize: CGFloat = 64
 
     var body: some View {
         Group {
             if let currentUser = appManager.currentUser {
                 List {
                     Section(header: Text("プロフィール").fontWeight(.semibold)) {
-                        NavigationLink(
-                            destination: ProfileDetailView()
-                                .environmentObject(ProfileViewModel(user: currentUser)),
-                            label: {
-                                HStack {
-                                    Group {
-                                        if let iconUrl = currentUser.photoURL {
-                                            IconImageView(
-                                                urlString: iconUrl,
-                                                size: 64)
-                                        } else {
-                                            Image(systemName: "person.circle")
-                                                .resizable()
-                                                .frame(width: 64, height: 64)
+                        Button(action: {
+                            showProfileFlg.toggle()
+                        }, label: {
+                            HStack {
+                                Group {
+                                    if let photoURL = currentUser.photoURL {
+                                        CachedImage(url: photoURL) { phase in
+                                            switch phase {
+                                            case .empty:
+                                                ProgressView()
+                                            case .success(let image):
+                                                Rectangle().aspectRatio(1, contentMode: .fill)
+                                                    .overlay {
+                                                        image
+                                                            .resizable()
+                                                            .scaledToFill()
+                                                    }
+                                                    .clipped()
+                                            case .failure(_):
+                                                Image(systemName: "person.circle")
+                                                    .resizable()
+                                            @unknown default:
+                                                EmptyView()
+                                            }
                                         }
-                                    }
-                                    .clipShape(Circle())
-                                    
-                                    VStack(alignment: .leading, spacing: 8) {
-                                        Text(currentUser.userName)
-                                            .font(.headline)
-                                        
-                                        Text("@\(currentUser.handle)")
-                                            .font(.callout)
+                                    } else {
+                                        Image(systemName: "person.circle")
+                                            .resizable()
                                     }
                                 }
-                            })
+                                .frame(width: iconSize, height: iconSize)
+                                .clipShape(Circle())
+                                
+                                
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text(currentUser.userName)
+                                        .font(.headline)
+                                    
+                                    Text("@\(currentUser.handle)")
+                                        .foregroundStyle(.secondary)
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                }
+                            }
+                        })
                     }
                     
                     CustomNavCell(
@@ -91,6 +111,9 @@ struct MyPageView: View {
                     }
                 }
                 .listRowSpacing(8)
+                .sheet(isPresented: $showProfileFlg) {
+                    UserDetailView(user: currentUser)
+                }
             } else {
                 LoadingView(message: "ユーザー情報を取得中")
             }

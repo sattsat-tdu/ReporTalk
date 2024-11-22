@@ -49,7 +49,7 @@ struct ModalView: View {
                         hideModel()
                     })
                     
-                    CapsuleButton(style: .primary, text: "いいえ",
+                    CapsuleButton(style: .normal, text: "いいえ",
                                   onClicked: {
                         hideModel()
                     })

@@ -6,17 +6,16 @@
 //
 //
 
+import SwiftUI
 import Foundation
 import FirebaseFirestore
 
 @MainActor
 final class RoomViewModel: ObservableObject {
-    @Published var roomIconUrlString: String? = nil
     @Published var iconUrlString: String? = nil
     @Published var isUnread = false
     @Published var roomName: String = " --- "
     @Published var messages: [MessageResponse]? = nil
-    @Published var lastMessageId: String? = nil
     @Published var messageText = ""
     @Published var selectedReporTag: Reportag?
     var room: RoomResponse
@@ -26,6 +25,10 @@ final class RoomViewModel: ObservableObject {
         return  (appManager.currentUser?.id)!
     }
     private var messageListener: ListenerRegistration?  // メッセージのリスナー
+    
+    var isInitialLoad = true
+    @Published var lastAddedMessageId: String? = nil
+    @Published var isLoading = false
     
     init(room: RoomResponse) {
         self.room = room
@@ -48,18 +51,16 @@ final class RoomViewModel: ObservableObject {
     
     //メッセージViewを閉じた時にリスナーを解除
     func onMessageViewDisappear() {
+        isInitialLoad = true
+//        self.lastAddedMessageId = nil
         messageListener?.remove()
-//        if self.isUnread {
-//            print("閉じた際に更新しました")
-//            updateReadTime()    //開いた後にメッセージに変化があれば更新
-//        }
     }
     
     func updateRoom(with room: RoomResponse) {
         // ルームのプロパティを更新
         self.room = room
         self.roomName = room.roomName ?? self.roomName
-        self.roomIconUrlString = room.roomIcon ?? self.roomIconUrlString
+        self.iconUrlString = room.roomIcon ?? self.iconUrlString
         self.checkReadState()
     }
     
@@ -99,52 +100,136 @@ final class RoomViewModel: ObservableObject {
         return nil
     }
     
-    // リアルタイムでルーム内のメッセージを取得する
-    func listenForRoomMessages() {
-        // 既存のリスナーを削除
+    func listenForRoomMessages(limit: Int = 20) {
         messageListener?.remove()
         guard let roomId = room.id else { return }
-        var isInitialLoad = true
         
         messageListener = firestore.collection("rooms")
             .document(roomId)
             .collection("messages")
-            .order(by: "timestamp", descending: false)  // メッセージをタイムスタンプ順に取得
+            .order(by: "timestamp", descending: true)   //最新のものから取得
+            .limit(to: limit)
             .addSnapshotListener { [weak self] snapshot, error in
                 guard let self = self else { return }
+
                 if let error = error {
-                    print("Error listening for messages: \(error.localizedDescription)")
+                    print(error.localizedDescription)
                     return
                 }
-                
-                guard let documents = snapshot?.documents else {
-                    print("No documents found.")
+
+                guard let changes = snapshot?.documentChanges else {
+                    print("No changes found.")
                     return
                 }
-                
-                // Firestoreから取得したデータをMessageResponseに変換
-                self.messages = documents.compactMap { document in
-                    try? document.data(as: MessageResponse.self)
-                }
-                
-                if let newMessage = self.messages?.last {
-                    self.lastMessageId = newMessage.id
-                    // ユーザーがRoomViewにいる場合、readUsersを更新
-                    if !isInitialLoad {
-                        handleAddedMessage(newMessage)
-                    } else {
-                        isInitialLoad = false
-                    }
-                }
+
+                self.processDocumentChanges(changes)
             }
     }
     
-    // メッセージが追加されたときの処理
-    private func handleAddedMessage(_ message: MessageResponse) {
-        guard let userId = appManager.currentUser?.id else { return }
+    private func processDocumentChanges(_ changes: [DocumentChange]) {
+        changes.forEach { change in
+            do {
+                let message = try change.document.data(as: MessageResponse.self)
+
+                switch change.type {
+                case .added:
+                    if isInitialLoad {
+                        setMessage(message)
+                    } else {
+                        addNewMessage(message)
+                    }
+                case .modified:
+                    print("ルームデータが更新されました")
+                case .removed:
+                    removeMessage(message)
+                }
+            } catch {
+                print("Error decoding message: \(error.localizedDescription)")
+            }
+        }
+        //初回ロードの判定変数
+        if isInitialLoad {
+            lastAddedMessageId = messages?.last?.id
+            isInitialLoad = false
+        }
+    }
+    
+    //初期データの適応
+    private func setMessage(_ message: MessageResponse) {
+        guard let messages = self.messages else {
+            self.messages = [message]
+            return
+        }
+        if !messages.contains(where: { $0.id == message.id }) {
+//            self.messages?.insert(message, at: 0)
+            self.messages?.append(message)
+        }
+    }
+    
+    //新しいメッセージ
+    private func addNewMessage(_ message: MessageResponse) {
+        guard let messages = self.messages else {
+            self.messages = [message]
+            return
+        }
+
+        if !messages.contains(where: { $0.id == message.id }) {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.messages?.insert(message, at: 0)
+            }
+        }
+        self.lastAddedMessageId = message.id
         
-        if message.senderId != userId {
+        if message.senderId != self.loginUserId {
             self.updateReadTime()
+        }
+    }
+    
+    private func removeMessage(_ message: MessageResponse) {
+        self.messages?.removeAll(where: { $0.id == message.id })
+    }
+    
+    private var hasMoreMessages = true
+    
+    //さらに取得
+    @MainActor
+    func fetchMoreMessages(limit: Int = 10) async {
+        
+        guard !isLoading else { return }
+        guard hasMoreMessages, let roomId = room.id, let firstMessage = messages?.last else { return }
+
+        print("取得します")
+        let firstTimestamp = firstMessage.timestamp.addingTimeInterval(-1)
+        let firstId = firstMessage.senderId
+        isLoading = true
+        do {
+            let snapshot = try await firestore.collection("rooms")
+                .document(roomId)
+                .collection("messages")
+                .order(by: "timestamp", descending: true)
+                .order(by: "senderId", descending: true)
+            
+                .start(after: [firstTimestamp, firstId])
+                .limit(to: limit)
+                .getDocuments()
+            
+            let newMessages = snapshot.documents.compactMap { document -> MessageResponse? in
+                return try? document.data(as: MessageResponse.self)
+            }
+            // メッセージが空なら、もう取得するものがないと判断
+            if newMessages.isEmpty {
+                hasMoreMessages = false
+                self.isLoading = false
+                return
+            }
+
+            DispatchQueue.main.async { [self] in
+                self.messages?.append(contentsOf: newMessages)
+                self.lastAddedMessageId = messages?.last?.id
+                self.isLoading = false
+            }
+        } catch {
+            print("Error fetching more messages: \(error.localizedDescription)")
         }
     }
     

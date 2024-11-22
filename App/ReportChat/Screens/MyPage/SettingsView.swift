@@ -20,6 +20,8 @@ struct SettingsView: View {
                     SectionCell(section: subSection)
                 case .navItem(let navItem):
                     CustomNavCell(navItem: navItem)
+                case .buttonItem(let buttonItem):
+                    ButtonCell(buttonItem: buttonItem)
                 case .toggleItem(let toggleItem):
                     ToggleCell(toggleItem: toggleItem)
                 case .safariItem(let safariItem):
@@ -30,7 +32,10 @@ struct SettingsView: View {
             }
             .padding(.vertical, 4)
             .frame(minHeight: 38)
+            .listRowBackground(Color.item)
         }
+        .scrollContentBackground(.hidden)
+        .background(.mainBackground)
         .listRowSpacing(10)
         .navigationTitle(section.title)
     }

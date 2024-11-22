@@ -25,5 +25,4 @@ class UserManager: ObservableObject {
         self.storage = Storage.storage()
         self.fireStore = Firestore.firestore()
     }
-
 }

@@ -14,25 +14,23 @@ struct UserDetailView: View {
     let user: UserResponse
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = UserDetailViewModel()
-    private let iconSize: CGFloat = 80
+    private let iconSize: CGFloat = 150
     private let messageCornerRadius: CGFloat = 16
     
     var body: some View {
-        Group {
-            if let partnerState = viewModel.partnerState {
-                VStack(spacing: 24) {
-                    headerView
-                    profileView
-                    messageView
-                    Spacer()
-                    actionButtons(partnerState)
-                }
-                .padding()
-                .background(.mainBackground)
-            } else {
-                LoadingView(message: "ロード中")
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 16) {
+                headerView
+                
+                profileView
+                
+                buttonView
+                
+                detailView
             }
+            .padding()
         }
+        .background(.mainBackground)
         .presentationDragIndicator(.visible)
         .presentationCornerRadius(24)
         .onAppear {
@@ -47,7 +45,8 @@ struct UserDetailView: View {
             FontIcon.button(.materialIcon(code: .close), action: {
                 dismiss()
             }, fontsize: 28)
-            .foregroundStyle(.buttonBack)
+            .padding(12)
+            .background(.item)
             .clipShape(Circle())
             
             Text("プロフィール")
@@ -58,11 +57,10 @@ struct UserDetailView: View {
             .foregroundStyle(.buttonBack)
             .clipShape(Circle())
         }
-        .padding([.top, .horizontal])
     }
     
     private var profileView: some View {
-        HStack(spacing: 8) {
+        VStack {
             Group {
                 if let photoURL = user.photoURL {
                     CachedImage(url: photoURL) { phase in
@@ -91,97 +89,107 @@ struct UserDetailView: View {
             }
             .frame(width: iconSize, height: iconSize)
             .clipShape(Circle())
-            .shadow(radius: 4)
+            .padding(.bottom)
+            .overlay(alignment: .bottomTrailing) {
+                VStack {
+                    Text("\(user.friends.count)")
+                        .font(.headline)
+                    Text("友達")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .padding()
+                .background(.item)
+                .clipShape(Circle())
+            }
             
-            VStack(alignment: .leading, spacing: 8) {
-                Text(user.userName)
-                    .font(.title.bold())
+            Text("@\(user.handle)")
+                .font(.headline)
+                .foregroundStyle(.secondary)
+            Text(user.userName)
+                .font(.title.bold())
+        }
+    }
+    
+    private var buttonView: some View {
+        HStack {
+            if let partnerState = viewModel.partnerState {
+                switch partnerState {
+                case .selfProfile:
+                    CapsuleButton(
+                        icon: .person,
+                        style: .contrast,
+                        text: "プロフィールを編集",
+                        onClicked: {
+                            print("プロフィール編集")
+                        }
+                    )
+                case .friend:
+                    CapsuleButton(
+                        icon: .error,
+                        style: .denger,
+                        text: "友達から削除",
+                        onClicked: {
+                            viewModel.removeFriend(to: user)
+                        }
+                    )
+                case .pendingRequest:
+                    CapsuleButton(
+                        icon: .loop,
+                        style: .disable,
+                        text: "友達申請中"
+                    )
+                case .pendingReceivedRequest:
+                    CapsuleButton(
+                        icon: .check,
+                        style: .normal,
+                        text: "友達申請を承認する",
+                        onClicked: {
+                            viewModel.addFriend(to: user)
+                        }
+                    )
+                case .stranger:
+                    CapsuleButton(
+                        icon: .add_box,
+                        style: .contrast,
+                        text: "友達申請する",
+                        onClicked: {
+                            viewModel.sendFriendRequest(to: user)
+                        }
+                    )
+                }
                 
-                Text("@\(user.handle)")
-                    .font(.headline)
-                    .foregroundStyle(.secondary)
-            }
-            .frame(maxWidth: .infinity)
-        }
-    }
-    
-    private var messageView: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(alignment: .leading) {
-                Text("プロフィール\n")
-                    .font(.headline)
-                Text(user.statusMessage)
-                    .font(.body)
-            }
-            .foregroundStyle(.primary)
-            .padding()
-            .background(.sendMessage)
-            .clipShape(.rect(
-                topLeadingRadius: 0,
-                bottomLeadingRadius: messageCornerRadius,
-                bottomTrailingRadius: messageCornerRadius,
-                topTrailingRadius: messageCornerRadius
-            ))
-            .padding(.top)
-        }
-    }
-    
-    private func actionButtons(_ partnerState: PartnerState) -> some View {
-        HStack(spacing: 16) {
-            RoundedRectButton(
-                icon: .message,
-                style: .primary,
-                text: "メッセージ",
-                onClicked: {
-                    viewModel.navigateToRoom(partner: user)
-                })
-            .hidden(partnerState == .selfProfile)
-            
-            switch partnerState {
-            case .selfProfile:
                 CapsuleButton(
-                    icon: .person,
+                    icon: .message,
                     style: .contrast,
-                    text: "プロフィールを編集",
+                    text: "メッセージ",
                     onClicked: {
-                        print("プロフィール編集")
+                        viewModel.navigateToRoom(partner: user)
                     }
                 )
-            case .friend:
-                RoundedRectButton(
-                    icon: .error,
-                    style: .denger,
-                    text: "友達から削除",
-                    onClicked: {
-                        viewModel.removeFriend(to: user)
-                    }
-                )
-            case .pendingRequest:
-                RoundedRectButton(
-                    icon: .note,
-                    style: .disable,
-                    text: "友達申請中"
-                )
-            case .pendingReceivedRequest:
-                RoundedRectButton(
-                    icon: .check,
-                    style: .primary,
-                    text: "友達申請を承認する",
-                    onClicked: {
-                        viewModel.addFriend(to: user)
-                    }
-                )
-            case .stranger:
-                RoundedRectButton(
-                    icon: .add_box,
-                    style: .primary,
-                    text: "友達申請する",
-                    onClicked: {
-                        viewModel.sendFriendRequest(to: user)
-                    }
+                .hidden(partnerState == .selfProfile)
+            } else {
+                CapsuleButton(icon: .loop,
+                              style: .disable,
+                              text: "読み込み中..."
                 )
             }
         }
+        .padding()
+        .itemStyle()
+    }
+    
+    private var detailView: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("プロフィール")
+                .font(.headline)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            Text(user.statusMessage)
+        }
+        .padding()
+        .itemStyle()
     }
 }
 

@@ -8,10 +8,12 @@
 
 import SwiftUI
 import SwiftUIFontIcon
+import AudioToolbox
 
 struct ToastView: View {
     
     @State private var offsetY: CGFloat = -150
+    let generator = UINotificationFeedbackGenerator()
     let animationDuration: Double = 0.5  // アニメーションの持続時間
     let type: ShowType
     let message: String
@@ -29,7 +31,7 @@ struct ToastView: View {
                     .minimumScaleFactor(0.1)
             }
             .foregroundStyle(type.color)
-            .padding()
+            .padding(12)
             .frame(maxWidth: .infinity)
             .background(.ultraThinMaterial)
             .clipShape(Capsule())
@@ -40,7 +42,8 @@ struct ToastView: View {
         }
         .onAppear {
             showToast()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+            vibration()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 hideToast()
             }
         }
@@ -59,6 +62,17 @@ struct ToastView: View {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
             onHided()
+        }
+    }
+    
+    func vibration() {
+        switch self.type {
+        case .success:
+            self.generator.notificationOccurred(.success)
+        case .error:
+            self.generator.notificationOccurred(.error)
+        case .info:
+            self.generator.notificationOccurred(.warning)
         }
     }
 }

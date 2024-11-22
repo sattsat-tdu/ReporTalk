@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftUIFontIcon
 
 struct WelcomeSettingsView: View {
     
@@ -14,7 +15,6 @@ struct WelcomeSettingsView: View {
         case userIdSetting
         case userNameSetting
         case iconSetting
-        case addFriends
         case finishSetting
         
         var nextStep: WelcomeStep? {
@@ -41,8 +41,6 @@ struct WelcomeSettingsView: View {
                 return "ニックネームを教えてください！"
             case .iconSetting:
                 return "アイコンを設定しましょう！"
-            case .addFriends:
-                return "友達を追加しよう！"
             case .finishSetting:
                 return "それでは、始めましょう！"
             }
@@ -55,20 +53,21 @@ struct WelcomeSettingsView: View {
             case .userNameSetting:
                 return "ここで設定した名前は公開されます。"
             case .iconSetting:
-                return "スキップ可能です。"
-            case .addFriends:
-                return ""
+                return "友達があなたを見つけやすくなります。"
             case .finishSetting:
                 return "設定項目は、後から変更できます。 "
             }
         }
     }
-
+    
     let totalSteps = Double(WelcomeStep.allCases.count - 1)
     @EnvironmentObject var viewModel: WelcomeViewModel
     @State private var welcomeStep: WelcomeStep = .userIdSetting
+    @State private var photoPickerFlg = false
+    @FocusState private var isKeyboardFocused: Bool
+    
     var body: some View {
-        VStack(spacing : 16) {
+        VStack(spacing: 24) {
             ProgressView(value: Double(self.welcomeStep.rawValue), total: totalSteps)
                 .tint(.buttonBack)
             
@@ -80,22 +79,24 @@ struct WelcomeSettingsView: View {
                 .font(.callout)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
+                .hidden(isKeyboardFocused)
             
-            Spacer()
+            Spacer().frame(maxHeight: 50)
+                .hidden(isKeyboardFocused)
             
-            TabView(selection: $welcomeStep) {
-                userIdSettingView
-                    .tag(WelcomeStep.userIdSetting)
-                userNameSettingView
-                    .tag(WelcomeStep.userNameSetting)
-                iconSettingView
-                    .tag(WelcomeStep.iconSetting)
-                addFriendsView
-                    .tag(WelcomeStep.addFriends)
-                finishSettingView
-                    .tag(WelcomeStep.finishSetting)
+            Group {
+                switch welcomeStep {
+                case .userIdSetting:
+                    userIdSettingView
+                case .userNameSetting:
+                    userNameSettingView
+                case .iconSetting:
+                    iconSettingView
+                case .finishSetting:
+                    finishSettingView
+                }
             }
-            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+            
             Spacer()
             
             HStack(spacing: 16) {
@@ -120,15 +121,13 @@ struct WelcomeSettingsView: View {
                 let buttonProperties: (style: CapsuleButton.ButtonType, text: String) = {
                     switch welcomeStep {
                     case .userIdSetting:
-                        return (viewModel.handleState == .success ? .primary : .disable, "次へ")
+                        return (viewModel.handleState == .success ? .normal : .disable, "次へ")
                     case .userNameSetting:
-                        return (viewModel.userName.isEmpty ? .disable : .primary, "次へ")
+                        return (viewModel.userName.isEmpty ? .disable : .normal, "次へ")
                     case .iconSetting:
-                        return (.primary, "次へ（スキップ可能）")
-                    case .addFriends:
-                        return (.primary, "次へ（スキップ可能）")
+                        return (.normal, "次へ（スキップ可能）")
                     case .finishSetting:
-                        return (.primary, "始める")
+                        return (.normal, "始める")
                     }
                 }()
 
@@ -136,6 +135,7 @@ struct WelcomeSettingsView: View {
                     style: buttonProperties.style,
                     text: buttonProperties.text,
                     onClicked: {
+                        isKeyboardFocused = false
                         if let nextStep = welcomeStep.nextStep {
                             self.welcomeStep = nextStep
                         } else {
@@ -143,19 +143,23 @@ struct WelcomeSettingsView: View {
                         }
                     }
                 )
+                .disabled(!isNextButtonEnabled()) // 「次へ」ボタンの有効/無効化
             }
-            
-
         }
         .animation(.easeInOut, value: welcomeStep)
         .padding()
         .background(.mainBackground)
+        .sheet(isPresented: $photoPickerFlg) {
+            PhotoPickerView(imageData: $viewModel.imageData)
+                .ignoresSafeArea()
+        }
     }
     
     private var userIdSettingView: some View {
         VStack(alignment: .leading) {
             InputFormView(
                 secureType: .normal,
+                keyboardType: .alphabet,
                 title:
                     """
                     - 6~20文字
@@ -166,7 +170,7 @@ struct WelcomeSettingsView: View {
                 placeholder: "user1234",
                 text: $viewModel.handle
             )
-            .keyboardType(.alphabet)
+            .focused($isKeyboardFocused)
             
             HStack {
                 viewModel.handleState.icon
@@ -175,53 +179,95 @@ struct WelcomeSettingsView: View {
             }
             .hidden(viewModel.handle.isEmpty)
             .foregroundStyle(viewModel.handleState.color)
-            
-            Spacer()
         }
     }
     
     private var userNameSettingView: some View {
         InputFormView(
             secureType: .normal,
+            keyboardType: .default,
             title: "ユーザーネーム",
             placeholder: "ダンダイ",
             text: $viewModel.userName
         )
+        .focused($isKeyboardFocused)
+        
     }
     
     private var iconSettingView: some View {
-        VStack {
-            Text("アイコン設定(任意)")
-                .font(.callout)
-                .fontWeight(.semibold)
-                .foregroundColor(.secondary)
+        VStack(spacing: 24) {
             
-            HStack(spacing: 16){
-                PhotoPickerView(selectedImageData: $viewModel.imageData)
-                
-                Text("アイコンタップで画像\((viewModel.imageData != nil) ? "変更" : "追加")")
-                    .font(.headline)
-                    .foregroundStyle(.secondary)
-            }
+            let iconSize: CGFloat = 160
+            
+            Button(action: {
+                photoPickerFlg.toggle()
+            }, label: {
+                if let imageData = viewModel.imageData,
+                   let uiImage = UIImage(data: imageData){
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(Circle())
+                        .frame(height: iconSize)
+                        .shadow(radius: 3)
+                } else {
+                    FontIcon.text(.materialIcon(code: .account_circle),
+                                  fontsize: iconSize)
+                }
+            })
+            
+            Text("アイコンタップで画像\((viewModel.imageData != nil) ? "変更" : "選択")")
+                .font(.headline)
         }
-    }
-    
-    private var addFriendsView: some View {
-        Text("友達追加画面")
+        .foregroundStyle(.secondary)
     }
     
     private var finishSettingView: some View {
-        VStack {
-            Text("プロフィールのような見た目のViewにする")
-                .font(.footnote)
-            
-            Text(viewModel.userName)
+        VStack(alignment: .leading) {
+            Text("以下の内容で初期登録を行います")
                 .font(.headline)
             
-            if let imageData = viewModel.imageData,
-            let image = UIImage(data: imageData) {
-                Image(uiImage: image)
+            VStack(spacing: 24) {
+                if let imageData = viewModel.imageData,
+                   let uiImage = UIImage(data: imageData){
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(Circle())
+                        .frame(height: 140)
+                        .shadow(radius: 3)
+                } else {
+                    FontIcon.text(.materialIcon(code: .account_circle),
+                                  fontsize: 140)
+                }
+                
+                VStack {
+                    Text("@\(viewModel.handle)")
+                        .font(.headline)
+                        .foregroundStyle(.secondary)
+                    
+                    Text(viewModel.userName)
+                        .font(.title.bold())
+                }
             }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .itemStyle()
+            
+            Text("↓戻って編集する")
+                .foregroundStyle(.secondary)
+        }
+    }
+    
+    // 次へボタンが有効かどうかを判定するメソッド
+    private func isNextButtonEnabled() -> Bool {
+        switch welcomeStep {
+        case .userIdSetting:
+            return viewModel.handleState == .success
+        case .userNameSetting:
+            return !viewModel.userName.isEmpty
+        default:
+            return true
         }
     }
 }

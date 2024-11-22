@@ -15,6 +15,11 @@ struct ContentView: View {
     @StateObject private var roomsViewModel = RoomsViewModel()
     @EnvironmentObject var appManager: AppManager
     
+    init() {
+        let savedMode = AppearanceManager.loadApperanceMode()
+        AppearanceManager.setAppearanceMode(savedMode)
+    }
+    
     var body: some View {
         NavigationStack(path: $appManager.navigationPath) {
             VStack(spacing: 0) {

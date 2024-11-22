@@ -7,27 +7,54 @@
 //
 
 import SwiftUI
+import SwiftUIFontIcon
 
 struct RoomsView: View {
     @EnvironmentObject var viewModel: RoomsViewModel
+    @State private var addFriendViewFlg = false
     
     var body: some View {
         Group {
-            if !viewModel.roomsModel.isEmpty {
-                List(viewModel.roomsModel, id: \.room.id) { roomViewModel in
-                    NavigationLink(
-                        destination: RoomView()
-                            .environmentObject(roomViewModel)
-                            .resignKeyboardOnDragGesture(),
-                        label: {
-                            RoomCell(viewModel: roomViewModel)
+            if let roomsModel = viewModel.roomsModel {
+                ScrollView(showsIndicators: false) {
+                    SearchTextField(placeholder: "検索",
+                                    text: $viewModel.searchText)
+                    .keyboardType(.default)
+                    
+                    if !roomsModel.isEmpty {
+                        VStack(spacing: 0) {
+                            ForEach(roomsModel, id: \.room.id) { roomViewModel in
+                                NavigationLink(
+                                    destination: RoomView()
+                                        .environmentObject(roomViewModel)
+                                        .resignKeyboardOnDragGesture(),
+                                    label: {
+                                        RoomCell(viewModel: roomViewModel)
+                                    }
+                                )
+                                Rectangle()
+                                    .frame(height: 2)
+                                    .clipShape(Capsule())
+                                    .foregroundStyle(.gray.opacity(0.2))
+                            }
                         }
-                    )
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                    .listRowBackground(Color.clear)
+                    } else {
+                        Button(action: {
+                            addFriendViewFlg.toggle()
+                        }, label: {
+                            VStack {
+                                FontIcon.text(.materialIcon(code: .group_add),
+                                              fontsize: 96)
+                                Text("友達を追加して\nあなたの感情を共有しよう")
+                                    .font(.headline)
+                            }
+                        })
+                        .padding(.top, 48)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
                 }
-                .scrollIndicators(.hidden)
-                .listStyle(.plain)
+                .padding()
             } else {
                 LoadingView(message: "ルームを取得中")
             }
@@ -35,6 +62,9 @@ struct RoomsView: View {
         .background(.mainBackground)
         .navigationTitle("ルーム")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $addFriendViewFlg) {
+            AddFriendsView()
+        }
     }
 }
 

@@ -47,17 +47,19 @@ struct RoomCell: View {
             
             Text(viewModel.roomName)
                 .font(.subheadline)
+                .fontWeight(.semibold)
             
             Spacer()
             
-            FontIcon.text(.materialIcon(code: .report),
-                          fontsize: iconSize)
-            .foregroundStyle(.red)
-            .hidden(!viewModel.isUnread)
-            
-            Text(viewModel.room.lastUpdated.toLastUpdatedString())
-                .foregroundStyle(.secondary)
-                .font(.caption)
+            VStack(alignment: .trailing) {
+                Text(viewModel.room.lastUpdated.toLastUpdatedString())
+                    .foregroundStyle(.secondary)
+                    .font(.caption)
+                Spacer()
+                FontIcon.text(.materialIcon(code: .report),fontsize: 24)
+                .foregroundStyle(.red)
+                .hidden(!viewModel.isUnread)
+            }
         }
         .frame(height: 48)
         .padding(8)
