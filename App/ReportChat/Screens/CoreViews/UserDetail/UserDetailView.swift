@@ -16,6 +16,7 @@ struct UserDetailView: View {
     @StateObject private var viewModel = UserDetailViewModel()
     private let iconSize: CGFloat = 150
     private let messageCornerRadius: CGFloat = 16
+    @State private var editProfileFlg = false
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -37,6 +38,9 @@ struct UserDetailView: View {
             Task {
                 await viewModel.checkPartnerState(for: user)
             }
+        }
+        .fullScreenCover(isPresented: $editProfileFlg) {
+            EditUserProfileView()
         }
     }
     
@@ -121,7 +125,7 @@ struct UserDetailView: View {
                         style: .contrast,
                         text: "プロフィールを編集",
                         onClicked: {
-                            print("プロフィール編集")
+                            self.editProfileFlg.toggle()
                         }
                     )
                 case .friend:
