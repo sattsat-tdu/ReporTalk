@@ -92,6 +92,7 @@
 		00FA5C1F2CA2BD0300301A1B /* CustomNavCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA5C1E2CA2BD0300301A1B /* CustomNavCell.swift */; };
 		00FA5C222CA2CB2000301A1B /* HiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA5C212CA2CB2000301A1B /* HiddenModifier.swift */; };
 		00FD37912CF18C540078667D /* EditUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FD37902CF18C540078667D /* EditUserProfileView.swift */; };
+		00FD37932CF1DC6D0078667D /* LoadingBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FD37922CF1DC6D0078667D /* LoadingBackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -177,6 +178,7 @@
 		00FA5C1E2CA2BD0300301A1B /* CustomNavCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavCell.swift; sourceTree = "<group>"; };
 		00FA5C212CA2CB2000301A1B /* HiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenModifier.swift; sourceTree = "<group>"; };
 		00FD37902CF18C540078667D /* EditUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileView.swift; sourceTree = "<group>"; };
+		00FD37922CF1DC6D0078667D /* LoadingBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingBackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,6 +480,7 @@
 				00EB78BA2C9D694600BEEEAA /* ResignKeyboardOnDragGesture.swift */,
 				009104322CA3AF0A00F1AA54 /* SafariWebView.swift */,
 				009104402CA43C3100F1AA54 /* UserDefaultsManager.swift */,
+				00FD37922CF1DC6D0078667D /* LoadingBackgroundView.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				00D6F3022CAAF925008841E6 /* WelcomeSwitchView.swift in Sources */,
 				008346D82CBC1A7E001ADAD2 /* SearchTextField.swift in Sources */,
 				0091046A2CA674F400F1AA54 /* LoadingView.swift in Sources */,
+				00FD37932CF1DC6D0078667D /* LoadingBackgroundView.swift in Sources */,
 				00EB78642C8B5AB300BEEEAA /* ErrorHandling.swift in Sources */,
 				0091046E2CA6928200F1AA54 /* ToastView.swift in Sources */,
 				009994422CC087F3008697EC /* Router.swift in Sources */,
