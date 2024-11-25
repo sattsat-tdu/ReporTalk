@@ -100,6 +100,13 @@ enum UserFetchError: String, Error {
     }
 }
 
+//FireStore上でのユーザー情報の作成・更新・削除のエラーハンドリング
+enum FirestoreUserError: String, Error {
+    case userNotFound = "ユーザー情報が読み込めません。"
+    case updateFailed = "ユーザー情報を更新できませんでした。"
+    case networkError = "ネットワークに接続できません。"
+}
+
 enum HandleNameError: String, Error {
     case alreadyInUse = "すでに利用されています。"
     case invalidBoundaryCharacter = "文頭や文末に (_) または (.) を使用できません。"
@@ -174,6 +181,9 @@ class FirebaseError {
             
         case let roomManagerError as RoomManagerError:
             return roomManagerError.rawValue
+            
+        case let firestoreUserError as FirestoreUserError:
+            return firestoreUserError.rawValue
             
         default:
             return "不明なエラーが発生しました: \(error.localizedDescription)"
