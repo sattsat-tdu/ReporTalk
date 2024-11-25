@@ -1,6 +1,10 @@
 import SwiftUI
 import UIKit
 
+enum CommonError:String, Error {
+    case userNotFound = "ログインユーザーが見つかりません"
+}
+
 //認証に関するエラー
 enum FirebaseAuthError: Error {
     case userNotFound
@@ -80,6 +84,12 @@ enum FirebaseLoginError: Error, LocalizedError {
     }
 }
 
+enum FirestorageError: String, Error {
+    case uploadFailed = "画像のアップロードに失敗しました"
+    case networkError = "ネットワークに接続されていません"
+    case deleteFailed = "画像の削除に失敗しました"
+}
+
 enum UserFetchError: String, Error {
     case authDataNotFound = "認証データが見つかりません"
     case userNotFound = "ユーザー情報がありません"
@@ -104,6 +114,7 @@ enum UserFetchError: String, Error {
 enum FirestoreUserError: String, Error {
     case userNotFound = "ユーザー情報が読み込めません。"
     case updateFailed = "ユーザー情報を更新できませんでした。"
+    case deleteFailed = "ユーザー情報をデータベースから削除できませんでした"
     case networkError = "ネットワークに接続できません。"
 }
 
@@ -160,8 +171,10 @@ class FirebaseError {
     static let shared = FirebaseError()
     
     // エラーメッセージを取得するメソッド
-    func getErrorMessage(_ error: Error) -> String {
+    private func getErrorMessage(_ error: Error) -> String {
         switch error {
+        case let commonError as CommonError:
+            return commonError.rawValue
         case let authError as FirebaseAuthError:
             return authError.errorMessage
         case let deleteAuthError as DeleteAuthError:
@@ -184,6 +197,9 @@ class FirebaseError {
             
         case let firestoreUserError as FirestoreUserError:
             return firestoreUserError.rawValue
+            
+        case let firestorageError as FirestorageError:
+            return firestorageError.rawValue
             
         default:
             return "不明なエラーが発生しました: \(error.localizedDescription)"
