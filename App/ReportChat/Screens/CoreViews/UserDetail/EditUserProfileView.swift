@@ -17,16 +17,6 @@ struct EditUserProfileView: View {
         case statusMessage
     }
     
-    //キーボードを閉じる
-    var gesture: some Gesture {
-        DragGesture()
-            .onChanged{ value in
-                if value.translation.height != 0 {
-                    self.focusedField = nil
-                }
-            }
-    }
-    
     @Environment(\.dismiss) var dismiss
     @State private var isEditImage = false
     @State private var isEditStatus = false

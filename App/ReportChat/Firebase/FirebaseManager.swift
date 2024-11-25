@@ -169,24 +169,6 @@ class FirebaseManager: ObservableObject {
         }
     }
     
-    //FirebaseStorageに画像をアップロード
-    func uploadImage(userId: String, imageData: Data) async -> Result<String, Error> {
-        let storageRef = storage.reference().child("userIcons/\(userId).jpg")
-
-        let metadata = StorageMetadata()
-        metadata.contentType = "image/jpeg"  // JPEG形式の画像を指定
-
-        do {
-            // メタデータを使用して画像データをアップロード
-            let _ = try await storageRef.putDataAsync(imageData, metadata: metadata)
-            let downloadURL = try await storageRef.downloadURL().absoluteString
-            return .success(downloadURL)
-            
-        } catch let error as NSError {
-            return .failure(error)
-        }
-    }
-    
     // FireStorageにある画像を非同期で取得
     func fetchImage(urlString: String) async -> Data? {
         guard let url = URL(string: urlString) else { return nil }
@@ -205,32 +187,6 @@ class FirebaseManager: ObservableObject {
         } catch {
             print("非同期の画像取得でエラー: \(error)")
             return nil
-        }
-    }
-    
-    // URLSessionを使ってネットワーク接続を確認
-    func checkNetworkConnection() async -> Bool {
-        let url = URL(string: "https://www.google.com")!
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "HEAD"
-
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-            
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                // 接続が成功した場合
-                print("ネットワーク接続に成功しました。")
-                return true
-            } else {
-                // 無効なレスポンスの場合
-                print("無効なレスポンスを受け取りました。")
-                return false
-            }
-        } catch {
-            // その他のエラーをキャッチ
-            print("接続エラーが発生しました: \(error.localizedDescription)")
-            return false
         }
     }
 }
