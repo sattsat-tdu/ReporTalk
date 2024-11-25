@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		005CBB5B2CF4CD3900F97B88 /* HandlenameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */; };
 		006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1932C7F804C00A63EAA /* ReportChatApp.swift */; };
 		006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1952C7F804C00A63EAA /* ContentView.swift */; };
 		006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB1972C7F804E00A63EAA /* Assets.xcassets */; };
@@ -96,6 +97,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlenameSettingView.swift; sourceTree = "<group>"; };
 		006EB1902C7F804C00A63EAA /* ReportChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		006EB1932C7F804C00A63EAA /* ReportChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportChatApp.swift; sourceTree = "<group>"; };
 		006EB1952C7F804C00A63EAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				007724512CEC524F004B94CF /* DeleteAccountView.swift */,
+				005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */,
 			);
 			path = SettingViews;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				007724522CEC524F004B94CF /* DeleteAccountView.swift in Sources */,
 				0091046C2CA67FD300F1AA54 /* UIApplication+Extension.swift in Sources */,
 				0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */,
+				005CBB5B2CF4CD3900F97B88 /* HandlenameSettingView.swift in Sources */,
 				00EB788E2C9B254E00BEEEAA /* RoomView.swift in Sources */,
 				00FA5C222CA2CB2000301A1B /* HiddenModifier.swift in Sources */,
 				009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */,
