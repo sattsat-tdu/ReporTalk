@@ -19,13 +19,12 @@ struct EditUserProfileView: View {
     
     @Environment(\.dismiss) var dismiss
     @State private var isEditImage = false
-    @State private var isEditStatus = false
     @FocusState  private var focusedField: Field?
     
     @State private var handle: String
     @State private var username: String
     @State private var statusMessage: String
-    private var iconUrl: String?
+    @State private var photoURL: String?
     private let iconSize: CGFloat = 120
     @State private var imageData: Data?
     @State private var photoPickerFlg = false
@@ -40,7 +39,7 @@ struct EditUserProfileView: View {
         _username = State(initialValue: user.userName)
         _statusMessage = State(initialValue: user.statusMessage)
         _handle = State(initialValue: user.handle)
-        self.iconUrl = user.photoURL
+        _photoURL = State(initialValue: user.photoURL)
         self.originalUserName = user.userName
         self.originalHandleName = user.handle
         self.originalStatusMessage = user.statusMessage
@@ -74,7 +73,7 @@ struct EditUserProfileView: View {
                 .ignoresSafeArea()
         }
         .task {
-            guard let iconUrl = self.iconUrl else { return }
+            guard let iconUrl = self.photoURL else { return }
             imageData = await fetchData(from: iconUrl)
         }
     }
@@ -94,12 +93,7 @@ struct EditUserProfileView: View {
                 .frame(maxWidth: .infinity)
             
             Button(action: {
-                if isEditImage {
-                    print("画像を更新")
-                }
-                if isModified {
-                    print("ステータスを更新")
-                }
+                saveUserStatus()
             }, label: {
                 Text("保存")
                     .fontWeight(.semibold)
@@ -119,32 +113,46 @@ struct EditUserProfileView: View {
             Button(action: {
                 photoPickerFlg.toggle()
             }, label: {
-                if let imageData,
-                   let uiImage = UIImage(data: imageData){
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFit()
-                        .clipShape(Circle())
-                        .frame(height: iconSize)
-                        .shadow(radius: 3)
-                } else if (iconUrl != nil) {
-                    LoadingBackgroundView()
-                        .frame(width: iconSize, height: iconSize)
-                        .background(.item)
-                        .clipShape(Circle())
-                } else {
-                    FontIcon.text(.materialIcon(code: .image),
-                                  fontsize: 56)
-                    .padding()
-                    .frame(width: iconSize, height: iconSize)
-                    .background(.item)
-                    .clipShape(Circle())
+                Group {
+                    if let imageData,
+                       let uiImage = UIImage(data: imageData){
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                    } else if (self.photoURL != nil) {
+                        LoadingBackgroundView()
+                    } else {
+                        FontIcon.text(.materialIcon(code: .image),
+                                      fontsize: 48)
+                    }
                 }
+                .frame(width: iconSize, height: iconSize)
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(.buttonBack, lineWidth: 2)
+                )
             })
             .onChange(of: imageData) { oldValue, newValue in
-                if oldValue != nil || iconUrl == nil {
+                if oldValue != nil || self.photoURL == nil {
                     isEditImage = true
                 }
+            }
+            .overlay(alignment: .topTrailing) {
+                FontIcon.button(.materialIcon(code: .delete_forever),
+                                action: {
+                    self.photoURL = nil
+                    imageData = nil
+                })
+                .padding(8)
+                .foregroundStyle(.red)
+                .background(.item)
+                .clipShape(Circle())
+                .overlay(
+                    Circle()
+                        .stroke(.buttonBack, lineWidth: 2)
+                )
+                .hidden(imageData == nil)
             }
         }
     }
@@ -202,6 +210,81 @@ struct EditUserProfileView: View {
             let (data, _) = try await URLSession.shared.data(from: url)
             return data
         } catch {
+            return nil
+        }
+    }
+    
+    private func saveUserStatus() {
+        guard let user = AppManager.shared.currentUser else { return }
+        guard let uid = user.id else { return }
+        let service = UserServiceManager.shared
+        UIApplication.showLoading(message: "更新中")
+        Task {
+            //画像の変更検知
+            if isEditImage {
+                if let imageData {
+                    let imageResult = await service.uploadUserIcon(
+                        userId: uid,
+                        imageData: imageData
+                    )
+                    switch imageResult {
+                    case .success(let imageUrl):
+                        await service.updateUserIcon(imageUrl: imageUrl)
+                        UIApplication.showToast(
+                            type: .success,
+                            message: "画像を更新しました！")
+                    case .failure(let error):
+                        FirebaseError.shared.showErrorToast(error)
+                    }
+                } else { //imageDataが存在しないため、フィールド削除処理
+                    let deleteUserIconResult = await service.deleteUserIcon(userId: uid)
+                    switch deleteUserIconResult {
+                    case .success(_):
+                        await service.updateUserIcon(imageUrl: nil)
+                        UIApplication.showToast(
+                            type: .success,
+                            message: "画像を削除しました！")
+                    case .failure(let error):
+                        FirebaseError.shared.showErrorToast(error)
+                    }
+                }
+            }
+            
+            //各ステータスの変更検知
+            if isModified {
+                let updateUser = UserResponse(
+                    id: user.id,
+                    handle: self.handle,
+                    userName: self.username,
+                    email: user.email,
+                    statusMessage: self.statusMessage,
+                    friends: user.friends,
+                    photoURL: nil,
+                    rooms: user.rooms
+                )
+                let updateResult = await service.saveUser(user: updateUser)
+                switch updateResult {
+                case .success(_):
+                    UIApplication.showToast(
+                        type: .success,
+                        message: "ユーザー情報を更新しました！")
+                case .failure(let error):
+                    FirebaseError.shared.showErrorToast(error)
+                }
+            }
+            UIApplication.hideLoading()
+        }
+    }
+    
+    //FireStorageに画像をアップロード
+    func uploadUserIcon(uid: String) async -> String? {
+        guard let imageData = self.imageData else { return nil }
+        let imageResult = await UserServiceManager.shared.uploadUserIcon(userId: uid, imageData: imageData)
+        switch imageResult {
+        case .success(let imageUrl):
+            return imageUrl
+        case .failure(let uploadError):
+            UIApplication.showToast(type: .error, message: uploadError.localizedDescription)
             return nil
         }
     }

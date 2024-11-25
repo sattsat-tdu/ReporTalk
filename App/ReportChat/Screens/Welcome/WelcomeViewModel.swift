@@ -80,7 +80,7 @@ final class WelcomeViewModel: ObservableObject {
                 print(response.user)
                 router.selectedRoute = .tab
             case .failure(let loginError):
-                UIApplication.showToast(type: .error, message: FirebaseError.shared.getErrorMessage(loginError))
+                FirebaseError.shared.showErrorToast(loginError)
             }
         }
     }
@@ -220,7 +220,7 @@ final class WelcomeViewModel: ObservableObject {
     //FireStorageに画像をアップロード
     func uploadImage(uid: String) async -> String? {
         guard let imageData = self.imageData else { return nil }
-        let imageResult = await FirebaseManager.shared.uploadImage(userId: uid, imageData: imageData)
+        let imageResult = await UserServiceManager.shared.uploadUserIcon(userId: uid, imageData: imageData)
         switch imageResult {
         case .success(let imageUrl):
             return imageUrl

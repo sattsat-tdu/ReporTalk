@@ -43,13 +43,22 @@ class UserServiceManager: ObservableObject {
         }
     }
     
-    func deleteUserImage(userId: String) async {
+    func deleteUserIcon(userId: String) async -> Result<Void, FirestorageError> {
         let storageRef = storage.reference().child("userIcons/\(userId).jpg")
-        
         do {
             try await storageRef.delete()
-        } catch {
-            print("FireStorageでのアイコン削除に失敗しました: \(error.localizedDescription)")
+            return .success(())
+        } catch let error as NSError {
+            print(error)
+            // アイコンが存在しない場合はそのままsuccess
+            if error.domain == StorageErrorDomain,
+               StorageErrorCode(rawValue: error.code) == .objectNotFound {
+                return .success(())
+            }
+            if error.domain == NSURLErrorDomain {
+                return .failure(.networkError)
+            }
+            return .failure(.deleteFailed)
         }
     }
     
