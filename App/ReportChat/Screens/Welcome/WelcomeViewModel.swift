@@ -13,34 +13,6 @@ import SwiftUIFontIcon
 
 @MainActor
 final class WelcomeViewModel: ObservableObject {
-    
-    enum HandleState {
-        case loading
-        case success
-        case error
-        
-        var icon: Text {
-            switch self {
-            case .loading:
-                FontIcon.text(.materialIcon(code: .data_usage))
-            case .success:
-                FontIcon.text(.materialIcon(code: .check_circle))
-            case .error:
-                FontIcon.text(.materialIcon(code: .error))
-            }
-        }
-        
-        var color: Color {
-            switch self {
-            case .loading:
-                return .secondary
-            case .success:
-                return .green
-            case .error:
-                return .red
-            }
-        }
-    }
     @Published var welcomeRouter: WelcomeRouter = .welcome
     @Published var handle = ""
     @Published var handleState: HandleState = .loading
