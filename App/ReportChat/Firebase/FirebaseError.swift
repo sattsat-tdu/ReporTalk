@@ -118,16 +118,6 @@ enum FirestoreUserError: String, Error {
     case networkError = "ネットワークに接続できません。"
 }
 
-enum HandleNameError: String, Error {
-    case alreadyInUse = "すでに利用されています。"
-    case invalidBoundaryCharacter = "文頭や文末に (_) または (.) を使用できません。"
-    case invalidFormat = "(_)と(.)以外の特殊文字は禁止されています。"
-    case tooShort = "6文字以上にしてください。"
-    case tooLong = "20文字以内にしてください。"
-    case onlyNumber = "数字のみの登録はできません"
-    case containsUppercase = "大文字が含まれています。"
-    case serverError = "サーバーエラーが発生しています。"
-}
 
 enum AddIdError: String, Error {
     case userNotFound = "ユーザー情報が読み込めません。"
@@ -185,9 +175,6 @@ class FirebaseError {
             
         case let userFetchError as UserFetchError:
             return userFetchError.rawValue
-            
-        case let handleNameError as HandleNameError:
-            return handleNameError.rawValue
             
         case let friendMangerError as FriendManagerError:
             return friendMangerError.rawValue

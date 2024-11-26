@@ -31,4 +31,9 @@ extension String {
             return nil
         }
     }
+    
+    //ハンドルネームチャックサポート
+    func matches(_ regex: String) -> Bool {
+        NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: self)
+    }
 }
