@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001912B72CF61F3700E06FE8 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001912B62CF61F3700E06FE8 /* TimelineView.swift */; };
 		005CBB5B2CF4CD3900F97B88 /* HandlenameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */; };
 		005CBB8C2CF555A100F97B88 /* HandleChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */; };
 		006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1932C7F804C00A63EAA /* ReportChatApp.swift */; };
@@ -98,6 +99,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		001912B62CF61F3700E06FE8 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlenameSettingView.swift; sourceTree = "<group>"; };
 		005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleChecker.swift; sourceTree = "<group>"; };
 		006EB1902C7F804C00A63EAA /* ReportChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -200,6 +202,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		001912B52CF61EEB00E06FE8 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				001912B62CF61F3700E06FE8 /* TimelineView.swift */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
 		006EB1872C7F804C00A63EAA = {
 			isa = PBXGroup;
 			children = (
@@ -438,6 +448,7 @@
 				00D6F2F82CAAA8CF008841E6 /* Welcome */,
 				00EB787C2C981F4100BEEEAA /* MyPage */,
 				00EB78772C98149700BEEEAA /* Splash */,
+				001912B52CF61EEB00E06FE8 /* Timeline */,
 				00EB786C2C980A1B00BEEEAA /* Rooms */,
 				00EB786B2C980A1000BEEEAA /* Home */,
 			);
@@ -660,6 +671,7 @@
 				008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */,
 				00EB787E2C981F6300BEEEAA /* MyPageView.swift in Sources */,
 				0077244D2CEC16A5004B94CF /* AppearanceModel.swift in Sources */,
+				001912B72CF61F3700E06FE8 /* TimelineView.swift in Sources */,
 				008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */,
 				0091043D2CA3F91400F1AA54 /* PickerCell.swift in Sources */,
 			);

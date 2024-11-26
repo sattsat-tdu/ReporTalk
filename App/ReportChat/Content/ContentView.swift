@@ -30,7 +30,7 @@ struct ContentView: View {
                     RoomsView()
                         .environmentObject(roomsViewModel)
                 case .timeline:
-                    Color.clear
+                    TimelineView()
                 case .mypage:
                     MyPageView()
                 }
