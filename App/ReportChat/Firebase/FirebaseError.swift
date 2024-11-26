@@ -1,6 +1,10 @@
 import SwiftUI
 import UIKit
 
+enum CommonError:String, Error {
+    case userNotFound = "ログインユーザーが見つかりません"
+}
+
 //認証に関するエラー
 enum FirebaseAuthError: Error {
     case userNotFound
@@ -80,6 +84,12 @@ enum FirebaseLoginError: Error, LocalizedError {
     }
 }
 
+enum FirestorageError: String, Error {
+    case uploadFailed = "画像のアップロードに失敗しました"
+    case networkError = "ネットワークに接続されていません"
+    case deleteFailed = "画像の削除に失敗しました"
+}
+
 enum UserFetchError: String, Error {
     case authDataNotFound = "認証データが見つかりません"
     case userNotFound = "ユーザー情報がありません"
@@ -100,16 +110,14 @@ enum UserFetchError: String, Error {
     }
 }
 
-enum HandleNameError: String, Error {
-    case alreadyInUse = "すでに利用されています。"
-    case invalidBoundaryCharacter = "文頭や文末に (_) または (.) を使用できません。"
-    case invalidFormat = "(_)と(.)以外の特殊文字は禁止されています。"
-    case tooShort = "6文字以上にしてください。"
-    case tooLong = "20文字以内にしてください。"
-    case onlyNumber = "数字のみの登録はできません"
-    case containsUppercase = "大文字が含まれています。"
-    case serverError = "サーバーエラーが発生しています。"
+//FireStore上でのユーザー情報の作成・更新・削除のエラーハンドリング
+enum FirestoreUserError: String, Error {
+    case userNotFound = "ユーザー情報が読み込めません。"
+    case updateFailed = "ユーザー情報を更新できませんでした。"
+    case deleteFailed = "ユーザー情報をデータベースから削除できませんでした"
+    case networkError = "ネットワークに接続できません。"
 }
+
 
 enum AddIdError: String, Error {
     case userNotFound = "ユーザー情報が読み込めません。"
@@ -153,8 +161,10 @@ class FirebaseError {
     static let shared = FirebaseError()
     
     // エラーメッセージを取得するメソッド
-    func getErrorMessage(_ error: Error) -> String {
+    private func getErrorMessage(_ error: Error) -> String {
         switch error {
+        case let commonError as CommonError:
+            return commonError.rawValue
         case let authError as FirebaseAuthError:
             return authError.errorMessage
         case let deleteAuthError as DeleteAuthError:
@@ -166,14 +176,17 @@ class FirebaseError {
         case let userFetchError as UserFetchError:
             return userFetchError.rawValue
             
-        case let handleNameError as HandleNameError:
-            return handleNameError.rawValue
-            
         case let friendMangerError as FriendManagerError:
             return friendMangerError.rawValue
             
         case let roomManagerError as RoomManagerError:
             return roomManagerError.rawValue
+            
+        case let firestoreUserError as FirestoreUserError:
+            return firestoreUserError.rawValue
+            
+        case let firestorageError as FirestorageError:
+            return firestorageError.rawValue
             
         default:
             return "不明なエラーが発生しました: \(error.localizedDescription)"

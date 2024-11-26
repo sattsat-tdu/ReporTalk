@@ -36,6 +36,7 @@ struct RoomView: View {
         .navigationTitle(viewModel.roomName)
         .toolbarBackground(.visible, for: .navigationBar)
         .background(.roomBack)
+        .scrollDismissesKeyboard(.interactively)
     }
     
     private var messageList: some View {

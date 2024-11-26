@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		005CBB5B2CF4CD3900F97B88 /* HandlenameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */; };
+		005CBB8C2CF555A100F97B88 /* HandleChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */; };
 		006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1932C7F804C00A63EAA /* ReportChatApp.swift */; };
 		006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1952C7F804C00A63EAA /* ContentView.swift */; };
 		006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB1972C7F804E00A63EAA /* Assets.xcassets */; };
@@ -91,9 +93,13 @@
 		00F7BE542C8392E200E0CB5C /* FirebaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F7BE532C8392E200E0CB5C /* FirebaseError.swift */; };
 		00FA5C1F2CA2BD0300301A1B /* CustomNavCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA5C1E2CA2BD0300301A1B /* CustomNavCell.swift */; };
 		00FA5C222CA2CB2000301A1B /* HiddenModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FA5C212CA2CB2000301A1B /* HiddenModifier.swift */; };
+		00FD37912CF18C540078667D /* EditUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FD37902CF18C540078667D /* EditUserProfileView.swift */; };
+		00FD37932CF1DC6D0078667D /* LoadingBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FD37922CF1DC6D0078667D /* LoadingBackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlenameSettingView.swift; sourceTree = "<group>"; };
+		005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleChecker.swift; sourceTree = "<group>"; };
 		006EB1902C7F804C00A63EAA /* ReportChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		006EB1932C7F804C00A63EAA /* ReportChatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportChatApp.swift; sourceTree = "<group>"; };
 		006EB1952C7F804C00A63EAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -175,6 +181,8 @@
 		00F7BE532C8392E200E0CB5C /* FirebaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseError.swift; sourceTree = "<group>"; };
 		00FA5C1E2CA2BD0300301A1B /* CustomNavCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavCell.swift; sourceTree = "<group>"; };
 		00FA5C212CA2CB2000301A1B /* HiddenModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenModifier.swift; sourceTree = "<group>"; };
+		00FD37902CF18C540078667D /* EditUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditUserProfileView.swift; sourceTree = "<group>"; };
+		00FD37922CF1DC6D0078667D /* LoadingBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingBackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				007724512CEC524F004B94CF /* DeleteAccountView.swift */,
+				005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */,
 			);
 			path = SettingViews;
 			sourceTree = "<group>";
@@ -293,6 +302,7 @@
 			children = (
 				009B0F2C2CBE0CFB00D3D08A /* UserDetailView.swift */,
 				0099943D2CBFBD24008697EC /* UserDetailViewModel.swift */,
+				00FD37902CF18C540078667D /* EditUserProfileView.swift */,
 			);
 			path = UserDetail;
 			sourceTree = "<group>";
@@ -471,10 +481,12 @@
 		00F7BE522C83924600E0CB5C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */,
 				00EB78632C8B5AB300BEEEAA /* ErrorHandling.swift */,
 				00EB78BA2C9D694600BEEEAA /* ResignKeyboardOnDragGesture.swift */,
 				009104322CA3AF0A00F1AA54 /* SafariWebView.swift */,
 				009104402CA43C3100F1AA54 /* UserDefaultsManager.swift */,
+				00FD37922CF1DC6D0078667D /* LoadingBackgroundView.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -590,12 +602,14 @@
 				00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */,
 				0077242F2CE5AC79004B94CF /* ReporTagMessage.swift in Sources */,
 				00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */,
+				00FD37912CF18C540078667D /* EditUserProfileView.swift in Sources */,
 				00F7BE392C8222DF00E0CB5C /* CustomTabView.swift in Sources */,
 				009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */,
 				009B0F2F2CBE2C5200D3D08A /* FriendListView.swift in Sources */,
 				007724522CEC524F004B94CF /* DeleteAccountView.swift in Sources */,
 				0091046C2CA67FD300F1AA54 /* UIApplication+Extension.swift in Sources */,
 				0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */,
+				005CBB5B2CF4CD3900F97B88 /* HandlenameSettingView.swift in Sources */,
 				00EB788E2C9B254E00BEEEAA /* RoomView.swift in Sources */,
 				00FA5C222CA2CB2000301A1B /* HiddenModifier.swift in Sources */,
 				009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */,
@@ -620,7 +634,9 @@
 				00D6F3022CAAF925008841E6 /* WelcomeSwitchView.swift in Sources */,
 				008346D82CBC1A7E001ADAD2 /* SearchTextField.swift in Sources */,
 				0091046A2CA674F400F1AA54 /* LoadingView.swift in Sources */,
+				00FD37932CF1DC6D0078667D /* LoadingBackgroundView.swift in Sources */,
 				00EB78642C8B5AB300BEEEAA /* ErrorHandling.swift in Sources */,
+				005CBB8C2CF555A100F97B88 /* HandleChecker.swift in Sources */,
 				0091046E2CA6928200F1AA54 /* ToastView.swift in Sources */,
 				009994422CC087F3008697EC /* Router.swift in Sources */,
 				00EB786A2C8F3D4100BEEEAA /* CapsuleButton.swift in Sources */,

@@ -54,27 +54,21 @@ struct DeleteAccountView: View {
     }
     
     func deleteUser() {
-        guard let currentUser = FirebaseManager.shared.auth.currentUser else { return }
         UIApplication.showLoading(message: "データを削除中です...")
-        let userId = currentUser.uid
         
         Task {
-            let deleteResult = await UserServiceManager.shared.deleteAuthUser(
-                deleteUser: currentUser,
-                password: self.password
-            )
+            let deleteResult = await UserServiceManager.shared
+                .deleteUser(password: password)
             
             switch deleteResult {
             case .success(_):
-                //FireStoreの"users"からアカウント削除
-                await UserServiceManager.shared.deleteUserData(
-                    userId: userId)
-                //設定していたアイコンを削除
-                await UserServiceManager.shared.deleteUserData(
-                    userId: userId)
+                UIApplication.showToast(
+                    type: .info,
+                    message: "アカウント削除に成功しました")
             case .failure(let error):
                 FirebaseError.shared.showErrorToast(error)
             }
+            
             UIApplication.hideLoading()
         }
     }

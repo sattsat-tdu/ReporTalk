@@ -15,7 +15,7 @@ enum SecureType {
 
 struct InputFormView: View {
     
-    let secureType: SecureType
+    var secureType: SecureType = .normal
     let keyboardType: UIKeyboardType
     let title: String
     let placeholder: String
@@ -50,7 +50,6 @@ struct InputFormView: View {
 #Preview {
     VStack {
         InputFormView(
-            secureType: .normal,
             keyboardType: .alphabet,
             title: "メールアドレス",
             placeholder: "name@domain.com",

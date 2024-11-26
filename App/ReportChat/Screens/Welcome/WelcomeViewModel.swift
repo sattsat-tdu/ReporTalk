@@ -13,34 +13,6 @@ import SwiftUIFontIcon
 
 @MainActor
 final class WelcomeViewModel: ObservableObject {
-    
-    enum HandleState {
-        case loading
-        case success
-        case error
-        
-        var icon: Text {
-            switch self {
-            case .loading:
-                FontIcon.text(.materialIcon(code: .data_usage))
-            case .success:
-                FontIcon.text(.materialIcon(code: .check_circle))
-            case .error:
-                FontIcon.text(.materialIcon(code: .error))
-            }
-        }
-        
-        var color: Color {
-            switch self {
-            case .loading:
-                return .secondary
-            case .success:
-                return .green
-            case .error:
-                return .red
-            }
-        }
-    }
     @Published var welcomeRouter: WelcomeRouter = .welcome
     @Published var handle = ""
     @Published var handleState: HandleState = .loading
@@ -80,7 +52,7 @@ final class WelcomeViewModel: ObservableObject {
                 print(response.user)
                 router.selectedRoute = .tab
             case .failure(let loginError):
-                UIApplication.showToast(type: .error, message: FirebaseError.shared.getErrorMessage(loginError))
+                FirebaseError.shared.showErrorToast(loginError)
             }
         }
     }
@@ -220,7 +192,7 @@ final class WelcomeViewModel: ObservableObject {
     //FireStorageに画像をアップロード
     func uploadImage(uid: String) async -> String? {
         guard let imageData = self.imageData else { return nil }
-        let imageResult = await FirebaseManager.shared.uploadImage(userId: uid, imageData: imageData)
+        let imageResult = await UserServiceManager.shared.uploadUserIcon(userId: uid, imageData: imageData)
         switch imageResult {
         case .success(let imageUrl):
             return imageUrl
