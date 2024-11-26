@@ -34,7 +34,7 @@ struct CustomAlertView: View {
                     .foregroundStyle(.primary)
                     .padding()
                     .frame(maxWidth: .infinity)
-                    .background(.buttonBack)
+                    .background(.buttonBackground)
                     .clipShape(Capsule())
                     .padding(.top)
             })

@@ -21,7 +21,7 @@ struct SearchTextField: View {
             TextField("ユーザーIDを検索...", text: $text)
         }
         .padding(10)
-        .background(.fieldBack)
+        .background(.fieldBackground)
         .clipShape(.rect(cornerRadius: 8))
     }
 }

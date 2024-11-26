@@ -21,7 +21,7 @@ struct CapsuleButton: View {
         var buttonBackColor: Color {
             switch self {
             case .normal:
-                return .buttonBack
+                return .buttonBackground
             case .denger:
                 return .red
             case .disable:
@@ -74,7 +74,7 @@ struct CapsuleButton: View {
             Text(text)
         }
         .font(.headline)
-        .foregroundStyle(style == .contrast ? .buttonBack : .buttonText)
+        .foregroundStyle(style == .contrast ? .buttonBackground : .buttonText)
         .padding(12)
         .frame(maxWidth: .infinity)
         .background(style.buttonBackColor)
@@ -82,7 +82,7 @@ struct CapsuleButton: View {
         .overlay(
             Capsule()
                 .stroke(style == .contrast ?
-                    .buttonBack :Color.clear,
+                    .buttonBackground :Color.clear,
                         lineWidth: 2)
         )
     }

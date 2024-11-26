@@ -58,7 +58,7 @@ struct UserDetailView: View {
                 .frame(maxWidth: .infinity)
             
             FontIcon.button(.materialIcon(code: .more_horiz), action: {}, fontsize: 28)
-            .foregroundStyle(.buttonBack)
+            .foregroundStyle(.buttonBackground)
             .clipShape(Circle())
         }
     }

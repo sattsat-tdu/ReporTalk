@@ -29,7 +29,7 @@ struct BackButtonView: View {
             FontIcon.text(.materialIcon(code: .arrow_back), fontsize: 32)
                 .foregroundStyle(.buttonText)
                 .padding(8)
-                .background(.buttonBack)
+                .background(.buttonBackground)
                 .clipShape(Circle())
         })
     }

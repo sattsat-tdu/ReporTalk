@@ -20,7 +20,7 @@ struct RoundedRectButton: View {
         var buttonBackColor: Color {
             switch self {
             case .primary:
-                return .buttonBack
+                return .buttonBackground
             case .denger:
                 return .red
             case .disable:
@@ -74,7 +74,7 @@ struct RoundedRectButton: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.1)
         }
-        .foregroundStyle(style == .contrast ? .buttonBack : .buttonText)
+        .foregroundStyle(style == .contrast ? .buttonBackground : .buttonText)
         .padding()
         .frame(maxWidth: .infinity)
         .background(style.buttonBackColor)

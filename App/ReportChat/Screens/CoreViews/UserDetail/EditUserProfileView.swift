@@ -144,7 +144,7 @@ struct EditUserProfileView: View {
                 .clipShape(Circle())
                 .overlay(
                     Circle()
-                        .stroke(.buttonBack, lineWidth: 2)
+                        .stroke(.buttonBackground, lineWidth: 2)
                 )
             })
             .onChange(of: imageData) { oldValue, newValue in
@@ -164,7 +164,7 @@ struct EditUserProfileView: View {
                 .clipShape(Circle())
                 .overlay(
                     Circle()
-                        .stroke(.buttonBack, lineWidth: 2)
+                        .stroke(.buttonBackground, lineWidth: 2)
                 )
                 .hidden(imageData == nil)
             }
@@ -216,7 +216,7 @@ struct EditUserProfileView: View {
             )
             .frame(maxHeight: 248)
             .padding(12)
-            .background(.fieldBack)
+            .background(.fieldBackground)
             .clipShape(.rect(cornerRadius: 8))
             .textFieldStyle(.plain)
             .focused($focusedField, equals: .statusMessage)

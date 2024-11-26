@@ -35,7 +35,7 @@ struct RoomView: View {
         .onDisappear(perform: viewModel.onMessageViewDisappear)
         .navigationTitle(viewModel.roomName)
         .toolbarBackground(.visible, for: .navigationBar)
-        .background(.roomBack)
+        .background(.roomBackground)
         .scrollDismissesKeyboard(.interactively)
     }
     
