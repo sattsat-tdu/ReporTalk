@@ -41,7 +41,7 @@ struct InputFormView: View {
             .padding()
             .keyboardType(keyboardType)
             .frame(height: 45)
-            .background(.fieldBack)
+            .background(.fieldBackground)
             .clipShape(.rect(cornerRadius: 8))
         }
     }

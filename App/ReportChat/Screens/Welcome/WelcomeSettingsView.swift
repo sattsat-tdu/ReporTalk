@@ -69,7 +69,7 @@ struct WelcomeSettingsView: View {
     var body: some View {
         VStack(spacing: 24) {
             ProgressView(value: Double(self.welcomeStep.rawValue), total: totalSteps)
-                .tint(.buttonBack)
+                .tint(.buttonBackground)
             
             Text(welcomeStep.title)
                 .font(.largeTitle.bold())

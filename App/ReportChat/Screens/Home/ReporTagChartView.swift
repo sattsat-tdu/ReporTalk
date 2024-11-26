@@ -75,7 +75,7 @@ struct ReporTagChartView: View {
                     },fontsize: 32)
                     .foregroundStyle(.buttonText)
                     .padding(8)
-                    .background(.buttonBack)
+                    .background(.buttonBackground)
                     .clipShape(Circle())
                }
                 Spacer()
