@@ -1,9 +1,9 @@
 //
 //  EditUserProfileView.swift
 //  ReportChat
-//  
+//
 //  Created by SATTSAT on 2024/11/23
-//  
+//
 //
 
 import SwiftUI
@@ -13,7 +13,6 @@ struct EditUserProfileView: View {
     
     private enum Field: Hashable {
         case username
-        case handlename
         case statusMessage
     }
     
@@ -46,35 +45,37 @@ struct EditUserProfileView: View {
     }
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 24) {
-                
-                headerView
-                
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
                 VStack(spacing: 24) {
-                    selectIconView
                     
-                    Divider()
+                    headerView
                     
-                    inputView
+                    VStack(spacing: 24) {
+                        selectIconView
+                        
+                        Divider()
+                        
+                        inputView
+                    }
+                    .padding()
+                    .itemStyle()
                 }
                 .padding()
-                .itemStyle()
             }
-            .padding()
-        }
-        .onTapGesture {
-            focusedField = nil
-        }
-        .contentMargins(.bottom, 24)
-        .background(.mainBackground)
-        .sheet(isPresented: $photoPickerFlg) {
-            PhotoPickerView(imageData: $imageData)
-                .ignoresSafeArea()
-        }
-        .task {
-            guard let iconUrl = self.photoURL else { return }
-            imageData = await fetchData(from: iconUrl)
+            .onTapGesture {
+                focusedField = nil
+            }
+            .contentMargins(.bottom, 24)
+            .background(.mainBackground)
+            .sheet(isPresented: $photoPickerFlg) {
+                PhotoPickerView(imageData: $imageData)
+                    .ignoresSafeArea()
+            }
+            .task {
+                guard let iconUrl = self.photoURL else { return }
+                imageData = await fetchData(from: iconUrl)
+            }
         }
     }
     
@@ -82,7 +83,19 @@ struct EditUserProfileView: View {
         
         HStack {
             FontIcon.button(.materialIcon(code: .close), action: {
-                dismiss()
+                if isEditImage || isModified {
+                    UIApplication.showModal(modalItem: ModalItem(
+                        type: .info,
+                        title: "変更を破棄しますか？",
+                        description: "変更を保存する場合は、保存をタップしてください。",
+                        alignment: .center,
+                        isCancelable: true,
+                        onTapped: {
+                            dismiss()
+                        }))
+                } else {
+                    dismiss()
+                }
             }, fontsize: 28)
             .padding(12)
             .background(.item)
@@ -94,6 +107,7 @@ struct EditUserProfileView: View {
             
             Button(action: {
                 saveUserStatus()
+                dismiss()
             }, label: {
                 Text("保存")
                     .fontWeight(.semibold)
@@ -166,12 +180,29 @@ struct EditUserProfileView: View {
                 text: $username)
             .focused($focusedField, equals: .username)
             
-            InputFormView(
-                keyboardType: .alphabet,
-                title: "ハンドルネーム",
-                placeholder: "ハンドルネームを入力する",
-                text: $handle)
-            .focused($focusedField, equals: .handlename)
+            Text("ユーザーID")
+                .font(.headline)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            NavigationLink(
+                destination: HandlenameSettingView(
+                    currentHandle: originalHandleName,
+                    onHandleChange: { newHandle in
+                        handle = newHandle
+                    }),
+                label: {
+                    HStack {
+                        Text(handle).foregroundStyle(.primary)
+                        Spacer()
+                        Text("〉").foregroundStyle(.secondary)
+                    }
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(.secondary, lineWidth: 2)
+                    )
+                })
             
             Text("ステータスメッセージ")
                 .font(.headline)
