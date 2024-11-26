@@ -8,15 +8,15 @@
 | ----- | ----------- |
 | 朗報 | good_news |
 | 悲報 | bad_news |
-| 日報 | daily_report | 
+| 定期 | regular |
+| 日報 | daily_report|
 | 速報 | breaking |
-| お知らせ | announcement | 
+| 告知 | announcement | 
 | 質問 | question |
 | 重要 | important |
-| 虚無 | emptiness | 
-| 定期 | regular |
-| 絶望 | despair |
 | 怒気 | anger |
+| 虚無 | emptiness | 
+| 絶望 | despair |
 
 ## Gitルール
 
