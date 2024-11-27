@@ -16,6 +16,7 @@ struct ContentView: View {
     @EnvironmentObject var appManager: AppManager
     
     init() {
+        //外観設定の適応
         let savedMode = AppearanceManager.loadApperanceMode()
         AppearanceManager.setAppearanceMode(savedMode)
     }
@@ -36,6 +37,7 @@ struct ContentView: View {
                 }
                 CustomTabView(selectedTab: $selectedTab)
             }
+            .ignoresSafeArea(.keyboard, edges: .bottom)
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {
                 case .roomView(let room):
