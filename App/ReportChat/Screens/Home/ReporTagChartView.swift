@@ -104,6 +104,7 @@ struct ReporTagChartView: View {
             }
         }
         .padding()
+        .background(.mainBackground)
         .onAppear(perform: loadData)
         .onChange(of: selectedData) {
             withAnimation(.easeInOut(duration: 0.2)) {

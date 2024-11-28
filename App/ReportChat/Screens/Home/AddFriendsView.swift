@@ -20,21 +20,21 @@ struct AddFriendsView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                SearchTextField(placeholder: "ユーザーIDを検索",
-                                text: $viewModel.searchText)
-                .focused($isFocused)
-                .keyboardType(.alphabet)
-                
+            HStack(spacing: 16) {
                 // モーダルの場合は閉じるボタンを表示
                 if isModal {
                     FontIcon.button(.materialIcon(code: .close), action: {
                         dismiss()
                     }, fontsize: 24)
-                    .padding(10)
-                    .background(.mainBackground)
+                    .padding(8)
+                    .background(.item)
                     .clipShape(Circle())
                 }
+                
+                SearchTextField(placeholder: "ユーザーIDを検索",
+                                text: $viewModel.searchText)
+                .focused($isFocused)
+                .keyboardType(.alphabet)
             }
             
             if viewModel.searchText.isEmpty {
@@ -48,13 +48,13 @@ struct AddFriendsView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 if viewModel.searchResults.isEmpty {
-                    VStack {
-                        Text("「\(viewModel.searchText)」に一致するユーザーIDが見つかりません")
-                            .font(.subheadline)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.secondary)
-                        Spacer()
-                    }
+                    Text("「\(viewModel.searchText)」に一致するユーザーIDが見つかりません")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding(.bottom, 24)
+
                 } else {
                     List(viewModel.searchResults, id: \.id) { user in
                         Button(action: {

@@ -73,7 +73,7 @@ struct MessageCell: View {
                 .background(
                     Group {
                         if let reportag {
-                            Color.primary
+                            Color(UIColor.systemBackground)
                                 .overlay {
                                     reportag.color.opacity(0.4)
                                 }

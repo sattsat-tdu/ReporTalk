@@ -36,6 +36,7 @@ struct FriendListView: View {
                             .font(.headline)
                             .foregroundStyle(.secondary)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .padding(.bottom, 24)
                     }
                 } else {
                     List(filteredFriendList, id: \.id) { user in
