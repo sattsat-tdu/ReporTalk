@@ -20,13 +20,14 @@ struct SearchTextField: View {
             
             TextField("ユーザーIDを検索...", text: $text)
         }
-        .padding(10)
+        .padding(.vertical, 10)
+        .padding(.horizontal)
         .background(.fieldBackground)
         .clipShape(.rect(cornerRadius: 8))
     }
 }
 
 #Preview {
-    SearchTextField(placeholder: "テキストを検索", 
-                    text: .constant(""))
+    @Previewable @State var text = ""
+    SearchTextField(placeholder: "テキストを検索",text: $text)
 }

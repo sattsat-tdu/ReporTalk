@@ -14,214 +14,318 @@ struct HomeView: View {
     
     @State private var myProfileFlg = false
     @State private var selectModalFlg = false
+    @State private var searchUsersFlg = false
     @EnvironmentObject var appManager: AppManager
     @StateObject private var viewModel = HomeViewModel()
     
+    private let currentUser: UserResponse
+    
+    //テスト変数、のちに単独Viewに移動
+    @State private var moveUp = false // アニメーション用の状態変数
+    
+    init?() {
+        guard let user = AppManager.shared.currentUser else {
+            return nil
+        }
+        self.currentUser = user
+    }
+    
     var body: some View {
-        Group {
-            if let currentUser = appManager.currentUser {
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 16) {
-                        HStack {
-                            Text("こんにちは！\n\(currentUser.userName)さん！")
-                                .font(.title.bold())
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            Spacer()
-                            
-                            Group {
-                                if let photoURL = currentUser.photoURL {
-                                    CachedImage(url: photoURL) { phase in
-                                        switch phase {
-                                        case .empty:
-                                            ProgressView()
-                                        case .success(let image):
-                                            Rectangle().aspectRatio(1, contentMode: .fill)
-                                                .overlay {
-                                                    image
-                                                        .resizable()
-                                                        .scaledToFill()
-                                                }
-                                                .clipped()
-                                        case .failure(_):
-                                            Image(systemName: "person.circle")
+        ScrollView(showsIndicators: false) {
+            LazyVStack(spacing: 16, pinnedViews: [.sectionHeaders]) {
+                Section(header: headerView) {
+                    
+                    reporTagChartBox
+
+                    friendBox
+                    
+                    myAdBox
+                }
+            }
+            .padding()
+        }
+        .ignoresSafeArea(edges: [.top])
+        .background(.mainBackground)
+//        .navigationTitle("ホーム")
+        .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $myProfileFlg) {
+            UserDetailView(user: currentUser)
+        }
+        .sheet(isPresented: $searchUsersFlg) {
+            AddFriendsView()
+        }
+        .sheet(isPresented: $selectModalFlg) {
+            SelectModalView(showModal: $selectModalFlg)
+                .presentationDetents([.fraction(0.4), .large])
+                .presentationDragIndicator(.visible)
+        }
+    }
+    
+    private var headerView: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 8) {
+                HStack(spacing: 8) {
+                    Group {
+                        if let photoURL = currentUser.photoURL {
+                            CachedImage(url: photoURL) { phase in
+                                switch phase {
+                                case .empty:
+                                    ProgressView()
+                                case .success(let image):
+                                    Rectangle().aspectRatio(1, contentMode: .fill)
+                                        .overlay {
+                                            image
                                                 .resizable()
-                                        @unknown default:
-                                            EmptyView()
+                                                .scaledToFill()
                                         }
-                                    }
-                                } else {
+                                        .clipped()
+                                case .failure(_):
                                     Image(systemName: "person.circle")
                                         .resizable()
+                                @unknown default:
+                                    EmptyView()
                                 }
                             }
-                            .frame(width: 48, height: 48)
-                            .clipShape(Circle())
-                            .onTapGesture {
-                                myProfileFlg.toggle()
+                        } else {
+                            Image(systemName: "person.circle")
+                                .resizable()
+                        }
+                    }
+                    .frame(width: 48, height: 48)
+                    .clipShape(Circle())
+                    
+                    VStack(alignment: .leading) {
+                        Text(currentUser.userName)
+                            .font(.headline)
+                            .lineLimit(1)
+                        
+                        Text("さん。こんにちは、\n今日も感情豊かに過ごしましょう")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .onTapGesture {
+                    myProfileFlg.toggle()
+                }
+                
+                Spacer()
+                
+                NavigationLink(destination: NotificationView(),
+                               label: {
+                    FontIcon.text(.materialIcon(code: .notifications),
+                                  fontsize: 28)
+                })
+                .padding(8)
+                .background(.item)
+                .clipShape(Circle())
+                
+                
+                FontIcon.button(.materialIcon(code: .add),
+                                action: {
+                    selectModalFlg = true
+                },fontsize: 28)
+                .padding(8)
+                .background(.item)
+                .clipShape(Circle())
+                
+                
+            }
+            
+            Divider()
+                .padding(.top)
+        }
+        .padding(.top, 48)
+        .padding(.horizontal)
+        .background(.mainBackground)
+        .padding(.horizontal, -16)
+    }
+    
+    private var reporTagChartBox: some View {
+        NavigationLink(destination: ReporTagChartView(),
+                       label: {
+            VStack(spacing: 24) {
+                HStack(alignment: .top) {
+                    Text("レポータグ分析")
+                        .font(.headline)
+                    Spacer()
+                    Text("詳細を見る  〉")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                
+                if viewModel.hasData, !viewModel.tagCounts.isEmpty {
+                    HStack {
+                        Spacer()
+                        Chart(Reportag.allCases, id: \.self) { tag in
+                            if let count = viewModel.tagCounts[tag], count > 0 {
+                                SectorMark(
+                                    angle: .value("件数", Double(count)),
+                                    innerRadius: .ratio(0.4),
+                                    angularInset: 1
+                                )
+                                .foregroundStyle(tag.color.gradient)
                             }
                         }
+                        .frame(width: 180, height: 180)
+                    
+                        Spacer()
                         
-                        HStack(spacing: 16) {
-                            NavigationLink(destination: FriendListView(),
-                                           label: {
-                                VStack {
-                                    FontIcon.text(.materialIcon(code: .people_outline),
-                                                  fontsize: 64)
-                                    .foregroundStyle(.secondary)
-                                    
-                                    Text("友達リスト 〉")
-                                        .font(.headline)
+                        VStack(alignment: .leading) {
+                            ForEach(Reportag.allCases, id: \.self) { tag in
+                                HStack {
+                                    Image(systemName: "square.fill")
+                                        .foregroundStyle(tag.color)
+                                    Text(tag.tagName)
+                                        .foregroundStyle(.primary)
                                 }
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .itemStyle()
-                            })
-                            
-                            NavigationLink(destination: Text("ルームリストView"),
-                                           label: {
-                                VStack {
-                                    FontIcon.text(.materialIcon(code: .forum),
-                                                  fontsize: 64)
-                                    .foregroundStyle(.secondary)
-                                    
-                                    Text("ルームリスト 〉")
-                                        .font(.headline)
-                                }
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .itemStyle()
-                            })
-                        }
-                        
-                        NavigationLink(destination: ReporTagChartView(),
-                                       label: {
-                            VStack(spacing: 24) {
-                                HStack(alignment: .top) {
-                                    Text("レポータグ分析")
-                                        .font(.headline)
-                                    Spacer()
-                                    Text("詳細を見る  〉")
-                                        .font(.subheadline)
-                                        .foregroundStyle(.secondary)
-                                }
-                                
-                                if viewModel.hasData, !viewModel.tagCounts.isEmpty {
-                                    HStack {
-                                        Spacer()
-                                        Chart(Reportag.allCases, id: \.self) { tag in
-                                            if let count = viewModel.tagCounts[tag], count > 0 {
-                                                SectorMark(
-                                                    angle: .value("件数", Double(count)),
-                                                    innerRadius: .ratio(0.4),
-                                                    angularInset: 1
-                                                )
-                                                .foregroundStyle(tag.color.gradient)
-                                            }
-                                        }
-                                        .frame(width: 180, height: 180)
-                                    
-                                        Spacer()
-                                        
-                                        VStack(alignment: .leading) {
-                                            ForEach(Reportag.allCases, id: \.self) { tag in
-                                                HStack {
-                                                    Image(systemName: "square.fill")
-                                                        .foregroundStyle(tag.color)
-                                                    Text(tag.tagName)
-                                                        .foregroundStyle(.primary)
-                                                }
-                                            }
-                                        }
-                                        Spacer()
-                                    }
-                                } else {
-                                    VStack(spacing: 16) {
-                                        Text("データが不足しています！")
-                                            .font(.headline)
-                                        Text("レポータグを送りましょう")
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
-                                    }
-                                    .frame(height: 100)
-                                }
-                            }
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .itemStyle()
-                        })
-                        
-                        NavigationLink(destination: AddFriendsView(),
-                                       label: {
-                            HStack {
-                                FontIcon.text(.materialIcon(code: .group_add),
-                                              fontsize: 80)
-                                .foregroundStyle(.secondary)
-                                
-                                VStack(alignment: .trailing, spacing: 8) {
-                                    Text("報告相手を増やそう")
-                                        .font(.title2.bold())
-                                    
-                                    Text("友達を追加する 〉")
-                                        .font(.headline)
-                                        .foregroundStyle(.secondary)
-                                }
-                                .frame(maxWidth: .infinity)
-                            }
-                            .padding()
-                            .itemStyle()
-                        })
-                        
-                        //リンクへ飛ばす。
-                        Link(destination: URL(string: "https://apps.apple.com/jp/developer/daisuke-ishii/id1609332032")!) {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 16) {
-                                    Text("こちらもおすすめ 〉")
-                                        .font(.headline)
-                                    Text("sattsatのアプリを\nもっとみてみる。")
-                                        .font(.footnote)
-                                }
-                                Spacer()
                             }
                         }
-                        .frame(height: 80)
-                        .padding()
-                        .itemStyle()
-
+                        Spacer()
+                    }
+                } else {
+                    VStack(spacing: 16) {
+                        Text("データが不足しています！")
+                            .font(.headline)
+                        Text("レポータグを送りましょう")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(height: 100)
+                }
+                
+                Divider()
+                
+                HStack() {
+                    VStack(spacing: 4) {
+                        Image(.sampleTag)
+                            .resizable()
+                            .scaledToFit()
+                            .offset(y: moveUp ? -5 : 5)
+                        
+                        Ellipse()
+                            .fill(.primary)
+                            .frame(width: 32, height: 12)
+                            .opacity(moveUp ? 0.1 : 0.3)
+                            .blur(radius: 3)
+                    }
+                    .frame(width: 56, height: 56)
+                    .animation(
+                        Animation.easeInOut(duration: 1.5)
+                            .repeatForever(autoreverses: true),
+                        value: moveUp
+                    )
+                    .onAppear {
+                        moveUp.toggle() // アニメーションをトリガー
+                    }
+                    
+                    Text("〈 ")
+                    
+                    Text("この世の中がいいお知らせで満たされればいいのにぃ！")
+                        .font(.caption)
+                        .multilineTextAlignment(.leading)
+                        .fontWeight(.semibold)
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .padding()
+            .frame(maxWidth: .infinity)
+            .itemStyle()
+        })
+    }
+    
+    private var friendBox: some View {
+        VStack(spacing: 16) {
+            Button(action: {
+                searchUsersFlg.toggle()
+            }, label: {
+                HStack(spacing: 8) {
+                    FontIcon.text(.materialIcon(code: .search), fontsize: 32)
+                        .bold()
+                    
+                    Text("友達を探す")
+                        
+                    
+                    Spacer()
+                    
+                    Text("〉")
+                }
+                .foregroundStyle(.secondary)
+                .fontWeight(.semibold)
+                .padding(.vertical, 12)
+                .padding(.horizontal)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(.secondary, lineWidth: 1)
+                )
+            })
+            
+            HStack {
+                NavigationLink(destination: RoomsListView(),
+                               label: {
+                    HStack(spacing: 8) {
+                        FontIcon.text(.materialIcon(code: .chat_bubble_outline),
+                                      fontsize: 20)
+                        
+                        Text("ルーム")
+                            .fontWeight(.semibold)
+                        
+                        Spacer()
+                        
+                        Text("\(currentUser.rooms.count)  〉")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                     }
                     .padding()
-                }
-                .background(.mainBackground)
-                .navigationTitle("ホーム")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItemGroup(placement: .confirmationAction) {
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(.secondary, lineWidth: 1)
+                    )
+                })
+                
+                NavigationLink(destination: FriendListView(),
+                               label: {
+                    HStack(spacing: 8) {
+                        FontIcon.text(.materialIcon(code: .people_outline),
+                                      fontsize: 20)
                         
-                        NavigationLink(destination: NotificationView(),
-                                       label: {
-                            FontIcon.text(.materialIcon(code: .notifications),
-                                          fontsize: 32)
-                        })
+                        Text("友達")
+                            .fontWeight(.semibold)
                         
-                        FontIcon.button(.materialIcon(code: .add_box),
-                                        action: {
-                            selectModalFlg = true
-                        },
-                                        fontsize: 32)
+                        Spacer()
+                        
+                        Text("\(currentUser.friends.count)  〉")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                     }
-                }
-                .sheet(isPresented: $myProfileFlg) {
-                    UserDetailView(user: currentUser)
-                }
-                .sheet(isPresented: $selectModalFlg) {
-                    SelectModalView(showModal: $selectModalFlg)
-                        .presentationDetents([.fraction(0.4), .large])
-                        .presentationDragIndicator(.visible)
-                }
-            } else {
-                LoadingView(message: "User情報を取得中")
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(.secondary, lineWidth: 1)
+                    )
+                })
             }
         }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .itemStyle()
+    }
+    
+    private var myAdBox: some View {
+        //リンクへ飛ばす。
+        Link(destination: URL(string: "https://apps.apple.com/jp/developer/daisuke-ishii/id1609332032")!) {
+            HStack {
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("こちらもおすすめ 〉")
+                        .font(.headline)
+                    Text("sattsatのアプリを\nもっとみてみる。")
+                        .font(.footnote)
+                }
+                Spacer()
+            }
+        }
+        .frame(height: 80)
+        .padding()
+        .itemStyle()
     }
 }
 
@@ -295,7 +399,7 @@ struct SelectModalView: View {
                     .clipShape(.rect(cornerRadius: 8))
                 })
                 .sheet(isPresented: $addRoomFlg) {
-                    Text("ルーム追加View")
+                    RoomsListView()
                 }
             }
             
