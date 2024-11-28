@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		001912B72CF61F3700E06FE8 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001912B62CF61F3700E06FE8 /* TimelineView.swift */; };
+		00325C4A2CF88AEF007ABCFA /* RoomsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C492CF88AEF007ABCFA /* RoomsListView.swift */; };
 		005CBB5B2CF4CD3900F97B88 /* HandlenameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */; };
 		005CBB8C2CF555A100F97B88 /* HandleChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */; };
 		006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1932C7F804C00A63EAA /* ReportChatApp.swift */; };
@@ -100,6 +101,7 @@
 
 /* Begin PBXFileReference section */
 		001912B62CF61F3700E06FE8 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		00325C492CF88AEF007ABCFA /* RoomsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsListView.swift; sourceTree = "<group>"; };
 		005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlenameSettingView.swift; sourceTree = "<group>"; };
 		005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleChecker.swift; sourceTree = "<group>"; };
 		006EB1902C7F804C00A63EAA /* ReportChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -380,6 +382,7 @@
 				007724302CE5E3F9004B94CF /* ReporTagChartView.swift */,
 				008346D32CBC118C001ADAD2 /* AddFriendsView.swift */,
 				009B0F2E2CBE2C5100D3D08A /* FriendListView.swift */,
+				00325C492CF88AEF007ABCFA /* RoomsListView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				007724542CEC5AAE004B94CF /* UserServiceManager.swift in Sources */,
 				0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */,
 				00F7BE4D2C835B9200E0CB5C /* FirebaseManager.swift in Sources */,
+				00325C4A2CF88AEF007ABCFA /* RoomsListView.swift in Sources */,
 				009104392CA3D9B300F1AA54 /* SettingsResource.swift in Sources */,
 				00D6F3042CAAFCC6008841E6 /* BackButtonView.swift in Sources */,
 				00EB78792C9814B600BEEEAA /* SplashView.swift in Sources */,
