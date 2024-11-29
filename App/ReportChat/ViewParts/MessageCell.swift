@@ -14,7 +14,7 @@ struct MessageCell: View {
     let message: MessageResponse
     var reportag: Reportag?
     let isCurrentUser: Bool
-    private let cornerRadius:CGFloat = 8
+    private let cornerRadius:CGFloat = 16
     
     private let limitedText: String
     private let isLimit: Bool
@@ -37,11 +37,12 @@ struct MessageCell: View {
                 if let reportag {
                     
                     HStack {
-                        FontIcon.text(.materialIcon(code: .insert_emoticon))
+//                        FontIcon.text(.materialIcon(code: .insert_emoticon))
                         
                         Text(reportag.tagName)
                             .font(.title3)
                             .fontWeight(.semibold)
+                            .foregroundStyle(reportag.color.recommendedTextColor)
                     }
                     .padding(8)
                 }
