@@ -10,6 +10,7 @@
 		001912B72CF61F3700E06FE8 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001912B62CF61F3700E06FE8 /* TimelineView.swift */; };
 		00325C4A2CF88AEF007ABCFA /* RoomsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C492CF88AEF007ABCFA /* RoomsListView.swift */; };
 		00325C4C2CF9884C007ABCFA /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C4B2CF98847007ABCFA /* Color+Extensions.swift */; };
+		00325C842CF9D40D007ABCFA /* ReportaIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C832CF9D40D007ABCFA /* ReportaIcon.swift */; };
 		005CBB5B2CF4CD3900F97B88 /* HandlenameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */; };
 		005CBB8C2CF555A100F97B88 /* HandleChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */; };
 		006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1932C7F804C00A63EAA /* ReportChatApp.swift */; };
@@ -104,6 +105,7 @@
 		001912B62CF61F3700E06FE8 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		00325C492CF88AEF007ABCFA /* RoomsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsListView.swift; sourceTree = "<group>"; };
 		00325C4B2CF98847007ABCFA /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		00325C832CF9D40D007ABCFA /* ReportaIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportaIcon.swift; sourceTree = "<group>"; };
 		005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlenameSettingView.swift; sourceTree = "<group>"; };
 		005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleChecker.swift; sourceTree = "<group>"; };
 		006EB1902C7F804C00A63EAA /* ReportChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -481,6 +483,7 @@
 				0099943A2CBFA571008697EC /* RoundedRectButton.swift */,
 				007723492CDEF16E004B94CF /* SelectTagView.swift */,
 				007724492CEB962D004B94CF /* PhotoPickerView.swift */,
+				00325C832CF9D40D007ABCFA /* ReportaIcon.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				0091046E2CA6928200F1AA54 /* ToastView.swift in Sources */,
 				009994422CC087F3008697EC /* Router.swift in Sources */,
 				00EB786A2C8F3D4100BEEEAA /* CapsuleButton.swift in Sources */,
+				00325C842CF9D40D007ABCFA /* ReportaIcon.swift in Sources */,
 				00EB78892C9AAECF00BEEEAA /* RoomViewModel.swift in Sources */,
 				006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */,
 				00EB78762C980EE500BEEEAA /* UserResponse.swift in Sources */,
