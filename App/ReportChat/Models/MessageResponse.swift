@@ -52,12 +52,15 @@ struct MessageResponse: Decodable {
 enum Reportag: String, Codable, CaseIterable {
     case goodNews = "good_news"
     case badNews = "bad_news"
+    case regular = "regular"
     case dailyReport = "daily_report"
     case breaking = "breaking"
     case announcement = "announcement"
     case question = "question"
     case important = "important"
+    case anger = "anger"
     case emptiness = "emptiness"
+    case despair = "despair"
     
     var tagName: String {
         switch self {
@@ -65,6 +68,8 @@ enum Reportag: String, Codable, CaseIterable {
             return "朗報"
         case .badNews:
             return "悲報"
+        case .regular:
+            return "定期"
         case .dailyReport:
             return "日報"
         case .breaking:
@@ -75,8 +80,12 @@ enum Reportag: String, Codable, CaseIterable {
             return "質問"
         case .important:
             return "重要"
+        case .anger:
+            return "怒気" //憤怒?
         case .emptiness:
             return "虚無"
+        case .despair:
+            return "絶望"
         }
     }
     
@@ -86,6 +95,8 @@ enum Reportag: String, Codable, CaseIterable {
             return .goodNews
         case .badNews:
             return .badNews
+        case .regular:
+            return .regular
         case .dailyReport:
             return .dailyReport
         case .breaking:
@@ -96,8 +107,12 @@ enum Reportag: String, Codable, CaseIterable {
             return .question
         case .important:
             return .important
+        case .anger:
+            return .anger
         case .emptiness:
             return .emptiness
+        case .despair:
+            return .despair
         }
     }
 }
