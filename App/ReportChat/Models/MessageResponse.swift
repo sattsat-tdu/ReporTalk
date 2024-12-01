@@ -115,5 +115,32 @@ enum Reportag: String, Codable, CaseIterable {
             return .despair
         }
     }
+    
+    var emoji: ImageResource {
+        switch self {
+        case .goodNews:
+            return .goodNewsEmoji
+        case .badNews:
+            return .badNewsEmoji
+        case .regular:
+            return .regularEmoji
+        case .dailyReport:
+            return .dailyReportEmoji
+        case .breaking:
+            return .breakingEmoji
+        case .announcement:
+            return .announcementEmoji
+        case .question:
+            return .questionEmoji
+        case .important:
+            return .importantEmoji
+        case .anger:
+            return .angerEmoji
+        case .emptiness:
+            return .emptinessEmoji
+        case .despair:
+            return .despairEmoji
+        }
+    }
 }
 
