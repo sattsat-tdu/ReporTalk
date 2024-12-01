@@ -9,8 +9,31 @@
 import SwiftUI
 
 struct ReportansBookView: View {
+    
+    @State private var columnCount = 3
+    
+    private var columns: [GridItem] {
+        Array(repeating: GridItem(.flexible()), count: columnCount)
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            
+            LazyVGrid(columns: columns, spacing: 16) {
+                ForEach(Reportag.allCases, id: \.self){ tag in
+                    VStack {
+                        ReportaIcon(size: 80, tag: tag)
+                        Text(tag.tagName)
+                            .fontWeight(.semibold)
+                    }
+                    .padding()
+                    .itemStyle()
+                }
+            }
+            .padding()
+        }
+        .background(.mainBackground)
+        .navigationTitle("レポータ図鑑")
     }
 }
 

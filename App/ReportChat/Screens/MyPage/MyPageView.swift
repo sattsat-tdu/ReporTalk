@@ -1,9 +1,9 @@
 //
 //  MyPageView.swift
 //  ReportChat
-//  
+//
 //  Created by SATTSAT on 2024/09/16
-//  
+//
 //
 
 import SwiftUI
@@ -14,7 +14,7 @@ struct MyPageView: View {
     @EnvironmentObject var appManager: AppManager
     @State private var showProfileFlg = false
     private let iconSize: CGFloat = 64
-
+    
     var body: some View {
         Group {
             if let currentUser = appManager.currentUser {
@@ -72,6 +72,13 @@ struct MyPageView: View {
                             destination: AnyView(SettingsView(section: settingResource)),
                             icon: .settings,
                             title: "設定"))
+                    .padding(.vertical, 4)
+                    .frame(minHeight: 38)
+                    
+                    CustomNavCell(navItem: NavItem(
+                        destination: AnyView(ReportansBookView()),
+                        icon: .book,
+                        title: "レポータ図鑑"))
                     .padding(.vertical, 4)
                     .frame(minHeight: 38)
                     
