@@ -18,6 +18,7 @@
 		006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB1972C7F804E00A63EAA /* Assets.xcassets */; };
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
 		007705EE2CFCB6F300A61F66 /* ReportansBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */; };
+		007705F02CFCBB1800A61F66 /* ReportaDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */; };
 		0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007723492CDEF16E004B94CF /* SelectTagView.swift */; };
 		0077242F2CE5AC79004B94CF /* ReporTagMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */; };
 		007724312CE5E3F9004B94CF /* ReporTagChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724302CE5E3F9004B94CF /* ReporTagChartView.swift */; };
@@ -115,6 +116,8 @@
 		006EB1972C7F804E00A63EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportansBookView.swift; sourceTree = "<group>"; };
+		007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportaDetailView.swift; sourceTree = "<group>"; };
+		007705F12CFCBCD000A61F66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		007723492CDEF16E004B94CF /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagMessage.swift; sourceTree = "<group>"; };
 		007724302CE5E3F9004B94CF /* ReporTagChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagChartView.swift; sourceTree = "<group>"; };
@@ -237,6 +240,7 @@
 		006EB1922C7F804C00A63EAA /* ReportChat */ = {
 			isa = PBXGroup;
 			children = (
+				007705F12CFCBCD000A61F66 /* Info.plist */,
 				006EB1932C7F804C00A63EAA /* ReportChatApp.swift */,
 				0077242D2CE5AC15004B94CF /* SwiftData */,
 				00EB78912C9B325C00BEEEAA /* Content */,
@@ -487,6 +491,7 @@
 				007724492CEB962D004B94CF /* PhotoPickerView.swift */,
 				00325C832CF9D40D007ABCFA /* ReportaIcon.swift */,
 				007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */,
+				007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -641,6 +646,7 @@
 				009B0F342CBEACEB00D3D08A /* NotificationManager.swift in Sources */,
 				00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */,
 				008346D02CBA1155001ADAD2 /* CachedImage.swift in Sources */,
+				007705F02CFCBB1800A61F66 /* ReportaDetailView.swift in Sources */,
 				00EB78B92C9D562900BEEEAA /* AutoResizingTextEditor.swift in Sources */,
 				00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */,
 				00FA5C1F2CA2BD0300301A1B /* CustomNavCell.swift in Sources */,
@@ -828,7 +834,9 @@
 				DEVELOPMENT_TEAM = T9UM9Z6XFV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReportChat/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "レポートーク";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "レポータの保存に使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -859,7 +867,9 @@
 				DEVELOPMENT_TEAM = T9UM9Z6XFV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReportChat/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "レポートーク";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "レポータの保存に使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -1,9 +1,9 @@
 //
 //  ReportansBookView.swift
 //  ReportChat
-//  
+//
 //  Created by SATTSAT on 2024/12/02
-//  
+//
 //
 
 import SwiftUI
@@ -21,13 +21,17 @@ struct ReportansBookView: View {
             
             LazyVGrid(columns: columns, spacing: 16) {
                 ForEach(Reportag.allCases, id: \.self){ tag in
-                    VStack {
-                        ReportaIcon(size: 80, tag: tag)
-                        Text(tag.tagName)
-                            .fontWeight(.semibold)
-                    }
-                    .padding()
-                    .itemStyle()
+                    NavigationLink(
+                        destination: ReportaDetailView(reportag: tag),
+                        label: {
+                            VStack {
+                                ReportaIcon(size: 80, tag: tag)
+                                Text(tag.tagName)
+                                    .fontWeight(.semibold)
+                            }
+                            .padding()
+                            .itemStyle()
+                        })
                 }
             }
             .padding()
