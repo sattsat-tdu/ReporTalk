@@ -19,13 +19,25 @@ struct ReportaIcon: View {
     }
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Image(.iconSource)
+                .resizable()
+                .colorMultiply(tag.color)
+            
+            Image(tag.emoji)
+                .resizable()
+        }
+        .frame(width: size, height: size)
     }
 }
 
 #Preview {
-    VStack {
-        ReportaIcon(tag: .goodNews)
-        ReportaIcon(size: 24, tag: .goodNews)
+    List {
+        ForEach(Reportag.allCases, id: \.self) { tag in
+            HStack {
+                ReportaIcon(size: 48, tag: tag)
+                Text(tag.tagName)
+            }
+        }
     }
 }

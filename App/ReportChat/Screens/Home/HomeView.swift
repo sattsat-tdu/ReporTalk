@@ -197,10 +197,9 @@ struct HomeView: View {
                 
                 HStack() {
                     VStack(spacing: 4) {
-                        Image(.sampleTag)
-                            .resizable()
-                            .scaledToFit()
+                        ReportaIcon(size: 48, tag: .goodNews)
                             .offset(y: moveUp ? -5 : 5)
+
                         
                         Ellipse()
                             .fill(.primary)
