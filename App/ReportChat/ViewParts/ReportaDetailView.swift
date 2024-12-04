@@ -45,6 +45,7 @@ struct ReportaDetailView: View {
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.mainBackground)
+        .navigationTitle(reportag.tagName)
     }
     
     @MainActor
