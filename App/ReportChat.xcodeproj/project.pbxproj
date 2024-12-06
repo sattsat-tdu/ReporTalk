@@ -28,6 +28,7 @@
 		0077244F2CEC249D004B94CF /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077244E2CEC249D004B94CF /* ButtonCell.swift */; };
 		007724522CEC524F004B94CF /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724512CEC524F004B94CF /* DeleteAccountView.swift */; };
 		007724542CEC5AAE004B94CF /* UserServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724532CEC5A95004B94CF /* UserServiceManager.swift */; };
+		0082929C2D029A510052A876 /* MessageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0082929B2D029A510052A876 /* MessageListCell.swift */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
@@ -127,6 +128,7 @@
 		0077244E2CEC249D004B94CF /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		007724512CEC524F004B94CF /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		007724532CEC5A95004B94CF /* UserServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceManager.swift; sourceTree = "<group>"; };
+		0082929B2D029A510052A876 /* MessageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCell.swift; sourceTree = "<group>"; };
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 				00325C832CF9D40D007ABCFA /* ReportaIcon.swift */,
 				007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */,
 				007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */,
+				0082929B2D029A510052A876 /* MessageListCell.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 				007724332CE5E89B004B94CF /* SwiftDataManager.swift in Sources */,
 				0099943B2CBFA571008697EC /* RoundedRectButton.swift in Sources */,
 				007724542CEC5AAE004B94CF /* UserServiceManager.swift in Sources */,
+				0082929C2D029A510052A876 /* MessageListCell.swift in Sources */,
 				0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */,
 				00F7BE4D2C835B9200E0CB5C /* FirebaseManager.swift in Sources */,
 				00325C4C2CF9884C007ABCFA /* Color+Extensions.swift in Sources */,
