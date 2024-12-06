@@ -1,9 +1,9 @@
 //
 //  ReporTagChartView.swift
 //  ReportChat
-//  
+//
 //  Created by SATTSAT on 2024/11/14
-//  
+//
 //
 
 import SwiftUI
@@ -13,8 +13,8 @@ import SwiftUIFontIcon
 
 struct ReporTagChartView: View {
     
-    @State private var allData: [ReporTagMessage] = []
-    @State private var filteredData: [ReporTagMessage] = []
+    @State private var allTagMessage: [ReporTagMessage] = []
+    @State private var filteredTagMessage: [ReporTagMessage] = []
     @State private var tagCounts: [Reportag: Int] = [:]
     @State private var hasData = false
     @State private var selectedData: Reportag?
@@ -32,11 +32,11 @@ struct ReporTagChartView: View {
                             angularInset: 1
                         )
                         .cornerRadius(10)
-                        .foregroundStyle(selectedData == tag || selectedData == nil ? tag.color : .secondary)
+                        .foregroundStyle(selectedData == tag || selectedData == nil ? tag.color : tag.color.opacity(0.2))
                         .annotation(position: .overlay) {
                             Text("\(tag.tagName)")
                                 .font(.headline)
-                                .foregroundStyle(.primary)
+                                .foregroundStyle(.black)
                         }
                     }
                 }
@@ -54,15 +54,25 @@ struct ReporTagChartView: View {
                 .chartBackground { _ in
                     if let selectedData {
                         VStack {
+                            ReportaIcon(size: 48, tag: selectedData)
+                            
                             Text(selectedData.tagName)
-                                .font(.headline)
-                                .foregroundStyle(selectedData.color)
+                                .font(.title2.bold())
+                            
+                            if let count = tagCounts[selectedData] {
+                                let percentage = (Double(count) / Double(allTagMessage.count)) * 100
+                                Text("\(Int(percentage))%")
+                                    .font(.headline)
+                            }
                         }
                     } else {
                         VStack {
-                            Image(systemName: "carrot")
-                                .font(.largeTitle)
-                            Text("アイテムを選択")
+                            Image(.iconSource)
+                                .resizable()
+                                .frame(width: 48, height: 48)
+                                .opacity(0.3)
+                            
+                            Text("タグを選択")
                         }
                         .foregroundStyle(.secondary)
                     }
@@ -72,27 +82,32 @@ struct ReporTagChartView: View {
                 .overlay(alignment: .bottomTrailing) {
                     FontIcon.button(.materialIcon(code: .filter_list), action: {
                         selectTagViewFlg.toggle()
-                    },fontsize: 32)
+                    },fontsize: 28)
                     .foregroundStyle(.buttonText)
                     .padding(8)
                     .background(.buttonBackground)
                     .clipShape(Circle())
-               }
+                    .padding([.leading, .bottom], 8)
+                }
                 Spacer()
                 
                 ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 8) {
-                        ForEach(filteredData) { data in
-                            MessageCell(message: MessageResponse(
-                                text: data.message,
-                                senderId: data.userId,
-                                timestamp: data.timestamp,
-                                reportag: data.reportag.rawValue),
-                                        isCurrentUser: false)
+                        //SwiftDataからモデルへの変換処理
+                        ForEach(filteredTagMessage) { messageData in
+                            MessageListCell(
+                                message:MessageResponse(
+                                    text: messageData.message,
+                                    senderId: messageData.userId,
+                                    timestamp: messageData.timestamp,
+                                    reportag: messageData.reportag.rawValue)
+                            )
+                            Divider()
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
+                .padding()
+                .itemStyle()
             } else {
                 VStack(spacing: 16) {
                     Text("データが不足しています！")
@@ -109,9 +124,9 @@ struct ReporTagChartView: View {
         .onChange(of: selectedData) {
             withAnimation(.easeInOut(duration: 0.2)) {
                 if let selectedData {
-                    filteredData = allData.filter { $0.reportag == selectedData }
+                    filteredTagMessage = allTagMessage.filter { $0.reportag == selectedData }
                 } else {
-                    filteredData = allData
+                    filteredTagMessage = allTagMessage
                 }
             }
         }
@@ -119,7 +134,7 @@ struct ReporTagChartView: View {
         .sheet(isPresented: $selectTagViewFlg) {
             SelectTagView(flg: $selectTagViewFlg,
                           reportag: $selectedData)
-                .presentationDetents([.fraction(0.4), .fraction(0.8)])
+            .presentationDetents([.fraction(0.4), .fraction(0.8)])
         }
     }
     
@@ -127,8 +142,8 @@ struct ReporTagChartView: View {
     private func loadData() {
         guard let userId = AppManager.shared.currentUser?.id else {return}
         let data = SwiftDataManager.shared.fetchData(userId: userId)
-        self.allData = data
-        self.filteredData = data
+        self.allTagMessage = data
+        self.filteredTagMessage = data
         self.hasData = !data.isEmpty
         
         // タグごとに件数をカウント
@@ -153,9 +168,9 @@ struct ReporTagChartView: View {
         let sortedTagCounts = Reportag.allCases
             .filter { tagCounts[$0] ?? 0 > 0 }
             .map { ($0, tagCounts[$0] ?? 0) }
-
+        
         var cumulativeAngle: Double = 0.0
-
+        
         for (tag, count) in sortedTagCounts {
             let tagAngle = Double(count) / Double(total) * 360
             
