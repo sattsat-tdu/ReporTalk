@@ -45,10 +45,13 @@ final class SwiftDataManager {
         do {
             let filteredItems = try modelContext.fetch(
                 FetchDescriptor<ReporTagMessage>(
-                predicate: #Predicate {
-                    $0.userId == userId
-                }
-              )
+                    predicate: #Predicate {
+                        $0.userId == userId
+                    },
+                    sortBy: [
+                        SortDescriptor(\.timestamp, order: .reverse) // 日付の降順でソート
+                    ]
+                )
             )
             return filteredItems
         } catch {

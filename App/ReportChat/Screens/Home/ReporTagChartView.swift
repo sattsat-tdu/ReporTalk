@@ -19,9 +19,10 @@ struct ReporTagChartView: View {
     @State private var hasData = false
     @State private var selectedData: Reportag?
     @State private var selectTagViewFlg = false
+    private let chartSize:CGFloat = UIScreen.main.bounds.height / 3
     
     var body: some View {
-        VStack {
+        VStack(spacing: 16) {
             if hasData, !tagCounts.isEmpty {
                 Chart(Reportag.allCases, id: \.self) { tag in
                     if let count = tagCounts[tag] {
@@ -77,7 +78,7 @@ struct ReporTagChartView: View {
                         .foregroundStyle(.secondary)
                     }
                 }
-                .frame(height: 320)
+                .frame(height: chartSize)
                 
                 .overlay(alignment: .bottomTrailing) {
                     FontIcon.button(.materialIcon(code: .filter_list), action: {
@@ -93,16 +94,21 @@ struct ReporTagChartView: View {
                 
                 ScrollView(showsIndicators: false) {
                     LazyVStack(spacing: 8) {
-                        //SwiftDataからモデルへの変換処理
-                        ForEach(filteredTagMessage) { messageData in
-                            MessageListCell(
-                                message:MessageResponse(
-                                    text: messageData.message,
-                                    senderId: messageData.userId,
-                                    timestamp: messageData.timestamp,
-                                    reportag: messageData.reportag.rawValue)
-                            )
-                            Divider()
+                        if filteredTagMessage.count > 0 {
+                            //SwiftDataからモデルへの変換処理
+                            ForEach(filteredTagMessage) { messageData in
+                                MessageListCell(
+                                    message:MessageResponse(
+                                        text: messageData.message,
+                                        senderId: messageData.userId,
+                                        timestamp: messageData.timestamp,
+                                        reportag: messageData.reportag.rawValue)
+                                )
+                                Divider()
+                            }
+                        } else {
+                            Text("タグに紐ずくメッセージが存在しません")
+                                .foregroundStyle(.secondary)
                         }
                     }
                 }
@@ -116,6 +122,7 @@ struct ReporTagChartView: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .padding()
