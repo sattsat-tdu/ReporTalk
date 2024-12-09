@@ -12,38 +12,15 @@ import SwiftUIFontIcon
 struct RoomCell: View {
     
     @ObservedObject var viewModel: RoomViewModel
-    private let iconSize: CGFloat = 48
     
     var body: some View {
         HStack(spacing: 16) {
-            Group {
-                if let iconUrl = viewModel.iconUrlString {
-                    CachedImage(url: iconUrl) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                        case .success(let image):
-                            Rectangle().aspectRatio(1, contentMode: .fill)
-                                .overlay {
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                                .clipped()
-                        case .failure(_):
-                            FontIcon.text(.materialIcon(code: .account_circle),
-                                          fontsize: iconSize)
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
-                } else {
-                    FontIcon.text(.materialIcon(code: .account_circle),
-                                  fontsize: iconSize)
-                }
+            if let iconUrl = viewModel.iconUrlString {
+                URLtoImage(urlString: iconUrl)
+                    .clipShape(Circle())
+            } else {
+                FontIcon.text(.materialIcon(code: .account_circle),fontsize: 48)
             }
-            .frame(width: iconSize, height: iconSize)
-            .clipShape(Circle())
             
             Text(viewModel.roomName)
                 .font(.subheadline)

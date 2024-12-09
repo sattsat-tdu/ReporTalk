@@ -67,32 +67,15 @@ struct UserDetailView: View {
         VStack {
             Group {
                 if let photoURL = user.photoURL {
-                    CachedImage(url: photoURL) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                        case .success(let image):
-                            Rectangle().aspectRatio(1, contentMode: .fill)
-                                .overlay {
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                }
-                                .clipped()
-                        case .failure(_):
-                            Image(systemName: "person.circle")
-                                .resizable()
-                        @unknown default:
-                            EmptyView()
-                        }
-                    }
+                    URLtoImage(
+                        urlString: photoURL,
+                        iconSize: iconSize
+                    )
+                    .clipShape(Circle())
                 } else {
-                    Image(systemName: "person.circle")
-                        .resizable()
+                    FontIcon.text(.materialIcon(code: .account_circle),fontsize: iconSize)
                 }
             }
-            .frame(width: iconSize, height: iconSize)
-            .clipShape(Circle())
             .padding(.bottom)
             .overlay(alignment: .bottomTrailing) {
                 VStack {

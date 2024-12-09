@@ -24,35 +24,14 @@ struct MyPageView: View {
                             showProfileFlg.toggle()
                         }, label: {
                             HStack {
-                                Group {
-                                    if let photoURL = currentUser.photoURL {
-                                        CachedImage(url: photoURL) { phase in
-                                            switch phase {
-                                            case .empty:
-                                                ProgressView()
-                                            case .success(let image):
-                                                Rectangle().aspectRatio(1, contentMode: .fill)
-                                                    .overlay {
-                                                        image
-                                                            .resizable()
-                                                            .scaledToFill()
-                                                    }
-                                                    .clipped()
-                                            case .failure(_):
-                                                Image(systemName: "person.circle")
-                                                    .resizable()
-                                            @unknown default:
-                                                EmptyView()
-                                            }
-                                        }
-                                    } else {
-                                        Image(systemName: "person.circle")
-                                            .resizable()
-                                    }
+                                if let photoURL = currentUser.photoURL {
+                                    URLtoImage(
+                                        urlString: photoURL,
+                                        iconSize: iconSize)
+                                        .clipShape(Circle())
+                                } else {
+                                    FontIcon.text(.materialIcon(code: .account_circle),fontsize: iconSize)
                                 }
-                                .frame(width: iconSize, height: iconSize)
-                                .clipShape(Circle())
-                                
                                 
                                 VStack(alignment: .leading, spacing: 8) {
                                     Text(currentUser.userName)
