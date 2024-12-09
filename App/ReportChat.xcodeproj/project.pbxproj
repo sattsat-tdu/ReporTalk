@@ -29,6 +29,7 @@
 		007724522CEC524F004B94CF /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724512CEC524F004B94CF /* DeleteAccountView.swift */; };
 		007724542CEC5AAE004B94CF /* UserServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724532CEC5A95004B94CF /* UserServiceManager.swift */; };
 		0082929C2D029A510052A876 /* MessageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0082929B2D029A510052A876 /* MessageListCell.swift */; };
+		008294CF2D071A1A0052A876 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 008294CE2D071A1A0052A876 /* Kingfisher */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
@@ -209,6 +210,7 @@
 				00F7BE4A2C835AF600E0CB5C /* FirebaseStorage in Frameworks */,
 				00F7BE462C835AF600E0CB5C /* FirebaseAuth in Frameworks */,
 				00F7BE482C835AF600E0CB5C /* FirebaseFirestore in Frameworks */,
+				008294CF2D071A1A0052A876 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,6 +553,7 @@
 				00F7BE452C835AF600E0CB5C /* FirebaseAuth */,
 				00F7BE472C835AF600E0CB5C /* FirebaseFirestore */,
 				00F7BE492C835AF600E0CB5C /* FirebaseStorage */,
+				008294CE2D071A1A0052A876 /* Kingfisher */,
 			);
 			productName = ReportChat;
 			productReference = 006EB1902C7F804C00A63EAA /* ReportChat.app */;
@@ -584,6 +587,7 @@
 			packageReferences = (
 				00F7BE352C82216B00E0CB5C /* XCRemoteSwiftPackageReference "SwiftUIFontIcon" */,
 				00F7BE442C835AF600E0CB5C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				008294CD2D071A1A0052A876 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 006EB1912C7F804C00A63EAA /* Products */;
 			projectDirPath = "";
@@ -917,6 +921,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		008294CD2D071A1A0052A876 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.2;
+			};
+		};
 		00F7BE352C82216B00E0CB5C /* XCRemoteSwiftPackageReference "SwiftUIFontIcon" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/huybuidac/SwiftUIFontIcon";
@@ -936,6 +948,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		008294CE2D071A1A0052A876 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 008294CD2D071A1A0052A876 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		00F7BE362C82216C00E0CB5C /* SwiftUIFontIcon */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 00F7BE352C82216B00E0CB5C /* XCRemoteSwiftPackageReference "SwiftUIFontIcon" */;
