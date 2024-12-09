@@ -19,8 +19,9 @@ struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     
     private let currentUser: UserResponse
-    
-    //テスト変数、のちに単独Viewに移動
+    //タグの3行表示に使用
+    private let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+
     @State private var moveUp = false // アニメーション用の状態変数
     
     init?() {
@@ -154,34 +155,24 @@ struct HomeView: View {
                 }
                 
                 if viewModel.hasData, !viewModel.tagCounts.isEmpty {
-                    HStack {
-                        Spacer()
-                        Chart(Reportag.allCases, id: \.self) { tag in
-                            if let count = viewModel.tagCounts[tag], count > 0 {
-                                SectorMark(
-                                    angle: .value("件数", Double(count)),
-                                    innerRadius: .ratio(0.4),
-                                    angularInset: 1
-                                )
-                                .foregroundStyle(tag.color.gradient)
+                    Chart(Reportag.allCases, id: \.self) { tag in
+                        if let count = viewModel.tagCounts[tag], count > 0 {
+                            
+                            SectorMark(
+                                angle: .value("件数", Double(count)),
+                                innerRadius: .ratio(0.4),
+                                angularInset: 1
+                            )
+                            .cornerRadius(4)
+                            .foregroundStyle(tag.color)
+                            .annotation(position: .overlay) {
+                                Image(tag.emoji)
+                                    .resizable()
+                                    .frame(width: 32, height: 32)
                             }
                         }
-                        .frame(width: 180, height: 180)
-                    
-                        Spacer()
-                        
-                        VStack(alignment: .leading) {
-                            ForEach(Reportag.allCases, id: \.self) { tag in
-                                HStack {
-                                    Image(systemName: "square.fill")
-                                        .foregroundStyle(tag.color)
-                                    Text(tag.tagName)
-                                        .foregroundStyle(.primary)
-                                }
-                            }
-                        }
-                        Spacer()
                     }
+                    .frame(width: 180, height: 180)
                 } else {
                     VStack(spacing: 16) {
                         Text("データが不足しています！")
@@ -193,14 +184,24 @@ struct HomeView: View {
                     .frame(height: 100)
                 }
                 
+                LazyVGrid(columns: columns, spacing: 8) {
+                    ForEach(Reportag.allCases, id: \.self) { tag in
+                        HStack {
+                            Image(systemName: "square.fill")
+                                .foregroundStyle(tag.color)
+                            Text(tag.tagName)
+                                .foregroundStyle(.primary)
+                        }
+                    }
+                }
+                
                 Divider()
                 
                 HStack() {
                     VStack(spacing: 4) {
-                        Image(.sampleTag)
-                            .resizable()
-                            .scaledToFit()
+                        ReportaIcon(size: 48, tag: .goodNews)
                             .offset(y: moveUp ? -5 : 5)
+
                         
                         Ellipse()
                             .fill(.primary)

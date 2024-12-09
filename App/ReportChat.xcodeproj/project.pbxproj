@@ -9,12 +9,16 @@
 /* Begin PBXBuildFile section */
 		001912B72CF61F3700E06FE8 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001912B62CF61F3700E06FE8 /* TimelineView.swift */; };
 		00325C4A2CF88AEF007ABCFA /* RoomsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C492CF88AEF007ABCFA /* RoomsListView.swift */; };
+		00325C4C2CF9884C007ABCFA /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C4B2CF98847007ABCFA /* Color+Extensions.swift */; };
+		00325C842CF9D40D007ABCFA /* ReportaIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C832CF9D40D007ABCFA /* ReportaIcon.swift */; };
 		005CBB5B2CF4CD3900F97B88 /* HandlenameSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */; };
 		005CBB8C2CF555A100F97B88 /* HandleChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */; };
 		006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1932C7F804C00A63EAA /* ReportChatApp.swift */; };
 		006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006EB1952C7F804C00A63EAA /* ContentView.swift */; };
 		006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB1972C7F804E00A63EAA /* Assets.xcassets */; };
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
+		007705EE2CFCB6F300A61F66 /* ReportansBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */; };
+		007705F02CFCBB1800A61F66 /* ReportaDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */; };
 		0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007723492CDEF16E004B94CF /* SelectTagView.swift */; };
 		0077242F2CE5AC79004B94CF /* ReporTagMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */; };
 		007724312CE5E3F9004B94CF /* ReporTagChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724302CE5E3F9004B94CF /* ReporTagChartView.swift */; };
@@ -24,6 +28,7 @@
 		0077244F2CEC249D004B94CF /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0077244E2CEC249D004B94CF /* ButtonCell.swift */; };
 		007724522CEC524F004B94CF /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724512CEC524F004B94CF /* DeleteAccountView.swift */; };
 		007724542CEC5AAE004B94CF /* UserServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724532CEC5A95004B94CF /* UserServiceManager.swift */; };
+		0082929C2D029A510052A876 /* MessageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0082929B2D029A510052A876 /* MessageListCell.swift */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
@@ -102,6 +107,8 @@
 /* Begin PBXFileReference section */
 		001912B62CF61F3700E06FE8 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		00325C492CF88AEF007ABCFA /* RoomsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsListView.swift; sourceTree = "<group>"; };
+		00325C4B2CF98847007ABCFA /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		00325C832CF9D40D007ABCFA /* ReportaIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportaIcon.swift; sourceTree = "<group>"; };
 		005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandlenameSettingView.swift; sourceTree = "<group>"; };
 		005CBB8B2CF5559A00F97B88 /* HandleChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandleChecker.swift; sourceTree = "<group>"; };
 		006EB1902C7F804C00A63EAA /* ReportChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +116,9 @@
 		006EB1952C7F804C00A63EAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		006EB1972C7F804E00A63EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportansBookView.swift; sourceTree = "<group>"; };
+		007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportaDetailView.swift; sourceTree = "<group>"; };
+		007705F12CFCBCD000A61F66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		007723492CDEF16E004B94CF /* SelectTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectTagView.swift; sourceTree = "<group>"; };
 		0077242E2CE5AC6C004B94CF /* ReporTagMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagMessage.swift; sourceTree = "<group>"; };
 		007724302CE5E3F9004B94CF /* ReporTagChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReporTagChartView.swift; sourceTree = "<group>"; };
@@ -118,6 +128,7 @@
 		0077244E2CEC249D004B94CF /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		007724512CEC524F004B94CF /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		007724532CEC5A95004B94CF /* UserServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServiceManager.swift; sourceTree = "<group>"; };
+		0082929B2D029A510052A876 /* MessageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCell.swift; sourceTree = "<group>"; };
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -231,6 +242,7 @@
 		006EB1922C7F804C00A63EAA /* ReportChat */ = {
 			isa = PBXGroup;
 			children = (
+				007705F12CFCBCD000A61F66 /* Info.plist */,
 				006EB1932C7F804C00A63EAA /* ReportChatApp.swift */,
 				0077242D2CE5AC15004B94CF /* SwiftData */,
 				00EB78912C9B325C00BEEEAA /* Content */,
@@ -365,6 +377,7 @@
 		00EB78602C8B567000BEEEAA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				00325C4B2CF98847007ABCFA /* Color+Extensions.swift */,
 				00EB78612C8B58F900BEEEAA /* View+Extensions.swift */,
 				00EB78942C9B9E9600BEEEAA /* UIImage+Extensions.swift */,
 				00EB78982C9BE5FB00BEEEAA /* Date+Extensions.swift */,
@@ -478,6 +491,10 @@
 				0099943A2CBFA571008697EC /* RoundedRectButton.swift */,
 				007723492CDEF16E004B94CF /* SelectTagView.swift */,
 				007724492CEB962D004B94CF /* PhotoPickerView.swift */,
+				00325C832CF9D40D007ABCFA /* ReportaIcon.swift */,
+				007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */,
+				007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */,
+				0082929B2D029A510052A876 /* MessageListCell.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -604,8 +621,10 @@
 				007724332CE5E89B004B94CF /* SwiftDataManager.swift in Sources */,
 				0099943B2CBFA571008697EC /* RoundedRectButton.swift in Sources */,
 				007724542CEC5AAE004B94CF /* UserServiceManager.swift in Sources */,
+				0082929C2D029A510052A876 /* MessageListCell.swift in Sources */,
 				0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */,
 				00F7BE4D2C835B9200E0CB5C /* FirebaseManager.swift in Sources */,
+				00325C4C2CF9884C007ABCFA /* Color+Extensions.swift in Sources */,
 				00325C4A2CF88AEF007ABCFA /* RoomsListView.swift in Sources */,
 				009104392CA3D9B300F1AA54 /* SettingsResource.swift in Sources */,
 				00D6F3042CAAFCC6008841E6 /* BackButtonView.swift in Sources */,
@@ -631,6 +650,7 @@
 				009B0F342CBEACEB00D3D08A /* NotificationManager.swift in Sources */,
 				00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */,
 				008346D02CBA1155001ADAD2 /* CachedImage.swift in Sources */,
+				007705F02CFCBB1800A61F66 /* ReportaDetailView.swift in Sources */,
 				00EB78B92C9D562900BEEEAA /* AutoResizingTextEditor.swift in Sources */,
 				00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */,
 				00FA5C1F2CA2BD0300301A1B /* CustomNavCell.swift in Sources */,
@@ -640,6 +660,7 @@
 				0096C64A2CAD05E100C6FD42 /* WelcomeSettingsView.swift in Sources */,
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
 				009994462CC7304C008697EC /* RoomManager.swift in Sources */,
+				007705EE2CFCB6F300A61F66 /* ReportansBookView.swift in Sources */,
 				0077244F2CEC249D004B94CF /* ButtonCell.swift in Sources */,
 				009104742CA6C47000F1AA54 /* ModalView.swift in Sources */,
 				0077244A2CEB962E004B94CF /* PhotoPickerView.swift in Sources */,
@@ -655,6 +676,7 @@
 				0091046E2CA6928200F1AA54 /* ToastView.swift in Sources */,
 				009994422CC087F3008697EC /* Router.swift in Sources */,
 				00EB786A2C8F3D4100BEEEAA /* CapsuleButton.swift in Sources */,
+				00325C842CF9D40D007ABCFA /* ReportaIcon.swift in Sources */,
 				00EB78892C9AAECF00BEEEAA /* RoomViewModel.swift in Sources */,
 				006EB1942C7F804C00A63EAA /* ReportChatApp.swift in Sources */,
 				00EB78762C980EE500BEEEAA /* UserResponse.swift in Sources */,
@@ -816,7 +838,9 @@
 				DEVELOPMENT_TEAM = T9UM9Z6XFV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReportChat/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "レポートーク";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "レポータの保存に使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -847,7 +871,9 @@
 				DEVELOPMENT_TEAM = T9UM9Z6XFV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReportChat/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "レポートーク";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "レポータの保存に使用します";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -47,13 +47,20 @@ struct SelectTagView: View {
                             reportag = tag
                             flg.toggle()
                         }, label: {
-                            Text(tag.tagName)
-                                .foregroundStyle(.primary)
-                                .font(.headline)
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                                .background(tag.color.gradient)
-                                .clipShape(BubbleShape())
+                            HStack {
+                                Image(tag.emoji)
+                                    .resizable()
+                                    .frame(width: 32, height: 32)
+                                
+                                Text(tag.tagName)
+                                    .foregroundStyle(.black)
+                                    .font(.headline)
+                            }
+                            .padding(.vertical, 10)
+                            .padding(.horizontal)
+                            .frame(maxWidth: .infinity)
+                            .background(tag.color)
+                            .clipShape(BubbleShape())
                         })
                     }
                 }
