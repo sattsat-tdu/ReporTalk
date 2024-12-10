@@ -37,6 +37,7 @@
 		008346D62CBC15C7001ADAD2 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346D52CBC15C6001ADAD2 /* UserCell.swift */; };
 		008346D82CBC1A7E001ADAD2 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346D72CBC1A7E001ADAD2 /* SearchTextField.swift */; };
 		008EE36C2D071E4000DA0CC6 /* URLtoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008EE36B2D071E4000DA0CC6 /* URLtoImage.swift */; };
+		008EE36E2D072BDC00DA0CC6 /* FocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008EE36D2D072BDC00DA0CC6 /* FocusTextField.swift */; };
 		0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0091042A2CA313AB00F1AA54 /* ToggleCell.swift */; };
 		009104312CA3ABD200F1AA54 /* SafariCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104302CA3ABD200F1AA54 /* SafariCell.swift */; };
 		009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104322CA3AF0A00F1AA54 /* SafariWebView.swift */; };
@@ -137,6 +138,7 @@
 		008346D52CBC15C6001ADAD2 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		008346D72CBC1A7E001ADAD2 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		008EE36B2D071E4000DA0CC6 /* URLtoImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLtoImage.swift; sourceTree = "<group>"; };
+		008EE36D2D072BDC00DA0CC6 /* FocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTextField.swift; sourceTree = "<group>"; };
 		0091042A2CA313AB00F1AA54 /* ToggleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleCell.swift; sourceTree = "<group>"; };
 		009104302CA3ABD200F1AA54 /* SafariCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariCell.swift; sourceTree = "<group>"; };
 		009104322CA3AF0A00F1AA54 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */,
 				0082929B2D029A510052A876 /* MessageListCell.swift */,
 				008EE36B2D071E4000DA0CC6 /* URLtoImage.swift */,
+				008EE36D2D072BDC00DA0CC6 /* FocusTextField.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -671,6 +674,7 @@
 				00EB78992C9BE5FB00BEEEAA /* Date+Extensions.swift in Sources */,
 				00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */,
 				0091043B2CA3DC4400F1AA54 /* SettingModel.swift in Sources */,
+				008EE36E2D072BDC00DA0CC6 /* FocusTextField.swift in Sources */,
 				00D6F3022CAAF925008841E6 /* WelcomeSwitchView.swift in Sources */,
 				008346D82CBC1A7E001ADAD2 /* SearchTextField.swift in Sources */,
 				0091046A2CA674F400F1AA54 /* LoadingView.swift in Sources */,
