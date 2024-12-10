@@ -48,36 +48,17 @@ struct RoomView: View {
                     if let messages = viewModel.messages {
                         ForEach(messages, id: \.id) { message in
                             let isCurrentUser = viewModel.loginUserId == message.senderId
-                            HStack(alignment: .top,spacing: 4) {
+                            HStack(alignment: .top, spacing: 8) {
                                 if !isCurrentUser {
-                                    Group {
-                                        if let iconUrl = viewModel.iconUrlString {
-                                            CachedImage(url: iconUrl) { phase in
-                                                switch phase {
-                                                case .empty:
-                                                    ProgressView()
-                                                case .success(let image):
-                                                    Rectangle().aspectRatio(1, contentMode: .fill)
-                                                        .overlay {
-                                                            image
-                                                                .resizable()
-                                                                .scaledToFill()
-                                                        }
-                                                        .clipped()
-                                                case .failure(_):
-                                                    FontIcon.text(.materialIcon(code: .account_circle),
-                                                                  fontsize: iconSize)
-                                                @unknown default:
-                                                    EmptyView()
-                                                }
-                                            }
-                                        } else {
-                                            FontIcon.text(.materialIcon(code: .account_circle),
-                                                          fontsize: iconSize)
-                                        }
+                                    if let iconURL = viewModel.iconUrlString {
+                                        URLtoImage(
+                                            urlString: iconURL,
+                                            iconSize: iconSize
+                                        )
+                                        .clipShape(Circle())
+                                    } else {
+                                        FontIcon.text(.materialIcon(code: .account_circle),fontsize: iconSize)
                                     }
-                                    .clipShape(Circle())
-                                    .frame(width: iconSize, height: iconSize)
                                 }
                                 
                                 MessageCell(

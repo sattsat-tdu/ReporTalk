@@ -66,34 +66,12 @@ struct HomeView: View {
         VStack(spacing: 0) {
             HStack(spacing: 8) {
                 HStack(spacing: 8) {
-                    Group {
-                        if let photoURL = currentUser.photoURL {
-                            CachedImage(url: photoURL) { phase in
-                                switch phase {
-                                case .empty:
-                                    ProgressView()
-                                case .success(let image):
-                                    Rectangle().aspectRatio(1, contentMode: .fill)
-                                        .overlay {
-                                            image
-                                                .resizable()
-                                                .scaledToFill()
-                                        }
-                                        .clipped()
-                                case .failure(_):
-                                    Image(systemName: "person.circle")
-                                        .resizable()
-                                @unknown default:
-                                    EmptyView()
-                                }
-                            }
-                        } else {
-                            Image(systemName: "person.circle")
-                                .resizable()
-                        }
+                    if let photoURL = currentUser.photoURL {
+                        URLtoImage(urlString: photoURL)
+                            .clipShape(Circle())
+                    } else {
+                        FontIcon.text(.materialIcon(code: .account_circle),fontsize: 48)
                     }
-                    .frame(width: 48, height: 48)
-                    .clipShape(Circle())
                     
                     VStack(alignment: .leading) {
                         Text(currentUser.userName)

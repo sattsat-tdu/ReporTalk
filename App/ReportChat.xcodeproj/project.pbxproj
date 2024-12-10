@@ -29,13 +29,15 @@
 		007724522CEC524F004B94CF /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724512CEC524F004B94CF /* DeleteAccountView.swift */; };
 		007724542CEC5AAE004B94CF /* UserServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007724532CEC5A95004B94CF /* UserServiceManager.swift */; };
 		0082929C2D029A510052A876 /* MessageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0082929B2D029A510052A876 /* MessageListCell.swift */; };
+		008294CF2D071A1A0052A876 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 008294CE2D071A1A0052A876 /* Kingfisher */; };
 		008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346A32CB2E988001ADAD2 /* String+Extensions.swift */; };
 		008346CC2CB90ECF001ADAD2 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CB2CB90ECF001ADAD2 /* UserManager.swift */; };
 		008346CE2CB97E4E001ADAD2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */; };
-		008346D02CBA1155001ADAD2 /* CachedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346CF2CBA1155001ADAD2 /* CachedImage.swift */; };
 		008346D42CBC118C001ADAD2 /* AddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346D32CBC118C001ADAD2 /* AddFriendsView.swift */; };
 		008346D62CBC15C7001ADAD2 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346D52CBC15C6001ADAD2 /* UserCell.swift */; };
 		008346D82CBC1A7E001ADAD2 /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008346D72CBC1A7E001ADAD2 /* SearchTextField.swift */; };
+		008EE36C2D071E4000DA0CC6 /* URLtoImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008EE36B2D071E4000DA0CC6 /* URLtoImage.swift */; };
+		008EE36E2D072BDC00DA0CC6 /* FocusTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008EE36D2D072BDC00DA0CC6 /* FocusTextField.swift */; };
 		0091042B2CA313AB00F1AA54 /* ToggleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0091042A2CA313AB00F1AA54 /* ToggleCell.swift */; };
 		009104312CA3ABD200F1AA54 /* SafariCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104302CA3ABD200F1AA54 /* SafariCell.swift */; };
 		009104332CA3AF0A00F1AA54 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 009104322CA3AF0A00F1AA54 /* SafariWebView.swift */; };
@@ -132,10 +134,11 @@
 		008346A32CB2E988001ADAD2 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		008346CB2CB90ECF001ADAD2 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		008346CD2CB97E4E001ADAD2 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		008346CF2CBA1155001ADAD2 /* CachedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedImage.swift; sourceTree = "<group>"; };
 		008346D32CBC118C001ADAD2 /* AddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsView.swift; sourceTree = "<group>"; };
 		008346D52CBC15C6001ADAD2 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		008346D72CBC1A7E001ADAD2 /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		008EE36B2D071E4000DA0CC6 /* URLtoImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLtoImage.swift; sourceTree = "<group>"; };
+		008EE36D2D072BDC00DA0CC6 /* FocusTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTextField.swift; sourceTree = "<group>"; };
 		0091042A2CA313AB00F1AA54 /* ToggleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleCell.swift; sourceTree = "<group>"; };
 		009104302CA3ABD200F1AA54 /* SafariCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariCell.swift; sourceTree = "<group>"; };
 		009104322CA3AF0A00F1AA54 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
@@ -209,6 +212,7 @@
 				00F7BE4A2C835AF600E0CB5C /* FirebaseStorage in Frameworks */,
 				00F7BE462C835AF600E0CB5C /* FirebaseAuth in Frameworks */,
 				00F7BE482C835AF600E0CB5C /* FirebaseFirestore in Frameworks */,
+				008294CF2D071A1A0052A876 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,7 +490,6 @@
 				00EB78962C9BE58200BEEEAA /* MessageCell.swift */,
 				00EB78B82C9D562900BEEEAA /* AutoResizingTextEditor.swift */,
 				00D6F3032CAAFCC6008841E6 /* BackButtonView.swift */,
-				008346CF2CBA1155001ADAD2 /* CachedImage.swift */,
 				008346D52CBC15C6001ADAD2 /* UserCell.swift */,
 				0099943A2CBFA571008697EC /* RoundedRectButton.swift */,
 				007723492CDEF16E004B94CF /* SelectTagView.swift */,
@@ -495,6 +498,8 @@
 				007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */,
 				007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */,
 				0082929B2D029A510052A876 /* MessageListCell.swift */,
+				008EE36B2D071E4000DA0CC6 /* URLtoImage.swift */,
+				008EE36D2D072BDC00DA0CC6 /* FocusTextField.swift */,
 			);
 			path = ViewParts;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				00F7BE452C835AF600E0CB5C /* FirebaseAuth */,
 				00F7BE472C835AF600E0CB5C /* FirebaseFirestore */,
 				00F7BE492C835AF600E0CB5C /* FirebaseStorage */,
+				008294CE2D071A1A0052A876 /* Kingfisher */,
 			);
 			productName = ReportChat;
 			productReference = 006EB1902C7F804C00A63EAA /* ReportChat.app */;
@@ -584,6 +590,7 @@
 			packageReferences = (
 				00F7BE352C82216B00E0CB5C /* XCRemoteSwiftPackageReference "SwiftUIFontIcon" */,
 				00F7BE442C835AF600E0CB5C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				008294CD2D071A1A0052A876 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 006EB1912C7F804C00A63EAA /* Products */;
 			projectDirPath = "";
@@ -644,12 +651,12 @@
 				0091046C2CA67FD300F1AA54 /* UIApplication+Extension.swift in Sources */,
 				0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */,
 				005CBB5B2CF4CD3900F97B88 /* HandlenameSettingView.swift in Sources */,
+				008EE36C2D071E4000DA0CC6 /* URLtoImage.swift in Sources */,
 				00EB788E2C9B254E00BEEEAA /* RoomView.swift in Sources */,
 				00FA5C222CA2CB2000301A1B /* HiddenModifier.swift in Sources */,
 				009104762CA6C57C00F1AA54 /* OverlayModel.swift in Sources */,
 				009B0F342CBEACEB00D3D08A /* NotificationManager.swift in Sources */,
 				00F7BE122C80B63F00E0CB5C /* LoginView.swift in Sources */,
-				008346D02CBA1155001ADAD2 /* CachedImage.swift in Sources */,
 				007705F02CFCBB1800A61F66 /* ReportaDetailView.swift in Sources */,
 				00EB78B92C9D562900BEEEAA /* AutoResizingTextEditor.swift in Sources */,
 				00EB78972C9BE58200BEEEAA /* MessageCell.swift in Sources */,
@@ -667,6 +674,7 @@
 				00EB78992C9BE5FB00BEEEAA /* Date+Extensions.swift in Sources */,
 				00D6F2FA2CAAA923008841E6 /* WelcomeView.swift in Sources */,
 				0091043B2CA3DC4400F1AA54 /* SettingModel.swift in Sources */,
+				008EE36E2D072BDC00DA0CC6 /* FocusTextField.swift in Sources */,
 				00D6F3022CAAF925008841E6 /* WelcomeSwitchView.swift in Sources */,
 				008346D82CBC1A7E001ADAD2 /* SearchTextField.swift in Sources */,
 				0091046A2CA674F400F1AA54 /* LoadingView.swift in Sources */,
@@ -917,6 +925,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		008294CD2D071A1A0052A876 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.2;
+			};
+		};
 		00F7BE352C82216B00E0CB5C /* XCRemoteSwiftPackageReference "SwiftUIFontIcon" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/huybuidac/SwiftUIFontIcon";
@@ -936,6 +952,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		008294CE2D071A1A0052A876 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 008294CD2D071A1A0052A876 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		00F7BE362C82216C00E0CB5C /* SwiftUIFontIcon */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 00F7BE352C82216B00E0CB5C /* XCRemoteSwiftPackageReference "SwiftUIFontIcon" */;

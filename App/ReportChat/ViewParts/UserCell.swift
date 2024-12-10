@@ -14,28 +14,11 @@ struct UserCell: View {
     let user: UserResponse
     
     var body: some View {
-        HStack {
+        HStack(spacing: 16) {
+            
             if let photoURL = user.photoURL {
-                CachedImage(url: photoURL) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        Rectangle().aspectRatio(1, contentMode: .fill)
-                            .overlay {
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                            }
-                            .clipped()
-                    case .failure(_):
-                        FontIcon.text(.materialIcon(code: .account_circle),fontsize: 48)
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-                .frame(width: 48, height: 48)
-                .clipShape(Circle())
+                URLtoImage(urlString: photoURL)
+                    .clipShape(Circle())
             } else {
                 FontIcon.text(.materialIcon(code: .account_circle),fontsize: 48)
             }

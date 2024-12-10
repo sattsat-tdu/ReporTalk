@@ -20,22 +20,8 @@ struct AddFriendsView: View {
     
     var body: some View {
         VStack {
-            HStack(spacing: 16) {
-                // モーダルの場合は閉じるボタンを表示
-                if isModal {
-                    FontIcon.button(.materialIcon(code: .close), action: {
-                        dismiss()
-                    }, fontsize: 24)
-                    .padding(8)
-                    .background(.item)
-                    .clipShape(Circle())
-                }
-                
-                SearchTextField(placeholder: "ユーザーIDを検索",
-                                text: $viewModel.searchText)
-                .focused($isFocused)
-                .keyboardType(.alphabet)
-            }
+            searchBox
+                .padding([.top, .horizontal])
             
             if viewModel.searchText.isEmpty {
                 VStack {
@@ -56,20 +42,10 @@ struct AddFriendsView: View {
                         .padding(.bottom, 24)
 
                 } else {
-                    List(viewModel.searchResults, id: \.id) { user in
-                        Button(action: {
-                            self.selectedUser = user
-                        }, label: {
-                            UserCell(user: user)
-                        })
-                        .listRowInsets(EdgeInsets())
-                        .listRowBackground(Color.clear)
-                    }
-                    .listStyle(.plain)
+                    searchResultList
                 }
             }
         }
-        .padding()
         .background(.mainBackground)
         .onAppear {
             isModal = isPresented //モーダルかどうかの判定。即時適応不可だったのでAppearで
@@ -80,6 +56,47 @@ struct AddFriendsView: View {
         .interactiveDismissDisabled(!viewModel.searchText.isEmpty)
         .sheet(item: $selectedUser) { user in
             UserDetailView(user: user) // 選択されたユーザーを引数として渡す
+        }
+    }
+    
+    private var searchBox: some View {
+        HStack(spacing: 16) {
+            // モーダルの場合は閉じるボタンを表示
+            if isModal {
+                FontIcon.button(.materialIcon(code: .close), action: {
+                    dismiss()
+                }, fontsize: 28)
+                .padding(12)
+                .background(.item)
+                .clipShape(Circle())
+            }
+            
+            FocusedTextField(placeholder: "ユーザーIDを検索",
+                             text: $viewModel.searchText)
+            .frame(height: 48)
+            .keyboardType(.alphabet)
+        }
+    }
+    
+    private var searchResultList: some View {
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(viewModel.searchResults, id: \.id) { user in
+                    
+                    Button(action: {
+                        self.selectedUser = user
+                    }, label: {
+                        UserCell(user: user)
+                    })
+                    
+                    Rectangle()
+                        .frame(height: 2)
+                        .padding(.horizontal)
+                        .clipShape(Capsule())
+                        .foregroundStyle(.secondary.opacity(0.1))
+                }
+            }
+            .padding(12)
         }
     }
 }
