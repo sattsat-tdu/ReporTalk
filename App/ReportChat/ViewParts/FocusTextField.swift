@@ -16,6 +16,7 @@ struct FocusedTextField: UIViewRepresentable {
     func makeUIView(context: Context) -> UITextField {
         let textField = UITextField()
         textField.placeholder = placeholder
+        textField.keyboardType = .alphabet
         textField.borderStyle = .roundedRect
         textField.backgroundColor = .fieldBackground
         textField.returnKeyType = .search

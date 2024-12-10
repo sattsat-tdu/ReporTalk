@@ -26,10 +26,10 @@ struct WelcomeSwitchView: View {
                     .transition(.opacity)
             case .login:
                 LoginView()
-                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                    .transition(.opacity)
             case .register:
                 RegisterView()
-                    .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                    .transition(.opacity)
             }
         }
         .animation(.easeInOut, value: viewModel.welcomeRouter)

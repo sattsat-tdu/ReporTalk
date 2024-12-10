@@ -35,6 +35,7 @@ struct InputFormView: View {
                         .textInputAutocapitalization(.none)
                 } else {
                     TextField(self.placeholder, text: $text)
+                        .disableAutocorrection(true)
                         .textInputAutocapitalization(.never)
                 }
             }
