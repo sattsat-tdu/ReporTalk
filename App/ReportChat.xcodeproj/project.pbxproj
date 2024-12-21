@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		001912B72CF61F3700E06FE8 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001912B62CF61F3700E06FE8 /* TimelineView.swift */; };
+		001F56952D1693D700733F47 /* UDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F56942D1693D700733F47 /* UDManager.swift */; };
 		001F56992D16950D00733F47 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F56982D16950D00733F47 /* UserDefaultsKey.swift */; };
 		00325C4A2CF88AEF007ABCFA /* RoomsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C492CF88AEF007ABCFA /* RoomsListView.swift */; };
 		00325C4C2CF9884C007ABCFA /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C4B2CF98847007ABCFA /* Color+Extensions.swift */; };
@@ -109,6 +110,7 @@
 
 /* Begin PBXFileReference section */
 		001912B62CF61F3700E06FE8 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		001F56942D1693D700733F47 /* UDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDManager.swift; sourceTree = "<group>"; };
 		001F56982D16950D00733F47 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		00325C492CF88AEF007ABCFA /* RoomsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsListView.swift; sourceTree = "<group>"; };
 		00325C4B2CF98847007ABCFA /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 		009B0F322CBEABDA00D3D08A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				001F56942D1693D700733F47 /* UDManager.swift */,
 				007724532CEC5A95004B94CF /* UserServiceManager.swift */,
 				009994452CC73046008697EC /* RoomManager.swift */,
 				009994432CC64BAC008697EC /* FriendManager.swift */,
@@ -670,6 +673,7 @@
 				0096C64A2CAD05E100C6FD42 /* WelcomeSettingsView.swift in Sources */,
 				006EB1962C7F804C00A63EAA /* ContentView.swift in Sources */,
 				009994462CC7304C008697EC /* RoomManager.swift in Sources */,
+				001F56952D1693D700733F47 /* UDManager.swift in Sources */,
 				007705EE2CFCB6F300A61F66 /* ReportansBookView.swift in Sources */,
 				0077244F2CEC249D004B94CF /* ButtonCell.swift in Sources */,
 				009104742CA6C47000F1AA54 /* ModalView.swift in Sources */,
