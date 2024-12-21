@@ -11,6 +11,7 @@
 		001F56952D1693D700733F47 /* UDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F56942D1693D700733F47 /* UDManager.swift */; };
 		001F56992D16950D00733F47 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F56982D16950D00733F47 /* UserDefaultsKey.swift */; };
 		001F569B2D16991600733F47 /* NotificationSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F569A2D16991600733F47 /* NotificationSettingView.swift */; };
+		001F56C82D16C78C00733F47 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 001F56C72D16C78C00733F47 /* FirebaseMessaging */; };
 		00325C4A2CF88AEF007ABCFA /* RoomsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C492CF88AEF007ABCFA /* RoomsListView.swift */; };
 		00325C4C2CF9884C007ABCFA /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C4B2CF98847007ABCFA /* Color+Extensions.swift */; };
 		00325C842CF9D40D007ABCFA /* ReportaIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C832CF9D40D007ABCFA /* ReportaIcon.swift */; };
@@ -214,6 +215,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				001F56C82D16C78C00733F47 /* FirebaseMessaging in Frameworks */,
 				00F7BE372C82216C00E0CB5C /* SwiftUIFontIcon in Frameworks */,
 				00F7BE4A2C835AF600E0CB5C /* FirebaseStorage in Frameworks */,
 				00F7BE462C835AF600E0CB5C /* FirebaseAuth in Frameworks */,
@@ -566,6 +568,7 @@
 				00F7BE472C835AF600E0CB5C /* FirebaseFirestore */,
 				00F7BE492C835AF600E0CB5C /* FirebaseStorage */,
 				008294CE2D071A1A0052A876 /* Kingfisher */,
+				001F56C72D16C78C00733F47 /* FirebaseMessaging */,
 			);
 			productName = ReportChat;
 			productReference = 006EB1902C7F804C00A63EAA /* ReportChat.app */;
@@ -964,6 +967,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		001F56C72D16C78C00733F47 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00F7BE442C835AF600E0CB5C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		008294CE2D071A1A0052A876 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 008294CD2D071A1A0052A876 /* XCRemoteSwiftPackageReference "Kingfisher" */;

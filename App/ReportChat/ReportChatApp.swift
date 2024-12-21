@@ -9,6 +9,7 @@
 import SwiftUI
 import SwiftData
 import FirebaseCore
+import FirebaseMessaging
 
 //初期起動時に呼ばれる
 class AppDelegate:NSObject,UIApplicationDelegate{
