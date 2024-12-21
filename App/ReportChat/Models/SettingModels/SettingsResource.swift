@@ -20,7 +20,6 @@ let settingResource = SettingSection(
             icon: .notifications,
             title: "通知")
         ),
-        .section(notificationsSection),
         .section(designSection)
     ]
 )
@@ -63,22 +62,6 @@ let accountSection = SettingSection(
             destination: AnyView(DeleteAccountView()),
             icon: .delete,
             title: "アカウント削除")
-        )
-])
-
-let notificationsSection = SettingSection(
-    icon: .notifications,
-    title: "通知",
-    items: [
-        .toggleItem(ToggleItem(
-            key: SettingKeys.notice.rawValue,
-            title: "通知",
-            icon: .notifications_active,
-            description: "通知をOFFにすると、友達からの報告が気付きにくくなってしまいます")
-        ),
-        .navItem(NavItem(
-            destination: AnyView(Text("通知サウンド設定")),
-            title: "通知サウンド")
         )
 ])
 
