@@ -71,7 +71,7 @@ let notificationsSection = SettingSection(
     title: "通知",
     items: [
         .toggleItem(ToggleItem(
-            key: SettingKey.notice.rawValue,
+            key: SettingKeys.notice.rawValue,
             title: "通知",
             icon: .notifications_active,
             description: "通知をOFFにすると、友達からの報告が気付きにくくなってしまいます")
@@ -87,7 +87,7 @@ let designSection = SettingSection(
     title: "デザイン",
     items: [
         .pickerItem(PickerItem(
-            key: SettingKey.appearanceMode.rawValue,
+            key: SettingKeys.appearanceMode.rawValue,
             icon: .smartphone,
             title: "外観設定",
             options: [

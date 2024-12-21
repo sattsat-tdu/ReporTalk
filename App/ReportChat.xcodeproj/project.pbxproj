@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		001912B72CF61F3700E06FE8 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001912B62CF61F3700E06FE8 /* TimelineView.swift */; };
+		001F56992D16950D00733F47 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F56982D16950D00733F47 /* UserDefaultsKey.swift */; };
 		00325C4A2CF88AEF007ABCFA /* RoomsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C492CF88AEF007ABCFA /* RoomsListView.swift */; };
 		00325C4C2CF9884C007ABCFA /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C4B2CF98847007ABCFA /* Color+Extensions.swift */; };
 		00325C842CF9D40D007ABCFA /* ReportaIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C832CF9D40D007ABCFA /* ReportaIcon.swift */; };
@@ -108,6 +109,7 @@
 
 /* Begin PBXFileReference section */
 		001912B62CF61F3700E06FE8 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		001F56982D16950D00733F47 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
 		00325C492CF88AEF007ABCFA /* RoomsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsListView.swift; sourceTree = "<group>"; };
 		00325C4B2CF98847007ABCFA /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		00325C832CF9D40D007ABCFA /* ReportaIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportaIcon.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 		00EB78712C980E7B00BEEEAA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				001F56982D16950D00733F47 /* UserDefaultsKey.swift */,
 				0077244B2CEC1665004B94CF /* SettingModels */,
 				00EB78732C980EA500BEEEAA /* RoomResponse.swift */,
 				009B0F302CBEA8DC00D3D08A /* NotificationModel.swift */,
@@ -698,6 +701,7 @@
 				00EB78622C8B58F900BEEEAA /* View+Extensions.swift in Sources */,
 				00EB78742C980EA500BEEEAA /* RoomResponse.swift in Sources */,
 				00EB78BB2C9D694600BEEEAA /* ResignKeyboardOnDragGesture.swift in Sources */,
+				001F56992D16950D00733F47 /* UserDefaultsKey.swift in Sources */,
 				00EB78952C9B9E9600BEEEAA /* UIImage+Extensions.swift in Sources */,
 				009B0F2D2CBE0CFB00D3D08A /* UserDetailView.swift in Sources */,
 				009104412CA43C3100F1AA54 /* UserDefaultsManager.swift in Sources */,
