@@ -10,6 +10,7 @@
 		001912B72CF61F3700E06FE8 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001912B62CF61F3700E06FE8 /* TimelineView.swift */; };
 		001F56952D1693D700733F47 /* UDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F56942D1693D700733F47 /* UDManager.swift */; };
 		001F56992D16950D00733F47 /* UserDefaultsKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F56982D16950D00733F47 /* UserDefaultsKey.swift */; };
+		001F569B2D16991600733F47 /* NotificationSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F569A2D16991600733F47 /* NotificationSettingView.swift */; };
 		00325C4A2CF88AEF007ABCFA /* RoomsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C492CF88AEF007ABCFA /* RoomsListView.swift */; };
 		00325C4C2CF9884C007ABCFA /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C4B2CF98847007ABCFA /* Color+Extensions.swift */; };
 		00325C842CF9D40D007ABCFA /* ReportaIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00325C832CF9D40D007ABCFA /* ReportaIcon.swift */; };
@@ -112,6 +113,7 @@
 		001912B62CF61F3700E06FE8 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
 		001F56942D1693D700733F47 /* UDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UDManager.swift; sourceTree = "<group>"; };
 		001F56982D16950D00733F47 /* UserDefaultsKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKey.swift; sourceTree = "<group>"; };
+		001F569A2D16991600733F47 /* NotificationSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingView.swift; sourceTree = "<group>"; };
 		00325C492CF88AEF007ABCFA /* RoomsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsListView.swift; sourceTree = "<group>"; };
 		00325C4B2CF98847007ABCFA /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		00325C832CF9D40D007ABCFA /* ReportaIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportaIcon.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 			children = (
 				007724512CEC524F004B94CF /* DeleteAccountView.swift */,
 				005CBB5A2CF4CD3900F97B88 /* HandlenameSettingView.swift */,
+				001F569A2D16991600733F47 /* NotificationSettingView.swift */,
 			);
 			path = SettingViews;
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 				00EB78762C980EE500BEEEAA /* UserResponse.swift in Sources */,
 				008346A42CB2E988001ADAD2 /* String+Extensions.swift in Sources */,
 				0099944B2CC74FD4008697EC /* RoomCache.swift in Sources */,
+				001F569B2D16991600733F47 /* NotificationSettingView.swift in Sources */,
 				008346D42CBC118C001ADAD2 /* AddFriendsView.swift in Sources */,
 				00EB78702C980C5900BEEEAA /* RoomsView.swift in Sources */,
 				009104312CA3ABD200F1AA54 /* SafariCell.swift in Sources */,

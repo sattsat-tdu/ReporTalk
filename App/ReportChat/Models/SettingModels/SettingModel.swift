@@ -52,14 +52,14 @@ struct NavItem {
 
 struct ButtonItem {
     let icon: MaterialIconCode?
-    let color: Color
+    let color: Color?
     let title: String
     let description: String?
     let onClicked: () -> Void // 引数なしのクロージャー
     
     init(
         icon: MaterialIconCode? = nil,
-        color: Color,
+        color: Color? = nil,
         title: String,
         description: String? = nil,
         onClicked: @escaping () -> Void

@@ -9,17 +9,17 @@
 import SwiftUIFontIcon
 import SwiftUI
 
-enum SettingKey: String {
-    case notice //通知ON・OFF
-    case appearanceMode //外観モード
-}
-
 //---- 設定項目の構築 -----
 let settingResource = SettingSection(
     icon: .settings,
     title: "設定",
     items: [
         .section(accountSection),
+        .navItem(NavItem(
+            destination: AnyView(NotificationSettingView()),
+            icon: .notifications,
+            title: "通知")
+        ),
         .section(notificationsSection),
         .section(designSection)
     ]
