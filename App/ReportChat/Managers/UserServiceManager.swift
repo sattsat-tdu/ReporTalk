@@ -6,17 +6,11 @@
 //  
 //
 
-//
-//  UserServiceManager.swift
-//  ReportChat
-//
-//  Created by SATTSAT on 2024/11/19
-//
-
 import Foundation
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseFirestore
+import FirebaseMessaging
 
 class UserServiceManager: ObservableObject {
     // シングルトン
@@ -132,6 +126,18 @@ class UserServiceManager: ObservableObject {
                 return .failure(.networkError)
             }
             return .failure(.deleteFailed)
+        }
+    }
+    
+    //ユーザーに通知を送信するためのFCMを設定
+    func configureFCM() async -> String? {
+        do {
+            let token = try await Messaging.messaging().token()
+            print("[DEBUG] FCM Token: \(token)")
+            return token
+        } catch {
+            print("[DEBUG] FCMを取得できませんでした: \(error)")
+            return nil
         }
     }
     
