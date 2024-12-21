@@ -45,6 +45,7 @@ struct UserCell: View {
         handle: "user1234",
         userName: "Preview User",
         email: "preview@example.com",
+        fcmTokens: [],
         statusMessage: "私はニンジンの妖精と呼ばれています。",
         friends: ["Friend 1", "Friend 2"],
         photoURL: nil,

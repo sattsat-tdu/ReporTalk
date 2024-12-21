@@ -61,7 +61,11 @@ class FirebaseManager: ObservableObject {
     
     //ログアウト処理
     func handleLogout() async {
+        guard let userId = auth.currentUser?.uid else {
+            return
+        }
         do {
+            await UserServiceManager.shared.removeFCMToken(for: userId)
             try self.auth.signOut()
             appManager.stopListening()
             print("ログアウトに成功しました！")

@@ -60,10 +60,16 @@ struct NotificationSettingView: View {
         .navigationTitle("通知設定")
     }
     
+    //通知認証状態を取得
     private func checkNotificationState() {
         Task {
             let authState = await notificationManager.getNotificationAuth()
             isAuthorized = authState != .denied
+            if authState == .authorized {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
         }
     }
     

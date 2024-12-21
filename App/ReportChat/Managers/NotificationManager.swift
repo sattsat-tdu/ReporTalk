@@ -25,6 +25,28 @@ class NotificationManager: ObservableObject {
         self.fetchNotifications()
     }
     
+    //通知を送る処理
+    func sendNotification(title: String, body: String) {
+        guard let url = URL(string: "https://fcm.googleapis.com/v1/projects/YOUR_PROJECT_ID/messages:send") else {
+            print("Invalid URL")
+            return
+        }
+        
+        guard let fcmToken = UDManager.shared.get(forKey: AppStateKeys.fcmToken) as String? else {
+            return
+        }
+        
+        let payload: [String: Any] = [
+            "message": [
+                "token": fcmToken,
+                "notification": [
+                    "title": title,
+                    "body": body
+                ]
+            ]
+        ]
+    }
+    
     //ユーザー通知許可状態を取得、初回表示時のみ表示
     func checkNotificationAuth(){
         Task {
@@ -39,7 +61,14 @@ class NotificationManager: ObservableObject {
                     alignment: .center,
                     isCancelable: false,
                     onTapped: {
-                        self.center.requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
+                        self.center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                            if granted {
+                                print("[DEBUG] 通知リクエストが許可されました")
+                                DispatchQueue.main.async {
+                                    UIApplication.shared.registerForRemoteNotifications()
+                                }
+                            }
+                        }
                     }
                 ))
             }
@@ -137,7 +166,6 @@ class NotificationManager: ObservableObject {
     
     //フレンドリクエストを送っているか確認
     func checkSentFriendRequest(from senderId: String, to receiverId: String) async -> Bool {
-        
         do {
             let snapshot = try await firestore
                 .collection("notifications")

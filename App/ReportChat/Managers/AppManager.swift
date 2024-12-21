@@ -38,7 +38,7 @@ class AppManager: ObservableObject {
                     do {
                         self?.currentUser = try snapshot?.data(as: UserResponse.self)
                     } catch {
-                        print("ユーザーデータのデコードに失敗(AppManager): \(error.localizedDescription)")
+                        fatalError("ユーザーデータのデコードに失敗(AppManager): \(error.localizedDescription)")
                     }
                 }
             }

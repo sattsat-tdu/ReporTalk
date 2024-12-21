@@ -11,6 +11,55 @@ import SwiftUI
 import Combine
 import SwiftUIFontIcon
 
+enum WelcomeStep: Int, CaseIterable {
+    case userIdSetting
+    case userNameSetting
+    case iconSetting
+    case finishSetting
+    
+    var nextStep: WelcomeStep? {
+        if let nextStep = WelcomeStep(rawValue: self.rawValue + 1) {
+            return nextStep
+        } else {
+            return nil
+        }
+    }
+    
+    var previousStep: WelcomeStep? {
+        if let previousStep = WelcomeStep(rawValue: self.rawValue - 1) {
+            return previousStep
+        } else {
+            return nil
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .userIdSetting:
+            return "ユーザーIDを設定しましょう！"
+        case .userNameSetting:
+            return "ニックネームを教えてください！"
+        case .iconSetting:
+            return "アイコンを設定しましょう！"
+        case .finishSetting:
+            return "それでは、始めましょう！"
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .userIdSetting:
+            return "ユーザー検索・追加に使用します。\n（いつでも変更可能です）"
+        case .userNameSetting:
+            return "ここで設定した名前は公開されます。"
+        case .iconSetting:
+            return "友達があなたを見つけやすくなります。"
+        case .finishSetting:
+            return "設定項目は、後から変更できます。 "
+        }
+    }
+}
+
 @MainActor
 final class WelcomeViewModel: ObservableObject {
     @Published var welcomeRouter: WelcomeRouter = .welcome
@@ -50,6 +99,7 @@ final class WelcomeViewModel: ObservableObject {
             switch loginResult {
             case .success(let response):
                 print(response.user)
+                await UserServiceManager.shared.addFCMToken(for: response.user.uid)
                 router.selectedRoute = .tab
             case .failure(let loginError):
                 FirebaseError.shared.showErrorToast(loginError)
@@ -63,7 +113,8 @@ final class WelcomeViewModel: ObservableObject {
             let registerResult = await FirebaseManager.shared.register(id: self.id, password: self.password)
             switch registerResult {
             case .success(let response):
-                self.userId = response.user.uid
+//                self.userId = response.user.uid
+                await UserServiceManager.shared.addFCMToken(for: response.user.uid)
                 UIApplication.hideLoading()
             case .failure(let registerError):
                 UIApplication.hideLoading()
@@ -159,11 +210,13 @@ final class WelcomeViewModel: ObservableObject {
                 print("Error:addUserToFireStore(WelcomeViewModel)")
                 return
             }
+            
             let imageUrl = await self.uploadImage(uid: authUser.uid) // 画像アップロード
             let userData = UserResponse(
                 handle: self.handle,
                 userName: self.userName,
                 email: authUser.email ?? "ErrorEmail",
+                fcmTokens: [],
                 statusMessage: "",
                 friends: [],
                 photoURL: imageUrl, // 画像のURLがある場合のみ追加

@@ -129,15 +129,35 @@ class UserServiceManager: ObservableObject {
         }
     }
     
-    //ユーザーに通知を送信するためのFCMを設定
-    func configureFCM() async -> String? {
+    //FCMTokenを追加
+    func addFCMToken(for userId: String) async {
         do {
-            let token = try await Messaging.messaging().token()
-            print("[DEBUG] FCM Token: \(token)")
-            return token
+            guard let fcmToken = UDManager.shared.get(forKey: AppStateKeys.fcmToken) as String? else {
+                return
+            }
+            print("[DEBUG] FCM Token: \(fcmToken)")
+            try await firestore.collection("users").document(userId).updateData([
+                "fcmTokens": FieldValue.arrayUnion([fcmToken]) // 配列に追加
+            ])
+            print("[DEBUG] FCMトークンを配列として追加しました")
         } catch {
-            print("[DEBUG] FCMを取得できませんでした: \(error)")
-            return nil
+            print("[DEBUG] FCMトークンの取得または保存に失敗しました: \(error)")
+        }
+    }
+    
+    //ログアウト時にFCM Tokenを削除
+    func removeFCMToken(for userId: String) async {
+        do {
+            guard let fcmToken = UDManager.shared.get(forKey: AppStateKeys.fcmToken) as String? else {
+                return
+            }
+            
+            try await firestore.collection("users").document(userId).updateData([
+                "fcmTokens": FieldValue.arrayRemove([fcmToken]) // 配列から削除
+            ])
+            print("[DEBUG] FCMトークンを配列から削除しました")
+        } catch {
+            print("[DEBUG] FCMトークンの削除に失敗しました: \(error)")
         }
     }
     

@@ -19,5 +19,5 @@ enum SettingKeys: String, UserDefaultsKey {
 }
 
 enum AppStateKeys: String, UserDefaultsKey {
-    case test
+    case fcmToken
 }

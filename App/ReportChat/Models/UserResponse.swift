@@ -14,7 +14,7 @@ struct UserResponse: Identifiable, Decodable {
     let handle: String
     let userName: String
     let email: String
-    let fcmToken: String
+    let fcmTokens: [String]
     let statusMessage: String
     let friends: [String]
     let photoURL: String?
@@ -26,7 +26,7 @@ struct UserResponse: Identifiable, Decodable {
         case handle
         case userName = "displayName"
         case email
-        case fcmToken
+        case fcmTokens
         case statusMessage
         case friends
         case photoURL
@@ -39,7 +39,7 @@ struct UserResponse: Identifiable, Decodable {
             "handle": handle,
             "displayName": userName,
             "email": email,
-            "fcmToken": fcmToken,
+            "fcmTokens": fcmTokens,
             "statusMessage": statusMessage,
             "friends": friends,
             "rooms": rooms,
