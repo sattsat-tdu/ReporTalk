@@ -10,15 +10,21 @@ import SwiftUI
 import SwiftData
 import FirebaseCore
 
+//初期起動時に呼ばれる
+class AppDelegate:NSObject,UIApplicationDelegate{
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        FirebaseApp.configure() //Firebase 初期化
+        return true
+    }
+}
+
 @main
 struct ReportChatApp: App {
     
     @StateObject private var router = Router()
     @StateObject private var appManager = AppManager.shared
     
-    init() {
-        FirebaseApp.configure() //Firebase 初期化
-    }
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     
     //SwiftData使用の宣言
     var sharedModelContainer: ModelContainer = {
