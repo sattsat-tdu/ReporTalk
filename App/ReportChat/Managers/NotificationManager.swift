@@ -15,12 +15,41 @@ class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
     private let appManager = AppManager.shared
     
+    private let center = UNUserNotificationCenter.current()
+    
     @Published var notifications: [NotificationModel]? = nil
     
     private let firestore = Firestore.firestore()
     
     private init() {
         self.fetchNotifications()
+    }
+    
+    //ユーザー通知許可状態を取得、初回表示時のみ表示
+    func checkNotificationAuth(){
+        Task {
+            let authState = await getNotificationAuth()
+            guard authState == .notDetermined else { return }
+            
+            await MainActor.run {
+                UIApplication.showModal(modalItem: ModalItem(
+                    type: .info,
+                    title: "通知を許可して友達からの報告を受け取ろう",
+                    description: "通知を許可することで、友達からの感情報告にいち早く気づくことができます",
+                    alignment: .center,
+                    isCancelable: false,
+                    onTapped: {
+                        self.center.requestAuthorization(options: [.alert, .sound, .badge]) { _, _ in }
+                    }
+                ))
+            }
+        }
+    }
+    
+    //ユーザーの通知許可状況を確認
+    func getNotificationAuth() async -> UNAuthorizationStatus{
+        let settings = await center.notificationSettings()
+        return settings.authorizationStatus
     }
     
     private func fetchNotifications() {
