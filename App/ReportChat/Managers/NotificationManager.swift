@@ -9,6 +9,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
+import JWTKit
 
 @MainActor
 class NotificationManager: ObservableObject {
@@ -26,13 +27,13 @@ class NotificationManager: ObservableObject {
     }
     
     //通知を送る処理
-    func sendNotification(title: String, body: String) {
-        guard let url = URL(string: "https://fcm.googleapis.com/v1/projects/YOUR_PROJECT_ID/messages:send") else {
-            print("Invalid URL")
+    func sendNotification(fcmToken: String, title: String, body: String) {
+        guard let projectId = ProcessInfo.processInfo.environment["PROJECT_ID"] else {
+            print("[ERROR] ProjectIdが取得できません")
             return
         }
-        
-        guard let fcmToken = UDManager.shared.get(forKey: AppStateKeys.fcmToken) as String? else {
+        guard let url = URL(string: "https://fcm.googleapis.com/v1/projects/\(projectId)/messages:send") else {
+            print("Invalid URL")
             return
         }
         
@@ -42,9 +43,132 @@ class NotificationManager: ObservableObject {
                 "notification": [
                     "title": title,
                     "body": body
+                ],
+                "apns": [
+                    "payload": [
+                        "aps": [
+                            "alert": [
+                                "title": title,
+                                "body": body
+                            ],
+                            "sound": "default"
+                        ]
+                    ]
                 ]
             ]
         ]
+        
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: payload) else {
+            print("Failed to create JSON data")
+            return
+        }
+        
+        Task {
+            let tokenResponse = await generateAccessToken()
+            switch tokenResponse {
+            case .success(let accessToken):
+                var request = URLRequest(url: url)
+                request.httpMethod = "POST"
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+                request.httpBody = jsonData
+                
+                do {
+                    let (responseData, response) = try await URLSession.shared.data(for: request)
+                    guard let httpResponse = response as? HTTPURLResponse else {
+                        print("Failed to cast response as HTTPURLResponse")
+                        return
+                    }
+                    
+                    if httpResponse.statusCode == 200 {
+                        print("[DEBUG] 通知の送信に成功しました")
+                    } else {
+                        let message = String(data: responseData, encoding: .utf8) ?? "Unknown error"
+                        print("[Error] 通知の送信に失敗しました。 Status code: \(httpResponse.statusCode), Message: \(message)")
+                    }
+                } catch {
+                    print("[Error] 通知の送信に失敗しました。: \(error.localizedDescription)")
+                }
+            case .failure(let accessTokenError):
+                print("[Error] アクセストークンの生成に失敗しました: \(accessTokenError)")
+            }
+        }
+    }
+    
+    private func generateAccessToken() async -> Result<String, AccessTokenError> {
+        
+        let privateKeyRaw = ProcessInfo.processInfo.environment["PRIVATE_KEY"] ?? ""
+        let privateKey = privateKeyRaw.replacingOccurrences(of: "\\n", with: "\n")
+        let clientEmail = ProcessInfo.processInfo.environment["CLIENT_EMAIL"] ?? ""
+        
+        guard !privateKey.isEmpty else { return .failure(.missingPrivateKey) }
+        guard !clientEmail.isEmpty else { return .failure(.invalidClientEmail) }
+        
+        let payload = StandardPayload(
+            iss: clientEmail,
+            scope: "https://www.googleapis.com/auth/firebase.messaging",
+            aud: AudienceClaim(value: "https://oauth2.googleapis.com/token"),
+            exp: ExpirationClaim(value: Date().addingTimeInterval(3600)),   // 1時間後まで有効
+            iat: IssuedAtClaim(value: Date())
+        )
+        
+        let keys = JWTKeyCollection()
+        
+        //秘密鍵の読み取り
+        do {
+            let key = try Insecure.RSA.PrivateKey(pem: privateKey)
+            await keys.add(rsa: key, digestAlgorithm: .sha256)
+        } catch {
+            return .failure(.rsaKeyConversionError)
+        }
+        
+        let jwt: String
+        do {
+            jwt = try await keys.sign(payload)
+        } catch {
+            return .failure(.signingFailed)
+        }
+        
+        guard let url = URL(string: "https://oauth2.googleapis.com/token") else {
+            return .failure(.invalidTokenUrl)
+        }
+        
+        // URL Request
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        let body = "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=\(jwt)"
+        urlRequest.httpBody = body.data(using: .utf8)
+        
+        //API通信
+        do {
+            let (data, response) = try await URLSession.shared.data(for: urlRequest)
+            guard let httpURLResponse = response as? HTTPURLResponse else {
+                preconditionFailure()
+            }
+            
+            switch httpURLResponse.statusCode {
+            case 200:
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                    if let token = json?["access_token"] as? String {
+                        return .success(token)
+                    } else {
+                        return .failure(.decodingError)
+                    }
+                } catch {
+                    return .failure(.parseError)
+                }
+            default:
+                let message = String(data: data, encoding: .utf8) ?? "Unknown error"
+                return .failure(.responseError(code: httpURLResponse.statusCode, message: message))
+            }
+            
+        } catch let error as NSError where error.domain == NSURLErrorDomain {
+            return .failure(.networkError)
+        } catch {
+            return .failure(.unknownError)
+        }
     }
     
     //ユーザー通知許可状態を取得、初回表示時のみ表示
@@ -184,4 +308,30 @@ class NotificationManager: ObservableObject {
             return false
         }
     }
+}
+
+struct StandardPayload: JWTPayload {
+    let iss: String        // 発行者
+    let scope: String      // スコープ (カスタム)
+    let aud: AudienceClaim // トークンの対象者
+    let exp: ExpirationClaim // 有効期限
+    let iat: IssuedAtClaim   // 発行日時
+
+    func verify(using key: some JWTKit.JWTAlgorithm) throws {
+        try exp.verifyNotExpired() // 有効期限の確認
+        try aud.verifyIntendedAudience(includes: "https://oauth2.googleapis.com/token")
+    }
+}
+
+enum AccessTokenError: Error {
+    case rsaKeyConversionError
+    case missingPrivateKey
+    case invalidClientEmail
+    case signingFailed
+    case invalidTokenUrl
+    case decodingError
+    case parseError
+    case responseError(code: Int, message: String)
+    case networkError
+    case unknownError
 }
