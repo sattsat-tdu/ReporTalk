@@ -130,14 +130,17 @@ class UserServiceManager: ObservableObject {
     }
     
     //FCMTokenを追加
-    func addFCMToken(for userId: String) async {
+    func addFCMToken(token: String) async {
         do {
-            guard let fcmToken = UDManager.shared.get(forKey: AppStateKeys.fcmToken) as String? else {
+            guard let userId = auth.currentUser?.uid else {
                 return
             }
-            print("[DEBUG] FCM Token: \(fcmToken)")
+//            
+//            guard let fcmToken = UDManager.shared.get(forKey: AppStateKeys.fcmToken) as String? else {
+//                return
+//            }
             try await firestore.collection("users").document(userId).updateData([
-                "fcmTokens": FieldValue.arrayUnion([fcmToken]) // 配列に追加
+                "fcmTokens": FieldValue.arrayUnion([token]) // 配列に追加
             ])
             print("[DEBUG] FCMトークンを配列として追加しました")
         } catch {

@@ -53,7 +53,9 @@ struct NotificationSettingView: View {
                 checkNotificationState()
             }
         }
-        .onAppear(perform: checkNotificationState)
+        .onAppear {
+            checkNotificationState(registerForNotifications: false)
+        }
         .scrollContentBackground(.hidden)
         .background(.mainBackground)
         .listRowSpacing(10)
@@ -61,11 +63,12 @@ struct NotificationSettingView: View {
     }
     
     //通知認証状態を取得
-    private func checkNotificationState() {
+    private func checkNotificationState(registerForNotifications: Bool = true) {
         Task {
             let authState = await notificationManager.getNotificationAuth()
             isAuthorized = authState != .denied
-            if authState == .authorized {
+            // 通知が許可されており、かつ登録処理を許可した場合のみ通知登録
+            if authState == .authorized && registerForNotifications {
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }

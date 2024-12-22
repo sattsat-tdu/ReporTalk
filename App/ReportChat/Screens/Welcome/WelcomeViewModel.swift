@@ -99,7 +99,9 @@ final class WelcomeViewModel: ObservableObject {
             switch loginResult {
             case .success(let response):
                 print(response.user)
-                await UserServiceManager.shared.addFCMToken(for: response.user.uid)
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
                 router.selectedRoute = .tab
             case .failure(let loginError):
                 FirebaseError.shared.showErrorToast(loginError)
@@ -112,9 +114,7 @@ final class WelcomeViewModel: ObservableObject {
         Task {
             let registerResult = await FirebaseManager.shared.register(id: self.id, password: self.password)
             switch registerResult {
-            case .success(let response):
-//                self.userId = response.user.uid
-                await UserServiceManager.shared.addFCMToken(for: response.user.uid)
+            case .success(_):
                 UIApplication.hideLoading()
             case .failure(let registerError):
                 UIApplication.hideLoading()
@@ -230,6 +230,7 @@ final class WelcomeViewModel: ObservableObject {
                 DispatchQueue.main.async {
                     AppManager.shared.listenToUserUpdates()
                     UIApplication.showToast(type: .success, message: "登録が完了しました！")
+                    UIApplication.shared.registerForRemoteNotifications()
                     UIApplication.hideLoading()
                     self.router.switchRootView(to: .tab) // UI更新はメインスレッドで実行
                 }

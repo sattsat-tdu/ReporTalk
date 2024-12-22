@@ -31,7 +31,10 @@ class AppDelegate:NSObject,UIApplicationDelegate, MessagingDelegate{
                 print("[DEBUG] FCM Tokenの取得に失敗: \(error)")
             } else if let token = token {
                 UDManager.shared.set(token, forKey: AppStateKeys.fcmToken)
-                print("FCM Tokenの取得に成功: \(token)")
+                Task {  //ユーザーが許可したタイミングで追加
+                    await UserServiceManager.shared.addFCMToken(token: token)
+                    print("[DEBUG] FCM Tokenの取得に成功: \(token)")
+                }
             }
         }
     }
