@@ -4,6 +4,15 @@
 <dict>
 	<key>FirebaseAppDelegateProxyEnabled</key>
 	<false/>
+	<key>Keys</key>
+	<dict>
+		<key>PROJECT_ID</key>
+		<string>${PROJECT_ID}</string>
+		<key>CLIENT_EMAIL</key>
+		<string>${CLIENT_EMAIL}</string>
+		<key>PRIVATE_KEY</key>
+		<string>${PRIVATE_KEY}</string>
+	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
