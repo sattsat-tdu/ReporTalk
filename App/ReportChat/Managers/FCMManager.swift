@@ -25,9 +25,6 @@ struct StandardPayload: JWTPayload {
 
 final class FCMManager {
     
-    deinit {
-        print("解放されました")
-    }
     //通知を送る処理
     func sendNotification(fcmToken: String, title: String, body: String, imageUrl: String?) {
         
@@ -58,9 +55,9 @@ final class FCMManager {
                             ],
                             "sound": "default",
                             "badge": 1,
-                            "mutable-content": 1 // リッチ通知を有効化
+                            "mutable-content": 1
                         ],
-                        "url": "https://firebasestorage.googleapis.com/v0/b/report-chat-c8514.appspot.com/o/userIcons%2F1v55bKEh3UaaCagnMBbIZTGIFnf1.jpg?alt=media&token=add4a83a-95bc-4efe-823a-5659bdf1671f"// 画像URL（カスタムキー）
+                        "image_url": "https://firebasestorage.googleapis.com/v0/b/report-chat-c8514.appspot.com/o/Reportans%2Fanger.png?alt=media&token=3d797232-57fc-4a82-a3d5-e0cdc1fb5699"
                     ],
                     "headers": [
                         "apns-priority": "10",
@@ -69,7 +66,7 @@ final class FCMManager {
                 ],
                 "android": [
                     "notification": [
-                        "sound": "default"
+                        "sound": "default",
                     ]
                 ]
             ]
