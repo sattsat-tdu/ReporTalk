@@ -23,6 +23,7 @@
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
 		0072525D2D1746830092E571 /* JWTKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0072525C2D1746830092E571 /* JWTKit */; };
 		007252612D18E7A90092E571 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 007252602D18E7A90092E571 /* Config.xcconfig */; };
+		007252632D193A930092E571 /* FCMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007252622D193A8D0092E571 /* FCMManager.swift */; };
 		007705EE2CFCB6F300A61F66 /* ReportansBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */; };
 		007705F02CFCBB1800A61F66 /* ReportaDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */; };
 		0077234A2CDEF16E004B94CF /* SelectTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007723492CDEF16E004B94CF /* SelectTagView.swift */; };
@@ -129,6 +130,7 @@
 		006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0072525A2D172D0B0092E571 /* ReportChat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReportChat.entitlements; sourceTree = "<group>"; };
 		007252602D18E7A90092E571 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		007252622D193A8D0092E571 /* FCMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMManager.swift; sourceTree = "<group>"; };
 		007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportansBookView.swift; sourceTree = "<group>"; };
 		007705EF2CFCBB1800A61F66 /* ReportaDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportaDetailView.swift; sourceTree = "<group>"; };
 		007705F12CFCBCD000A61F66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 		009B0F322CBEABDA00D3D08A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				007252622D193A8D0092E571 /* FCMManager.swift */,
 				001F56942D1693D700733F47 /* UDManager.swift */,
 				007724532CEC5A95004B94CF /* UserServiceManager.swift */,
 				009994452CC73046008697EC /* RoomManager.swift */,
@@ -663,6 +666,7 @@
 				00EB78902C9B29DE00BEEEAA /* MessageResponse.swift in Sources */,
 				00EB788B2C9ABBD600BEEEAA /* IconImageView.swift in Sources */,
 				00D6F2FE2CAAE541008841E6 /* RegisterView.swift in Sources */,
+				007252632D193A930092E571 /* FCMManager.swift in Sources */,
 				0077242F2CE5AC79004B94CF /* ReporTagMessage.swift in Sources */,
 				00EB78822C987BC100BEEEAA /* RoomsViewModel.swift in Sources */,
 				00FD37912CF18C540078667D /* EditUserProfileView.swift in Sources */,

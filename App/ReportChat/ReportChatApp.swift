@@ -21,8 +21,6 @@ class AppDelegate:NSObject,UIApplicationDelegate, MessagingDelegate{
         return true
     }
     
-    
-    
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // APNsトークンをFirebaseに設定
         Messaging.messaging().apnsToken = deviceToken
@@ -42,6 +40,8 @@ class AppDelegate:NSObject,UIApplicationDelegate, MessagingDelegate{
 
 // MARK: - AppDelegate Push Notification
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    //
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let messageID = userInfo["gcm.message_id"] {
             print("MessageID: \(messageID)")
@@ -52,7 +52,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     // アプリを開いている時にもPush通知を受信する処理
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound])
+        completionHandler([.banner, .sound, .badge])
     }
 }
 
