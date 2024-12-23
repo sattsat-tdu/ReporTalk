@@ -17,10 +17,10 @@ struct NotificationSettingView: View {
     var body: some View {
         List {
             Group {
-                if isAuthorized {
+                if isAuthorized {   //Apple設定の通知を許可していた場合
                     ToggleCell(
                         toggleItem: ToggleItem(
-                            key: SettingKeys.notice.rawValue,
+                            key: SettingKeys.notice,
                             title: "通知",
                             icon: .notifications_active,
                             description: "通知をOFFにすると、友達からの報告が気付きにくくなってしまいます"

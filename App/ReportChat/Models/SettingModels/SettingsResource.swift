@@ -70,7 +70,7 @@ let designSection = SettingSection(
     title: "デザイン",
     items: [
         .pickerItem(PickerItem(
-            key: SettingKeys.appearanceMode.rawValue,
+            key: SettingKeys.appearanceMode,
             icon: .smartphone,
             title: "外観設定",
             options: [
