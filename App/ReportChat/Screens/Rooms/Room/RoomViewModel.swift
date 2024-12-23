@@ -21,6 +21,7 @@ final class RoomViewModel: ObservableObject {
     var room: RoomResponse
     private let firestore = Firestore.firestore()
     private let appManager = AppManager.shared
+    private var otherUsers: [UserResponse] = []
     var loginUserId: String {
         return  (appManager.currentUser?.id)!
     }
@@ -75,7 +76,7 @@ final class RoomViewModel: ObservableObject {
     func fetchRoomInfo() {
         Task {
             guard let partner = await fetchPartner() else { return }
-            
+            otherUsers.append(partner)
             //ルームアイコンの取得
             let roomIconUrl = room.roomIcon ?? partner.photoURL
             self.iconUrlString = roomIconUrl
@@ -235,6 +236,7 @@ final class RoomViewModel: ObservableObject {
     
     //ルームのTimestampを更新してからメッセージを送る処理
     func handleSend() {
+        let fcmManager = FCMManager()
         let message = self.messageText
         let reporTag = self.selectedReporTag
         if message == "" {
@@ -269,6 +271,29 @@ final class RoomViewModel: ObservableObject {
             switch updateResult {
             case .success:
                 print("ルームの全ての更新に成功しました")
+                //通知処理、対象ユーザーに通知を送信
+                guard let title = appManager.currentUser?.userName else {
+                    print("ログインユーザー名の取得に失敗")
+                    return
+                }
+                let imageUrl = appManager.currentUser?.photoURL
+                let body: String
+                if let tagName = reporTag?.tagName {
+                    body = "【\(tagName)】\n\(message)"
+                } else {
+                    body = message
+                }
+                for user in otherUsers {
+                    for token in user.fcmTokens {
+                        fcmManager.sendNotification(
+                            fcmToken: token,
+                            title: title,
+                            body: body,
+                            imageUrl: imageUrl
+                        )
+                    }
+                }
+                
             case .failure(let error):
                 print(error.rawValue)
             }
