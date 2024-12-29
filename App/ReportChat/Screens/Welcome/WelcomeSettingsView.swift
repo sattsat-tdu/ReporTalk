@@ -11,55 +11,6 @@ import SwiftUIFontIcon
 
 struct WelcomeSettingsView: View {
     
-    private enum WelcomeStep: Int, CaseIterable {
-        case userIdSetting
-        case userNameSetting
-        case iconSetting
-        case finishSetting
-        
-        var nextStep: WelcomeStep? {
-            if let nextStep = WelcomeStep(rawValue: self.rawValue + 1) {
-                return nextStep
-            } else {
-                return nil
-            }
-        }
-        
-        var previousStep: WelcomeStep? {
-            if let previousStep = WelcomeStep(rawValue: self.rawValue - 1) {
-                return previousStep
-            } else {
-                return nil
-            }
-        }
-        
-        var title: String {
-            switch self {
-            case .userIdSetting:
-                return "ユーザーIDを設定しましょう！"
-            case .userNameSetting:
-                return "ニックネームを教えてください！"
-            case .iconSetting:
-                return "アイコンを設定しましょう！"
-            case .finishSetting:
-                return "それでは、始めましょう！"
-            }
-        }
-        
-        var description: String {
-            switch self {
-            case .userIdSetting:
-                return "ユーザー検索・追加に使用します。\n（いつでも変更可能です）"
-            case .userNameSetting:
-                return "ここで設定した名前は公開されます。"
-            case .iconSetting:
-                return "友達があなたを見つけやすくなります。"
-            case .finishSetting:
-                return "設定項目は、後から変更できます。 "
-            }
-        }
-    }
-    
     let totalSteps = Double(WelcomeStep.allCases.count - 1)
     @EnvironmentObject var viewModel: WelcomeViewModel
     @State private var welcomeStep: WelcomeStep = .userIdSetting

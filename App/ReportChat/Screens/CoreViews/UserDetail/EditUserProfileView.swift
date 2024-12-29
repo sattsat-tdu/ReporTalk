@@ -288,6 +288,7 @@ struct EditUserProfileView: View {
                     handle: self.handle,
                     userName: self.username,
                     email: user.email,
+                    fcmTokens: user.fcmTokens,
                     statusMessage: self.statusMessage,
                     friends: user.friends,
                     photoURL: nil,

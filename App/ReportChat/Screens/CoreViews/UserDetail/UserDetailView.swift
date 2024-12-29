@@ -186,6 +186,7 @@ struct UserDetailView: View {
         handle: "user1234",
         userName: "Preview User",
         email: "preview@example.com",
+        fcmTokens: [],
         statusMessage: "こんにちは、私の投稿のほぼ10割が悲報です。",
         friends: ["Friend 1", "Friend 2"],
         photoURL: "https://picsum.photos/300/200",

@@ -52,14 +52,14 @@ struct NavItem {
 
 struct ButtonItem {
     let icon: MaterialIconCode?
-    let color: Color
+    let color: Color?
     let title: String
     let description: String?
     let onClicked: () -> Void // 引数なしのクロージャー
     
     init(
         icon: MaterialIconCode? = nil,
-        color: Color,
+        color: Color? = nil,
         title: String,
         description: String? = nil,
         onClicked: @escaping () -> Void
@@ -73,13 +73,13 @@ struct ButtonItem {
 }
 
 struct ToggleItem {
-    let key: String
+    let key: UserDefaultsKey
     let title: String
     let icon: MaterialIconCode?
     let description: String?
     
     init(
-        key: String,
+        key: UserDefaultsKey,
         title: String,
         icon: MaterialIconCode? = nil,
         description: String? = nil
@@ -98,7 +98,7 @@ struct SafariItem {
 }
 
 struct PickerItem {
-    let key: String
+    let key: UserDefaultsKey
     let icon: MaterialIconCode?
     let title: String
     let description: String?
@@ -107,7 +107,7 @@ struct PickerItem {
     let onChange: ((String) -> Void)?
 
     init(
-        key: String,
+        key: UserDefaultsKey,
         icon: MaterialIconCode? = nil,
         title: String,
         description: String? = nil,

@@ -37,6 +37,9 @@ struct ContentView: View {
                 }
                 CustomTabView(selectedTab: $selectedTab)
             }
+            .onAppear {
+                notificationManager.checkNotificationAuth()
+            }
             .ignoresSafeArea(.keyboard, edges: .bottom)
             .navigationDestination(for: NavigationDestination.self) { destination in
                 switch destination {

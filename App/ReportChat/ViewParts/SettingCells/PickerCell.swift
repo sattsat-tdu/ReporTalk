@@ -11,13 +11,15 @@ import SwiftUIFontIcon
 
 struct PickerCell: View {
     
+    private let UD = UDManager.shared
     let pickerItem: PickerItem
     @State private var selection: String
     
     // initでUserDefaultsのキーを設定
     init(pickerItem: PickerItem) {
         self.pickerItem = pickerItem
-        _selection = State(initialValue: UserDefaults.standard.string(forKey: pickerItem.key) ?? pickerItem.defaultOption)
+        let savedValue = UD.get(forKey: pickerItem.key) as String?
+        _selection = State(initialValue: savedValue ?? pickerItem.defaultOption)
     }
     
     var body: some View {
@@ -38,7 +40,7 @@ struct PickerCell: View {
                 }
                 .onChange(of: selection) {
                     // 選択された値をUserDefaultsに保存
-                    UserDefaults.standard.set(selection, forKey: pickerItem.key)
+                    UD.set(selection, forKey: pickerItem.key)
                     pickerItem.onChange?(selection)
                 }
             }
@@ -56,7 +58,7 @@ struct PickerCell: View {
 #Preview {
     PickerCell(
         pickerItem: PickerItem(
-            key: "key",
+            key: SettingKeys.appearanceMode,
             icon: .smartphone,
             title: "ピッカー設定",
             description: "ピッカーを変更します。", 

@@ -9,11 +9,14 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
+import JWTKit
 
 @MainActor
 class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
     private let appManager = AppManager.shared
+    
+    private let center = UNUserNotificationCenter.current()
     
     @Published var notifications: [NotificationModel]? = nil
     
@@ -21,6 +24,39 @@ class NotificationManager: ObservableObject {
     
     private init() {
         self.fetchNotifications()
+    }
+    //ユーザー通知許可状態を取得、初回表示時のみ表示
+    func checkNotificationAuth(){
+        Task {
+            let authState = await getNotificationAuth()
+            guard authState == .notDetermined else { return }
+            
+            await MainActor.run {
+                UIApplication.showModal(modalItem: ModalItem(
+                    type: .info,
+                    title: "通知を許可して友達からの報告を受け取ろう",
+                    description: "通知を許可することで、友達からの感情報告にいち早く気づくことができます",
+                    alignment: .center,
+                    isCancelable: false,
+                    onTapped: {
+                        self.center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+                            if granted {
+                                print("[DEBUG] 通知リクエストが許可されました")
+                                DispatchQueue.main.async {
+                                    UIApplication.shared.registerForRemoteNotifications()
+                                }
+                            }
+                        }
+                    }
+                ))
+            }
+        }
+    }
+    
+    //ユーザーの通知許可状況を確認
+    func getNotificationAuth() async -> UNAuthorizationStatus{
+        let settings = await center.notificationSettings()
+        return settings.authorizationStatus
     }
     
     private func fetchNotifications() {
@@ -108,7 +144,6 @@ class NotificationManager: ObservableObject {
     
     //フレンドリクエストを送っているか確認
     func checkSentFriendRequest(from senderId: String, to receiverId: String) async -> Bool {
-        
         do {
             let snapshot = try await firestore
                 .collection("notifications")

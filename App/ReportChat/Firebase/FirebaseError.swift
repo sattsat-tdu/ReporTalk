@@ -5,6 +5,21 @@ enum CommonError:String, Error {
     case userNotFound = "ログインユーザーが見つかりません"
 }
 
+//通知に関する処理
+enum AccessTokenError: Error {
+    case fetchPlistError
+    case rsaKeyConversionError
+    case missingPrivateKey
+    case invalidClientEmail
+    case signingFailed
+    case invalidTokenUrl
+    case decodingError
+    case parseError
+    case responseError(code: Int, message: String)
+    case networkError
+    case unknownError
+}
+
 //認証に関するエラー
 enum FirebaseAuthError: Error {
     case userNotFound

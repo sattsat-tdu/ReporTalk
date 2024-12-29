@@ -3,10 +3,9 @@
 
 # Xcode
 xcuserdata/
-
+xcshareddata/xcschemes/
 *.xcscmblueprint
 *.xccheckout
-
 build/
 DerivedData/
 *.moved-aside
@@ -18,9 +17,9 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
+Config.xcconfig
 
 *.hmap
-
 *.ipa
 *.dSYM.zip
 *.dSYM
@@ -39,6 +38,8 @@ Carthage/Build/
 # Swift Package Manager
 Dependencies/
 .accio/
+.swiftpm/xcode/
+.sourcepackage/
 
 # Fastlane
 fastlane/report.xml
@@ -51,3 +52,20 @@ iOSInjectionProject/
 
 # Firebase Configuration
 App/ReportChat/GoogleService-Info.plist
+
+# Logs
+*.log
+*.xcactivitylog
+*.ccache/
+*.gcda
+*.gcno
+*.gcov
+
+# Temporary
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Git metadata
+*.orig

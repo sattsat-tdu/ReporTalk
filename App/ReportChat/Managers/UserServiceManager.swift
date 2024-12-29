@@ -6,17 +6,11 @@
 //  
 //
 
-//
-//  UserServiceManager.swift
-//  ReportChat
-//
-//  Created by SATTSAT on 2024/11/19
-//
-
 import Foundation
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseFirestore
+import FirebaseMessaging
 
 class UserServiceManager: ObservableObject {
     // シングルトン
@@ -132,6 +126,41 @@ class UserServiceManager: ObservableObject {
                 return .failure(.networkError)
             }
             return .failure(.deleteFailed)
+        }
+    }
+    
+    //FCMTokenを追加
+    func addFCMToken(token: String) async {
+        do {
+            guard let userId = auth.currentUser?.uid else {
+                return
+            }
+//            
+//            guard let fcmToken = UDManager.shared.get(forKey: AppStateKeys.fcmToken) as String? else {
+//                return
+//            }
+            try await firestore.collection("users").document(userId).updateData([
+                "fcmTokens": FieldValue.arrayUnion([token]) // 配列に追加
+            ])
+            print("[DEBUG] FCMトークンを配列として追加しました")
+        } catch {
+            print("[DEBUG] FCMトークンの取得または保存に失敗しました: \(error)")
+        }
+    }
+    
+    //ログアウト時にFCM Tokenを削除
+    func removeFCMToken(for userId: String) async {
+        do {
+            guard let fcmToken = UDManager.shared.get(forKey: AppStateKeys.fcmToken) as String? else {
+                return
+            }
+            
+            try await firestore.collection("users").document(userId).updateData([
+                "fcmTokens": FieldValue.arrayRemove([fcmToken]) // 配列から削除
+            ])
+            print("[DEBUG] FCMトークンを配列から削除しました")
+        } catch {
+            print("[DEBUG] FCMトークンの削除に失敗しました: \(error)")
         }
     }
     

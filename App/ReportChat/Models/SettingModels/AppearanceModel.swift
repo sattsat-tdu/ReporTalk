@@ -16,7 +16,7 @@ enum AppearanceMode: String {
 
 final class AppearanceManager {
     static func loadApperanceMode() -> AppearanceMode {
-        guard let rawValue = UserDefaults.standard.string(forKey: SettingKey.appearanceMode.rawValue) else {
+        guard let rawValue = UserDefaults.standard.string(forKey: SettingKeys.appearanceMode.rawValue) else {
             return .system
         }
         return AppearanceMode(rawValue: rawValue) ?? .system

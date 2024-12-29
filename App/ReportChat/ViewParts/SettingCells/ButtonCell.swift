@@ -17,7 +17,7 @@ struct ButtonCell: View {
         Button(action: {
             buttonItem.onClicked()
         }, label: {
-            VStack {
+            VStack(alignment: .leading, spacing: 16) {
                 HStack(spacing: 8) {
                     if let icon = buttonItem.icon {
                         FontIcon.text(
@@ -27,7 +27,7 @@ struct ButtonCell: View {
                     }
                     Text(buttonItem.title)
                         .font(.headline)
-                        .foregroundStyle(buttonItem.color)
+                        .foregroundStyle(buttonItem.color ?? .primary)
                 }
                 
                 if let description = buttonItem.description {
