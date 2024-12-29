@@ -22,7 +22,6 @@
 		006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB1972C7F804E00A63EAA /* Assets.xcassets */; };
 		006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 006EB19A2C7F804E00A63EAA /* Preview Assets.xcassets */; };
 		0072525D2D1746830092E571 /* JWTKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0072525C2D1746830092E571 /* JWTKit */; };
-		007252612D18E7A90092E571 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 007252602D18E7A90092E571 /* Config.xcconfig */; };
 		007252632D193A930092E571 /* FCMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007252622D193A8D0092E571 /* FCMManager.swift */; };
 		007252712D1951440092E571 /* NotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0072526A2D1951440092E571 /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		007705EE2CFCB6F300A61F66 /* ReportansBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007705ED2CFCB6F200A61F66 /* ReportansBookView.swift */; };
@@ -666,7 +665,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					006EB18F2C7F804C00A63EAA = {
 						CreatedOnToolsVersion = 15.3;
@@ -707,7 +706,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				007252612D18E7A90092E571 /* Config.xcconfig in Resources */,
 				006EB19B2C7F804E00A63EAA /* Preview Assets.xcassets in Resources */,
 				006EB1982C7F804E00A63EAA /* Assets.xcassets in Resources */,
 				00F7BE3B2C832EDC00E0CB5C /* GoogleService-Info.plist in Resources */,
