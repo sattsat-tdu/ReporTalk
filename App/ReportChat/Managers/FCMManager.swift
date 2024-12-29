@@ -26,7 +26,7 @@ struct StandardPayload: JWTPayload {
 final class FCMManager {
     
     //通知を送る処理
-    func sendNotification(fcmToken: String, title: String, body: String, imageUrl: String?) {
+    func sendNotification(fcmToken: String, title: String, body: String) {
         
         guard let keys = Bundle.main.infoDictionary?["Keys"] as? [String: Any],
               let projectId = keys["PROJECT_ID"] as? String else {
@@ -54,10 +54,8 @@ final class FCMManager {
                                 "body": body
                             ],
                             "sound": "default",
-                            "badge": 1,
                             "mutable-content": 1
-                        ],
-                        "image_url": "https://firebasestorage.googleapis.com/v0/b/report-chat-c8514.appspot.com/o/Reportans%2Fanger.png?alt=media&token=3d797232-57fc-4a82-a3d5-e0cdc1fb5699"
+                        ]
                     ],
                     "headers": [
                         "apns-priority": "10",
@@ -66,7 +64,7 @@ final class FCMManager {
                 ],
                 "android": [
                     "notification": [
-                        "sound": "default",
+                        "sound": "default"
                     ]
                 ]
             ]

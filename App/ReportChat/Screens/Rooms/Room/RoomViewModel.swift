@@ -276,7 +276,6 @@ final class RoomViewModel: ObservableObject {
                     print("ログインユーザー名の取得に失敗")
                     return
                 }
-                let imageUrl = appManager.currentUser?.photoURL
                 let body: String
                 if let tagName = reporTag?.tagName {
                     body = "【\(tagName)】\n\(message)"
@@ -288,8 +287,7 @@ final class RoomViewModel: ObservableObject {
                         fcmManager.sendNotification(
                             fcmToken: token,
                             title: title,
-                            body: body,
-                            imageUrl: imageUrl
+                            body: body
                         )
                     }
                 }
